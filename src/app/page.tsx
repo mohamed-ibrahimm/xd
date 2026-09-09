@@ -188,7 +188,7 @@ export default async function HomePage() {
           hasAnySocial={hasAnySocial}
         />
 
-        <section className="px-4 sm:px-6 py-20 bg-slate-100/50 dark:bg-zinc-900/20 border-y border-slate-200/80 dark:border-zinc-800/40 relative">
+        <section className="px-4 sm:px-6 py-20 bg-slate-100/50 dark:bg-zinc-900/20 border-b border-slate-200/80 dark:border-zinc-800/40 relative">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs font-bold text-indigo-600 dark:text-[#00e55b] uppercase tracking-wider mb-2">إنجازات الأكاديمية</p>
