@@ -143,11 +143,11 @@ export default async function HomePage() {
 
   return (
     <div className="page-canvas relative overflow-hidden pb-24 text-zinc-100 min-h-screen">
-      {/* Sleek, Hardware-Accelerated Ambient Glow Canvas (Zero Lag, Fast Compositing) */}
+      {/* Sleek, Hardware-Accelerated Dynamic Ambient Glow Canvas */}
       <div className="ambient-glow absolute inset-0 pointer-events-none overflow-hidden z-0 select-none">
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(0,229,91,0.14),_rgba(124,58,237,0.08)_45%,_transparent_70%)] blur-[60px]" />
-        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(0,229,91,0.09),_transparent_65%)] blur-[70px] rounded-full" />
-        <div className="absolute top-1/3 -left-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(147,51,234,0.12),_transparent_65%)] blur-[70px] rounded-full" />
+        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(0,229,91,0.12),_transparent_65%)] blur-[70px] rounded-full animate-ambient-drift" />
+        <div className="absolute top-1/3 -left-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(147,51,234,0.12),_transparent_65%)] blur-[70px] rounded-full animate-float-slow" />
       </div>
 
       <div className="relative z-10 flex flex-col">

@@ -372,7 +372,6 @@ html.light-theme header nav a[href="/register"] svg,
   position: absolute !important;
   inset: -200% !important;
   will-change: transform !important;
-  transform: translateZ(0) !important;
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
@@ -919,6 +918,13 @@ html.dark .shimmer-border-wrapper:hover .shimmer-button-content,
    Dynamic Multi-Color Systems (Requested by User)
    ========================================================================= */
 
+/* 1. Dynamic Moving Multi-Color Aura for Navbar */
+@keyframes navAuraFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .dynamic-navbar-aura {
   position: relative;
   transition: all 0.3s ease;
@@ -927,12 +933,31 @@ html.dark .shimmer-border-wrapper:hover .shimmer-button-content,
 .dynamic-navbar-aura::before {
   content: '';
   position: absolute;
-  inset: -1px;
+  inset: -1.5px;
   border-radius: 9999px;
-  background: linear-gradient(90deg, rgba(0, 229, 91, 0.35), rgba(168, 85, 247, 0.2), rgba(16, 240, 104, 0.35), rgba(147, 51, 234, 0.2), rgba(0, 229, 91, 0.35));
-  opacity: 0.45;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.4), rgba(168, 85, 247, 0.3), rgba(251, 191, 36, 0.4), rgba(147, 51, 234, 0.3), rgba(245, 158, 11, 0.4));
+  background-size: 200% 200%;
+  animation: navAuraFlow 8s ease infinite;
+  opacity: 0.4;
+  filter: blur(8px);
   z-index: -1;
   pointer-events: none;
+  transform: translateZ(0);
+  will-change: background-position;
+}
+
+html.dark .dynamic-navbar-aura::before {
+  background: linear-gradient(90deg, rgba(0, 229, 91, 0.55), rgba(168, 85, 247, 0.3), rgba(16, 240, 104, 0.55), rgba(147, 51, 234, 0.3), rgba(0, 229, 91, 0.55)) !important;
+  background-size: 200% 200% !important;
+  animation: navAuraFlow 6s ease infinite !important;
+  opacity: 0.55 !important;
+  filter: blur(10px) !important;
+}
+
+/* 2. Dynamic Rotating Glowing Logo Emblem */
+@keyframes rotateEmblemAura {
+  0% { transform: rotate(0deg) translateZ(0); }
+  100% { transform: rotate(360deg) translateZ(0); }
 }
 
 .dynamic-logo-emblem {
@@ -944,8 +969,16 @@ html.dark .shimmer-border-wrapper:hover .shimmer-button-content,
   content: '';
   position: absolute;
   inset: -50%;
-  background: linear-gradient(135deg, #0df268, #00e55b, #00b846);
+  background: conic-gradient(from 0deg, #f59e0b, #fbbf24, #d97706, #fef08a, #b45309, #f59e0b);
+  animation: rotateEmblemAura 4s linear infinite;
   z-index: 0;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+html.dark .dynamic-logo-emblem::before {
+  background: conic-gradient(from 0deg, #0df268, #00e55b, #00b846, #70ff9b, #10f068, #0df268) !important;
+  animation: rotateEmblemAura 4s linear infinite !important;
 }
 
 .dynamic-logo-emblem > div {
@@ -1029,16 +1062,58 @@ html.dark .diploma-luxury-pill,
   box-shadow: 0 14px 35px -5px rgba(79, 70, 229, 0.55), 0 0 30px rgba(217, 70, 239, 0.45) !important;
 }
 
-/* 6. Multi-color Ambient Drifts (Static, GPU-Friendly Ambiance) */
-.dynamic-drift-1,
-.dynamic-drift-2,
-.dynamic-drift-3,
-.dynamic-drift-4 {
-  animation: none !important;
-  opacity: 0.55;
-  pointer-events: none;
-  transform: translateZ(0);
+/* 6. Multi-color Random Floating Dynamic Ambient Drifts (GPU-Accelerated Smooth Motion) */
+@keyframes auroraDrift1 {
+  0%, 100% { transform: translate3d(0px, 0px, 0) scale(1); }
+  33% { transform: translate3d(45px, -35px, 0) scale(1.1); }
+  66% { transform: translate3d(-35px, 45px, 0) scale(0.92); }
 }
+
+@keyframes auroraDrift2 {
+  0%, 100% { transform: translate3d(0px, 0px, 0) scale(1); }
+  33% { transform: translate3d(-45px, 50px, 0) scale(1.08); }
+  66% { transform: translate3d(35px, -30px, 0) scale(0.95); }
+}
+
+@keyframes auroraDrift3 {
+  0%, 100% { transform: translate3d(0px, 0px, 0) scale(1); }
+  33% { transform: translate3d(35px, 35px, 0) scale(1.12); }
+  66% { transform: translate3d(-50px, -35px, 0) scale(0.88); }
+}
+
+@keyframes auroraDrift4 {
+  0%, 100% { transform: translate3d(0px, 0px, 0) scale(1); }
+  33% { transform: translate3d(-35px, -45px, 0) scale(1.08); }
+  66% { transform: translate3d(45px, 30px, 0) scale(0.92); }
+}
+
+.dynamic-drift-1 { animation: auroraDrift1 14s ease-in-out infinite !important; will-change: transform; pointer-events: none; }
+.dynamic-drift-2 { animation: auroraDrift2 18s ease-in-out infinite !important; will-change: transform; pointer-events: none; }
+.dynamic-drift-3 { animation: auroraDrift3 16s ease-in-out infinite !important; will-change: transform; pointer-events: none; }
+.dynamic-drift-4 { animation: auroraDrift4 20s ease-in-out infinite !important; will-change: transform; pointer-events: none; }
+
+/* DYNAMIC MOVING BACKGROUND ORBS & PARTICLES */
+@keyframes floatOrbA {
+  0% { transform: translate3d(0px, 0px, 0) scale(1); }
+  50% { transform: translate3d(40px, -30px, 0) scale(1.1); }
+  100% { transform: translate3d(-25px, 25px, 0) scale(0.95); }
+}
+
+@keyframes floatOrbB {
+  0% { transform: translate3d(0px, 0px, 0) scale(1); }
+  50% { transform: translate3d(-45px, 30px, 0) scale(1.12); }
+  100% { transform: translate3d(30px, -35px, 0) scale(0.92); }
+}
+
+@keyframes floatOrbC {
+  0% { transform: translate3d(0px, 0px, 0) scale(0.95); }
+  50% { transform: translate3d(30px, 40px, 0) scale(1.08); }
+  100% { transform: translate3d(-35px, -25px, 0) scale(1); }
+}
+
+.dynamic-float-a { animation: floatOrbA 9s ease-in-out infinite alternate; will-change: transform; }
+.dynamic-float-b { animation: floatOrbB 12s ease-in-out infinite alternate; will-change: transform; }
+.dynamic-float-c { animation: floatOrbC 15s ease-in-out infinite alternate; will-change: transform; }
 
 /* 7. Dynamic Multi-Color Trending Diploma Hero CTA (تكسر الألوان لتخطف العين فوراً) */
 @keyframes trendingAuroraFlow {
