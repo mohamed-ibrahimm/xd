@@ -214,15 +214,14 @@ export default function Header({
               href="/courses"
               prefetch={true}
               onClick={() => setCoursesMenuOpen(false)}
-              className={`px-4.5 py-2 text-xs sm:text-[13px] font-black rounded-full transition-all inline-flex items-center gap-1.5 shrink-0 cursor-pointer shadow-md ${
+              className={`px-4.5 py-2 text-xs sm:text-[13px] font-black rounded-full transition-all inline-flex items-center gap-2 shrink-0 cursor-pointer shadow-md ${
                 pathname.startsWith('/courses')
-                  ? 'diploma-luxury-pill scale-105 ring-2 ring-amber-400/60 dark:ring-[#00e55b]/60 shadow-amber-500/25 dark:shadow-[#00e55b]/30'
+                  ? 'diploma-luxury-pill scale-105 ring-2 ring-purple-400/60 dark:ring-[#00e55b]/60 shadow-purple-500/25 dark:shadow-[#00e55b]/30'
                   : 'diploma-luxury-pill hover:scale-105'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b] shrink-0 animate-pulse" />
+              <BookOpen className="w-4 h-4 text-purple-600 dark:text-[#70ff9b] shrink-0 transition-transform group-hover:scale-110" />
               <span className="whitespace-nowrap font-black tracking-wide">جميع الكورسات</span>
-              <ChevronDown className={`w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b] transition-transform duration-200 shrink-0 ${coursesMenuOpen ? 'rotate-180' : ''}`} />
             </Link>
 
             {/* Seamless Dropdown Bridge (no gap so mouse never loses focus) */}
