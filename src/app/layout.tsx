@@ -1,11 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Cairo } from 'next/font/google';
+import { IBM_Plex_Sans_Arabic, Cairo } from 'next/font/google';
 import './globals.css';
 import AppShell from '@/components/layout/AppShell';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
 import JsonLd from '@/components/seo/JsonLd';
+
+const ibmPlex = IBM_Plex_Sans_Arabic({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-ibm-plex',
+  preload: true,
+});
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -132,18 +140,23 @@ export default async function RootLayout({
   } catch (e) {}
 
   return (
-    <html lang="ar" dir="rtl" className={`${cairo.variable} font-sans dark`} suppressHydrationWarning>
+    <html lang="ar" dir="rtl" className={`${ibmPlex.variable} ${cairo.variable} font-sans dark`} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="alternate icon" href="/favicon.ico" />
-
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
         <JsonLd
           platformName={platformName}
           platformTagline={platformTagline}
           settings={settingsMap}
         />
       </head>
-      <body className={`${cairo.className} min-h-screen antialiased selection:bg-amber-500 selection:text-black relative`} suppressHydrationWarning>
+      <body className={`${ibmPlex.className} min-h-screen antialiased selection:bg-amber-500 selection:text-black relative`} suppressHydrationWarning>
         <ThemeProvider>
           <AppShell
             initialUser={user}
