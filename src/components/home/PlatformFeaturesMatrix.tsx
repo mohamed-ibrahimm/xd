@@ -200,7 +200,7 @@ export default function PlatformFeaturesMatrix({
       
       {/* Dynamic Ambient Radiant Flares */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-[radial-gradient(ellipse,_rgba(245,158,11,0.15),_rgba(124,58,237,0.1)_50%,_transparent_75%)] dark:bg-[radial-gradient(ellipse,_rgba(245,158,11,0.12),_rgba(124,58,237,0.08)_50%,_transparent_75%)] blur-[140px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-[radial-gradient(ellipse,_rgba(245,158,11,0.15),_rgba(124,58,237,0.1)_50%,_transparent_75%)] dark:bg-[radial-gradient(ellipse,_rgba(0,229,91,0.12),_rgba(124,58,237,0.08)_50%,_transparent_75%)] blur-[140px]" />
         <div className="absolute bottom-10 right-10 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(16,185,129,0.12),_transparent_70%)] blur-[120px]" />
       </div>
 
@@ -211,14 +211,14 @@ export default function PlatformFeaturesMatrix({
            ===================================================================== */}
         <div className="text-center space-y-4 max-w-4xl mx-auto">
           
-          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-emerald-500/20 border border-amber-500/40 text-amber-800 dark:text-amber-300 text-xs sm:text-sm font-black shadow-lg shadow-amber-500/10 backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-emerald-500/20 border border-amber-500/40 dark:border-[#00e55b]/40 text-amber-800 dark:text-[#70ff9b] text-xs sm:text-sm font-black shadow-lg shadow-amber-500/10 dark:shadow-[#00e55b]/10 backdrop-blur-md">
+            <Sparkles className="w-4 h-4 text-amber-500 dark:text-[#00e55b] animate-pulse" />
             <span>منظومة تمكين المحاضرين وصناع المحتوى ومؤلفي المذكرات 2026</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">
             لماذا تنشر دوراتك ومذكراتك عبر{' '}
-            <span className="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 dark:from-amber-400 dark:via-yellow-300 dark:to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 dark:from-[#00e55b] dark:via-[#10f068] dark:to-[#00b846] bg-clip-text text-transparent">
               {platformName}
             </span>
             ؟
@@ -251,7 +251,7 @@ export default function PlatformFeaturesMatrix({
                     : 'bg-white/90 dark:bg-zinc-900/80 text-slate-800 dark:text-zinc-300 hover:text-slate-950 dark:hover:text-white border border-slate-300 dark:border-zinc-800 hover:border-amber-500/60 shadow-sm'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-zinc-950' : 'text-amber-500 dark:text-amber-400'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-zinc-950 dark:text-black' : 'text-amber-500 dark:text-[#00e55b]'}`} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -289,7 +289,7 @@ export default function PlatformFeaturesMatrix({
 
                   {/* Title & Detailed Description */}
                   <div className="space-y-2.5 pt-1">
-                    <h3 className="text-lg sm:text-xl font-black text-slate-950 dark:text-zinc-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug">
+                    <h3 className="text-lg sm:text-xl font-black text-slate-950 dark:text-zinc-100 group-hover:text-amber-600 dark:group-hover:text-[#00e55b] transition-colors leading-snug">
                       {feat.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 leading-relaxed font-semibold">
@@ -304,7 +304,7 @@ export default function PlatformFeaturesMatrix({
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-500/20" />
                     <span>{feat.tag}</span>
                   </span>
-                  <Sparkles className="w-4 h-4 text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Sparkles className="w-4 h-4 text-amber-500 dark:text-[#00e55b] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               </div>
             );
@@ -319,7 +319,7 @@ export default function PlatformFeaturesMatrix({
           <div className="text-center space-y-2 max-w-2xl mx-auto">
             <h3 className="text-2xl sm:text-3xl font-black text-slate-950 dark:text-white">
               مقارنة المحاضرين والمؤلفين:{' '}
-              <span className="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 dark:from-amber-400 dark:to-yellow-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 dark:from-[#00e55b] dark:to-[#10f068] bg-clip-text text-transparent">
                 الأكاديمية مقابل السناتر والمنصات الأخرى
               </span>
             </h3>
@@ -340,7 +340,7 @@ export default function PlatformFeaturesMatrix({
                 {/* Feature Header */}
                 <div className="border-b border-slate-100 dark:border-zinc-800/80 pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center text-xs font-black">
+                    <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-500 dark:bg-[#00e55b]/20 dark:text-[#00e55b] flex items-center justify-center text-xs font-black">
                       {idx + 1}
                     </span>
                     <h4 className="font-black text-sm text-slate-950 dark:text-zinc-100">
@@ -353,14 +353,14 @@ export default function PlatformFeaturesMatrix({
                 </div>
 
                 {/* Our Platform Highlighted Card */}
-                <div className="p-3.5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/[0.08] border border-amber-300 dark:border-amber-500/30 space-y-1">
-                  <div className="flex items-center gap-1.5 text-[11px] font-black text-amber-800 dark:text-amber-400">
-                    <Crown className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                <div className="p-3.5 rounded-2xl bg-amber-500/10 dark:bg-[#00e55b]/[0.08] border border-amber-300 dark:border-[#00e55b]/30 space-y-1">
+                  <div className="flex items-center gap-1.5 text-[11px] font-black text-amber-800 dark:text-[#00e55b]">
+                    <Crown className="w-3.5 h-3.5 fill-amber-400 text-amber-500 dark:fill-[#00e55b] dark:text-[#00e55b]" />
                     <span>{platformName} (الخيار الأفضل)</span>
                   </div>
                   <div className="flex items-start gap-2 pt-0.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5 fill-emerald-500/20" />
-                    <span className="text-xs font-black text-slate-950 dark:text-amber-200 leading-snug">
+                    <span className="text-xs font-black text-slate-950 dark:text-[#70ff9b] leading-snug">
                       {row.us}
                     </span>
                   </div>
@@ -393,11 +393,11 @@ export default function PlatformFeaturesMatrix({
                     <th className="py-5 px-6 text-sm font-black text-slate-950 dark:text-zinc-200 w-2/5">
                       المعيار والميزة المالية / التقنية
                     </th>
-                    <th className="py-5 px-6 text-sm font-black text-amber-950 dark:text-amber-400 w-2/5 bg-amber-500/15 border-x border-amber-300 dark:border-amber-500/30">
+                    <th className="py-5 px-6 text-sm font-black text-amber-950 dark:text-[#00e55b] w-2/5 bg-amber-500/15 dark:bg-[#00e55b]/10 border-x border-amber-300 dark:border-[#00e55b]/30">
                       <div className="flex items-center gap-2">
-                        <Crown className="w-4 h-4 text-amber-500 dark:text-amber-400 fill-amber-400" />
+                        <Crown className="w-4 h-4 text-amber-500 dark:text-[#00e55b] fill-amber-400 dark:fill-[#00e55b]" />
                         <span>{platformName}</span>
-                        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500 text-zinc-950 font-black shadow-sm">
+                        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black font-black shadow-sm">
                           الخيار الأربح والأأمن
                         </span>
                       </div>
@@ -425,7 +425,7 @@ export default function PlatformFeaturesMatrix({
                       </td>
 
                       {/* Our Platform Cell */}
-                      <td className="py-4.5 px-6 bg-amber-500/10 dark:bg-amber-500/[0.06] border-x border-amber-200 dark:border-amber-500/30 font-black text-slate-950 dark:text-amber-300">
+                      <td className="py-4.5 px-6 bg-amber-500/10 dark:bg-[#00e55b]/[0.06] border-x border-amber-200 dark:border-[#00e55b]/30 font-black text-slate-950 dark:text-[#70ff9b]">
                         <div className="flex items-center gap-2.5">
                           <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 fill-emerald-500/20" />
                           <span>{row.us}</span>
@@ -451,15 +451,15 @@ export default function PlatformFeaturesMatrix({
         {/* =====================================================================
             5. DUAL CTA: JOIN AS INSTRUCTOR OR PUBLISH NOTES
            ========================================================================= */}
-        <div className="relative rounded-3xl p-8 sm:p-12 overflow-hidden border border-amber-500/40 bg-gradient-to-br from-slate-950 via-zinc-950 to-indigo-950 text-white shadow-2xl text-center sm:text-right flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="relative rounded-3xl p-8 sm:p-12 overflow-hidden border border-amber-500/40 dark:border-[#00e55b]/40 bg-gradient-to-br from-slate-950 via-zinc-950 to-indigo-950 text-white shadow-2xl text-center sm:text-right flex flex-col lg:flex-row items-center justify-between gap-8">
           
           {/* Ambient Glow Corner */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/20 dark:bg-[#00e55b]/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="space-y-3.5 max-w-2xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-black">
-              <Zap className="w-3.5 h-3.5 text-amber-400 animate-bounce" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 dark:bg-[#00e55b]/20 dark:border-[#00e55b]/40 text-amber-300 dark:text-[#70ff9b] text-xs font-black">
+              <Zap className="w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b] animate-bounce" />
               <span>انضم الآن واستفد من 14 يوماً مجاناً و 0% عمولة على المبيعات</span>
             </div>
             
@@ -477,19 +477,19 @@ export default function PlatformFeaturesMatrix({
             {/* CTA 1: Expert Instructor */}
             <Link
               href="/instructors/join?track=expert"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-zinc-950 font-black text-xs sm:text-sm shadow-xl shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] text-zinc-950 dark:text-black font-black text-xs sm:text-sm shadow-xl shadow-amber-500/25 dark:shadow-[0_10px_35px_rgba(0,229,91,0.4)] hover:scale-105 active:scale-95 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Video className="w-4 h-4 text-zinc-950" />
+              <Video className="w-4 h-4 text-zinc-950 dark:text-black" />
               <span>انضم كـ مدرس أو دكتور (0% عمولة)</span>
-              <ArrowLeft className="w-4 h-4 text-zinc-950" />
+              <ArrowLeft className="w-4 h-4 text-zinc-950 dark:text-black" />
             </Link>
 
             {/* CTA 2: Student Instructor & Notes Seller */}
             <Link
               href="/instructors/join?track=student"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs sm:text-sm border border-zinc-700 hover:border-amber-400 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs sm:text-sm border border-zinc-700 hover:border-amber-400 dark:hover:border-[#00e55b] transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
             >
-              <GraduationCap className="w-4 h-4 text-amber-400" />
+              <GraduationCap className="w-4 h-4 text-amber-400 dark:text-[#00e55b]" />
               <span>انضم كـ محاضر طالب / ناشر مذكرات</span>
             </Link>
 

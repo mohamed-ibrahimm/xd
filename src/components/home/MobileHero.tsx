@@ -74,13 +74,13 @@ export default function MobileHero({
               <div className="shimmer-beam-blue dark:hidden block" />
               <div className="shimmer-button-content w-full px-3.5 py-2 text-[11px] text-slate-800 dark:text-zinc-200 flex items-center justify-between gap-1.5 rounded-full">
                 <div className="flex items-center gap-1 shrink-0">
-                  <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-amber-400 animate-pulse" />
-                  <span className="text-blue-700 dark:text-amber-300 font-black">{settings.HERO_BADGE || 'جديد!'}</span>
+                  <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-[#00e55b] animate-pulse" />
+                  <span className="text-blue-700 dark:text-[#70ff9b] font-black">{settings.HERO_BADGE || 'جديد!'}</span>
                 </div>
-                <span className="truncate group-hover:text-blue-700 dark:group-hover:text-amber-200 transition-colors font-semibold text-[10.5px]">
+                <span className="truncate group-hover:text-blue-700 dark:group-hover:text-[#0df268] transition-colors font-semibold text-[10.5px]">
                   {settings.BANNER_TEXT || 'خصم استثنائي 50% لفترة محدودة على جميع المسارات'}
                 </span>
-                <ArrowLeft className="w-3 h-3 text-blue-600 dark:text-amber-400 group-hover:-translate-x-1 transition-transform shrink-0" />
+                <ArrowLeft className="w-3 h-3 text-blue-600 dark:text-[#00e55b] group-hover:-translate-x-1 transition-transform shrink-0" />
               </div>
             </a>
           </div>
@@ -93,7 +93,7 @@ export default function MobileHero({
             <span className="text-slate-950 dark:text-white block font-black text-[28px] xs:text-[34px] sm:text-4xl leading-[1.22] tracking-tight">
               {settings.HERO_TITLE || 'بوابتك الذكية لاحتراف'}
             </span>
-            <span className="block font-black text-[20px] xs:text-[24px] sm:text-2xl leading-snug bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-600 dark:from-amber-400 dark:via-yellow-300 dark:to-amber-500 bg-clip-text text-transparent">
+            <span className="block font-black text-[20px] xs:text-[24px] sm:text-2xl leading-snug bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-600 dark:from-[#00e55b] dark:via-[#10f068] dark:to-[#00b846] bg-clip-text text-transparent">
               {settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي'}
             </span>
           </h1>
@@ -106,12 +106,11 @@ export default function MobileHero({
         {/* 3. BOTTOM: 4 Action Buttons lifted smoothly by 2-3 notches above bottom bar */}
         <div className="w-full max-w-[360px] xs:max-w-md mx-auto flex flex-col gap-2 pb-3 xs:pb-3.5 px-1 shrink-0 mt-auto">
           
-          {/* Button 1: Diploma */}
-          {/* Button 1: Diploma */}
+          {/* Button 1: Diploma (Electric Cyber Neon Green Pill) */}
           <a href="#trending-diploma" className="shimmer-border-wrapper group w-full">
             <div className="shimmer-beam-gold" />
-            <div className="shimmer-button-content w-full px-4 py-2.5 xs:py-3 text-xs xs:text-sm font-black text-amber-950 dark:text-amber-300 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 dark:from-amber-950/70 dark:via-zinc-900 dark:to-amber-950/70 group-hover:opacity-95 flex items-center justify-center gap-2 rounded-2xl shadow-lg border border-amber-400 dark:border-amber-500/50">
-              <Flame className="w-4 h-4 text-amber-700 dark:text-amber-400 animate-bounce shrink-0" />
+            <div className="shimmer-button-content w-full px-4 py-2.5 xs:py-3 text-xs xs:text-sm font-black text-amber-950 dark:text-black bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] group-hover:opacity-95 flex items-center justify-center gap-2 rounded-2xl shadow-lg border border-amber-400 dark:border-[#00e55b]/60 dark:shadow-[0_10px_30px_rgba(0,229,91,0.45)]">
+              <Flame className="w-4 h-4 text-amber-700 dark:text-black animate-bounce shrink-0" />
               <span className="whitespace-nowrap">{settings.FEATURED_DIPLOMA_BADGE || 'الدبلومة الأكثر طلباً في سوق العمل'}</span>
             </div>
           </a>
@@ -144,9 +143,9 @@ export default function MobileHero({
           <Link
             href="/instructors/join?track=student"
             prefetch={true}
-            className="group flex items-center justify-center gap-2 w-full py-2.5 xs:py-3 px-3.5 text-xs xs:text-sm font-black bg-amber-100/90 text-amber-950 border-2 border-amber-400 dark:bg-amber-950/70 dark:text-amber-300 dark:border-amber-500/60 transition-all rounded-2xl shadow-md shadow-amber-500/10 backdrop-blur-md active:scale-[0.98]"
+            className="group flex items-center justify-center gap-2 w-full py-2.5 xs:py-3 px-3.5 text-xs xs:text-sm font-black bg-amber-100/90 text-amber-950 border-2 border-amber-400 dark:bg-[#00e55b]/10 dark:text-[#70ff9b] dark:border-[#00e55b]/50 transition-all rounded-2xl shadow-md shadow-amber-500/10 dark:shadow-[#00e55b]/15 backdrop-blur-md active:scale-[0.98]"
           >
-            <GraduationCap className="w-4.5 h-4.5 text-amber-700 dark:text-amber-400 group-hover:scale-110 transition-transform shrink-0" />
+            <GraduationCap className="w-4.5 h-4.5 text-amber-700 dark:text-[#00e55b] group-hover:scale-110 transition-transform shrink-0" />
             <span className="whitespace-nowrap">
               {settings.HERO_BTN_STUDENT
                 ? settings.HERO_BTN_STUDENT.replace(/30\s*يوماً|30\s*يوم/g, `${settings.STUDENT_TRIAL_DAYS || '14'} يوماً`)
@@ -184,10 +183,10 @@ export default function MobileHero({
               )}
               <Link
                 href="/support"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-amber-50 hover:bg-amber-100 dark:bg-amber-500/15 dark:hover:bg-amber-500/25 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-500/40 text-xs font-bold transition-all shadow-xs"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-amber-50 hover:bg-amber-100 dark:bg-[#00e55b]/15 dark:hover:bg-[#00e55b]/25 text-amber-800 dark:text-[#70ff9b] border border-amber-300 dark:border-[#00e55b]/40 text-xs font-bold transition-all shadow-xs"
                 title="الدعم الفني والمساعدة"
               >
-                <Headphones className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                <Headphones className="w-4 h-4 text-amber-600 dark:text-[#00e55b] shrink-0" />
                 <span>الدعم الفني</span>
               </Link>
               {contactEmail && (

@@ -52,14 +52,14 @@ export default function DesktopHero({
               <div className="shimmer-beam-gold" />
               <div className="shimmer-button-content px-6 py-2.5 text-xs lg:text-sm text-slate-800 dark:text-zinc-200 flex items-center gap-3 flex-nowrap justify-center">
                 <div className="flex items-center gap-1.5 shrink-0">
-                  <Sparkles className="w-4 h-4 text-blue-600 dark:text-amber-400 animate-pulse" />
-                  <span className="text-blue-700 dark:text-amber-300 font-black">{settings.HERO_BADGE || 'جديد!'}</span>
+                  <Sparkles className="w-4 h-4 text-blue-600 dark:text-[#00e55b] animate-pulse" />
+                  <span className="text-blue-700 dark:text-[#70ff9b] font-black">{settings.HERO_BADGE || 'جديد!'}</span>
                 </div>
-                <div className="h-4 w-px bg-slate-300 dark:bg-amber-500/40 shrink-0" />
-                <span className="group-hover:text-blue-700 dark:group-hover:text-amber-200 transition-colors font-bold text-xs lg:text-sm leading-normal">
+                <div className="h-4 w-px bg-slate-300 dark:bg-[#00e55b]/40 shrink-0" />
+                <span className="group-hover:text-blue-700 dark:group-hover:text-[#0df268] transition-colors font-bold text-xs lg:text-sm leading-normal">
                   {settings.BANNER_TEXT || 'خصم استثنائي 50% لفترة محدودة على جميع المسارات الهندسية'}
                 </span>
-                <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-amber-400 group-hover:-translate-x-1.5 transition-transform shrink-0" />
+                <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-[#00e55b] group-hover:-translate-x-1.5 transition-transform shrink-0" />
               </div>
             </a>
           </div>
@@ -69,7 +69,7 @@ export default function DesktopHero({
         <div className="space-y-4 max-w-6xl mx-auto px-2">
           <h1 className="text-4xl sm:text-5xl lg:text-[54px] xl:text-[62px] font-black text-slate-950 dark:text-white leading-[1.22] tracking-tight">
             {settings.HERO_TITLE || 'بوابتك الذكية لاحتراف'} <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-amber-400 dark:via-yellow-300 dark:to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-[#00e55b] dark:via-[#10f068] dark:to-[#00b846] bg-clip-text text-transparent">
               {settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي'}
             </span>
           </h1>
@@ -82,11 +82,11 @@ export default function DesktopHero({
         {/* 4 Premium Action Pillars on a Single Unified Horizontal Row */}
         <div className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-3 lg:gap-4 w-full mx-auto px-1 max-w-[1480px] pt-2">
           
-          {/* 1. Diploma Button (Shimmer Molten Gold) */}
+          {/* 1. Diploma Button (Electric Cyber Neon Green Pill) */}
           <a href="#trending-diploma" className="shimmer-border-wrapper group shrink-0">
             <div className="shimmer-beam-gold" />
-            <div className="shimmer-button-content px-5 lg:px-6 py-3 lg:py-3.5 text-xs lg:text-[13.5px] font-black text-amber-950 dark:text-amber-300 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 dark:from-amber-950/70 dark:via-zinc-900 dark:to-amber-950/70 group-hover:opacity-95 flex items-center justify-center gap-2 rounded-full shadow-lg border border-amber-400 dark:border-amber-500/50">
-              <Flame className="w-4 h-4 text-amber-700 dark:text-amber-400 animate-bounce shrink-0" />
+            <div className="shimmer-button-content px-5 lg:px-6 py-3 lg:py-3.5 text-xs lg:text-[13.5px] font-black text-amber-950 dark:text-black bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] group-hover:opacity-95 flex items-center justify-center gap-2 rounded-full shadow-lg border border-amber-400 dark:border-[#00e55b]/60 dark:shadow-[0_10px_30px_rgba(0,229,91,0.45)]">
+              <Flame className="w-4 h-4 text-amber-700 dark:text-black animate-bounce shrink-0" />
               <span className="whitespace-nowrap">{settings.FEATURED_DIPLOMA_BADGE || 'الدبلومة الأكثر طلباً (خصم 51%)'}</span>
             </div>
           </a>
@@ -115,13 +115,13 @@ export default function DesktopHero({
             </span>
           </Link>
 
-          {/* 4. Student Instructor Button (Molten Amber Glow) */}
+          {/* 4. Student Instructor Button (Electric Cyber Green Glow) */}
           <Link
             href="/instructors/join?track=student"
             prefetch={true}
-            className="group flex items-center justify-center gap-2 px-5 lg:px-6 py-3 lg:py-3.5 text-xs lg:text-[13.5px] font-black bg-amber-100/90 text-amber-950 border-2 border-amber-400 dark:bg-amber-950/70 dark:text-amber-300 dark:border-amber-500/60 hover:bg-amber-200 dark:hover:bg-amber-900/90 transition-all rounded-full shadow-md shadow-amber-500/10 hover:shadow-amber-500/25 hover:scale-105 backdrop-blur-md shrink-0"
+            className="group flex items-center justify-center gap-2 px-5 lg:px-6 py-3 lg:py-3.5 text-xs lg:text-[13.5px] font-black bg-amber-100/90 text-amber-950 border-2 border-amber-400 dark:bg-[#00e55b]/10 dark:text-[#70ff9b] dark:border-[#00e55b]/50 hover:bg-amber-200 dark:hover:bg-[#00e55b]/20 transition-all rounded-full shadow-md shadow-amber-500/10 dark:shadow-[#00e55b]/15 hover:scale-105 backdrop-blur-md shrink-0"
           >
-            <GraduationCap className="w-4.5 h-4.5 text-amber-700 dark:text-amber-400 group-hover:scale-110 transition-transform shrink-0" />
+            <GraduationCap className="w-4.5 h-4.5 text-amber-700 dark:text-[#00e55b] group-hover:scale-110 transition-transform shrink-0" />
             <span className="whitespace-nowrap">
               {settings.HERO_BTN_STUDENT
                 ? settings.HERO_BTN_STUDENT.replace(/30\s*يوماً|30\s*يوم/g, `${settings.STUDENT_TRIAL_DAYS || '14'} يوماً`)
@@ -148,10 +148,10 @@ export default function DesktopHero({
             )}
             <Link
               href="/support"
-              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-amber-50 hover:bg-amber-100 dark:bg-amber-500/20 dark:hover:bg-amber-500/30 text-amber-800 dark:text-amber-200 border-2 border-amber-300 dark:border-amber-500/50 text-sm lg:text-base font-black transition-all hover:scale-105 shadow-md"
+              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-amber-50 hover:bg-amber-100 dark:bg-[#00e55b]/15 dark:hover:bg-[#00e55b]/25 text-amber-800 dark:text-[#70ff9b] border-2 border-amber-300 dark:border-[#00e55b]/50 text-sm lg:text-base font-black transition-all hover:scale-105 shadow-md"
               title="الدعم الفني والمساعدة"
             >
-              <Headphones className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+              <Headphones className="w-5 h-5 text-amber-600 dark:text-[#00e55b]" />
               <span>الدعم الفني</span>
             </Link>
             {contactEmail && (

@@ -145,8 +145,8 @@ export default async function HomePage() {
     <div className="page-canvas relative overflow-hidden pb-24 text-zinc-100 min-h-screen">
       {/* Sleek, Hardware-Accelerated Ambient Glow Canvas (Zero Lag, Fast Compositing) */}
       <div className="ambient-glow absolute inset-0 pointer-events-none overflow-hidden z-0 select-none">
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(245,158,11,0.18),_rgba(124,58,237,0.12)_45%,_transparent_70%)] blur-[60px]" />
-        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(245,158,11,0.12),_transparent_65%)] blur-[70px] rounded-full" />
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(0,229,91,0.14),_rgba(124,58,237,0.08)_45%,_transparent_70%)] blur-[60px]" />
+        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(0,229,91,0.09),_transparent_65%)] blur-[70px] rounded-full" />
         <div className="absolute top-1/3 -left-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(147,51,234,0.12),_transparent_65%)] blur-[70px] rounded-full" />
       </div>
 
@@ -183,7 +183,7 @@ export default async function HomePage() {
         <section className="px-4 sm:px-6 py-20 bg-slate-100/50 dark:bg-zinc-900/20 border-y border-slate-200/80 dark:border-zinc-800/40 relative">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs font-bold text-indigo-600 dark:text-amber-400 uppercase tracking-wider mb-2">إنجازات الأكاديمية</p>
+              <p className="text-xs font-bold text-indigo-600 dark:text-[#00e55b] uppercase tracking-wider mb-2">إنجازات الأكاديمية</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-100 mb-3">أرقام تتحدث عن نفسها</h2>
               <p className="text-slate-600 dark:text-zinc-400 max-w-lg mx-auto text-sm">نفخر بثقة طلابنا وخريجينا في مصر والوطن العربي ونسعى دائماً لتقديم أفضل تجربة تدريب هندسي</p>
             </div>
@@ -207,7 +207,7 @@ export default async function HomePage() {
               <div className="p-6 rounded-2xl bg-white/90 dark:bg-zinc-900/50 backdrop-blur-xl border border-slate-200/80 dark:border-zinc-800/50 hover:border-amber-300 dark:hover:border-zinc-700/50 hover:shadow-xl hover:shadow-amber-500/5 transition-all duration-300 group text-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative">
-                  <p className="font-display text-3xl md:text-4xl font-bold text-amber-600 dark:text-zinc-100 mb-1 group-hover:scale-105 transition-transform">+{stats.diplomasCount}</p>
+                  <p className="font-display text-3xl md:text-4xl font-bold text-amber-600 dark:text-[#00e55b] mb-1 group-hover:scale-105 transition-transform">+{stats.diplomasCount}</p>
                   <p className="text-sm font-semibold text-slate-800 dark:text-zinc-400 mb-1">دبلومات مهنية</p>
                   <p className="text-xs text-slate-500 dark:text-zinc-600">تأهيل وظيفي شامل</p>
                 </div>
@@ -227,14 +227,14 @@ export default async function HomePage() {
         {trendingDiploma && (
           <section id="trending-diploma" className="px-4 sm:px-6 py-20 sm:py-24 relative overflow-hidden scroll-mt-24">
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-blue-500/15 via-indigo-500/15 to-purple-500/10 dark:from-amber-500/10 dark:to-transparent rounded-full blur-[140px]" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-blue-500/15 via-indigo-500/15 to-purple-500/10 dark:from-[#00e55b]/10 dark:to-transparent rounded-full blur-[140px]" />
             </div>
 
             <div className="max-w-5xl mx-auto relative">
-              <div className="relative rounded-3xl border border-indigo-200/70 dark:border-amber-500/30 bg-gradient-to-br from-white/95 via-indigo-50/30 to-amber-50/20 dark:from-amber-950/30 dark:via-zinc-900/80 dark:to-zinc-950 overflow-hidden shadow-2xl backdrop-blur-xl p-8 md:p-12">
+              <div className="relative rounded-3xl border border-indigo-200/70 dark:border-[#00e55b]/40 bg-gradient-to-br from-white/95 via-indigo-50/30 to-amber-50/20 dark:from-[#00e55b]/10 dark:via-zinc-900/80 dark:to-zinc-950 overflow-hidden shadow-2xl backdrop-blur-xl p-8 md:p-12">
                 
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-amber-500/10 border border-indigo-200 dark:border-amber-500/25 text-indigo-700 dark:text-amber-300 text-xs font-bold mb-6 shadow-xs">
-                  <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-amber-400" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-[#00e55b]/10 border border-indigo-200 dark:border-[#00e55b]/30 text-indigo-700 dark:text-[#70ff9b] text-xs font-bold mb-6 shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-[#00e55b]" />
                   <span>الدبلومة الهندسية الأكثر طلباً ومبيعاً لعام 2026 (TRENDING #1)</span>
                 </div>
 
@@ -243,7 +243,7 @@ export default async function HomePage() {
                     <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-zinc-100 leading-tight">
                       {trendingDiploma.title}
                       {trendingDiploma.compareAtPrice && trendingDiploma.compareAtPrice > trendingDiploma.price && (
-                        <span className="block mt-1 bg-gradient-to-l from-indigo-700 via-blue-600 to-sky-600 dark:from-amber-300 dark:to-yellow-200 bg-clip-text text-transparent">
+                        <span className="block mt-1 bg-gradient-to-l from-indigo-700 via-blue-600 to-sky-600 dark:from-[#0df268] dark:to-[#00e55b] bg-clip-text text-transparent">
                           خصم استثنائي {Math.round(((trendingDiploma.compareAtPrice - trendingDiploma.price) / trendingDiploma.compareAtPrice) * 100)}% لفترة محدودة
                         </span>
                       )}
@@ -254,15 +254,15 @@ export default async function HomePage() {
 
                     <div className="flex flex-wrap gap-2 pt-1">
                       <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/80 border border-slate-200 dark:border-zinc-800/60 text-slate-700 dark:text-zinc-400 text-xs shadow-xs">
-                        <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 dark:bg-amber-500/20 dark:text-amber-400 text-[10px] font-bold flex items-center justify-center">1</span>
+                        <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 dark:bg-[#00e55b]/20 dark:text-[#00e55b] text-[10px] font-bold flex items-center justify-center">1</span>
                         12 مشروع إنتاج واقعي
                       </span>
                       <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/80 border border-slate-200 dark:border-zinc-800/60 text-slate-700 dark:text-zinc-400 text-xs shadow-xs">
-                        <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 dark:bg-amber-500/20 dark:text-amber-400 text-[10px] font-bold flex items-center justify-center">2</span>
+                        <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 dark:bg-[#00e55b]/20 dark:text-[#00e55b] text-[10px] font-bold flex items-center justify-center">2</span>
                         مشغل آمن بعلامة مائية
                       </span>
                       <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/80 border border-slate-200 dark:border-zinc-800/60 text-slate-700 dark:text-zinc-400 text-xs shadow-xs">
-                        <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 dark:bg-amber-500/20 dark:text-amber-400 text-[10px] font-bold flex items-center justify-center">3</span>
+                        <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 dark:bg-[#00e55b]/20 dark:text-[#00e55b] text-[10px] font-bold flex items-center justify-center">3</span>
                         شهادة معتمدة بـ QR
                       </span>
                     </div>
@@ -271,7 +271,7 @@ export default async function HomePage() {
                       <div>
                         <span className="text-[11px] text-slate-500 dark:text-zinc-500 block font-medium">سعر الاشتراك بالخصم الحصري:</span>
                         <div className="flex items-baseline gap-2">
-                          <span className="text-3xl font-black text-slate-900 dark:text-amber-300">{formatPrice(trendingDiploma.price)}</span>
+                          <span className="text-3xl font-black text-slate-900 dark:text-[#00e55b]">{formatPrice(trendingDiploma.price)}</span>
                           {trendingDiploma.compareAtPrice && (
                             <span className="text-sm text-slate-400 dark:text-zinc-500 line-through">
                               {formatPrice(trendingDiploma.compareAtPrice)}
@@ -290,10 +290,10 @@ export default async function HomePage() {
                         className="shimmer-border-wrapper group"
                       >
                         <div className="shimmer-beam-gold" />
-                        <div className="shimmer-button-content px-8 py-3.5 text-sm font-bold text-white dark:text-amber-300 group-hover:text-white">
-                          <Flame className="w-4 h-4 text-amber-400 animate-bounce" />
+                        <div className="shimmer-button-content px-8 py-3.5 text-sm font-bold text-slate-900 dark:text-black bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] dark:border-[#00e55b]/60 dark:shadow-[0_10px_30px_rgba(0,229,91,0.45)]">
+                          <Flame className="w-4 h-4 text-amber-500 dark:text-black animate-bounce" />
                           <span>سجل الآن في الدبلومة الأكثر طلباً</span>
-                          <ArrowLeft className="w-4 h-4 text-white dark:text-amber-400 group-hover:-translate-x-1.5 transition-transform" />
+                          <ArrowLeft className="w-4 h-4 text-slate-900 dark:text-black group-hover:-translate-x-1.5 transition-transform" />
                         </div>
                       </Link>
                     </div>
@@ -312,7 +312,7 @@ export default async function HomePage() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-14 h-14 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-indigo-300 dark:border-amber-500/40 text-indigo-600 dark:text-amber-400 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                        <div className="w-14 h-14 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-indigo-300 dark:border-[#00e55b]/40 text-indigo-600 dark:text-[#00e55b] flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
                           <PlayCircle className="w-7 h-7" />
                         </div>
                       </div>
@@ -346,23 +346,23 @@ export default async function HomePage() {
         <section className="px-4 sm:px-6 py-20 sm:py-24 bg-slate-100/70 dark:bg-zinc-900/20 border-y border-slate-200/90 dark:border-zinc-800/40">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12 space-y-2">
-              <p className="text-xs font-black text-indigo-600 dark:text-amber-400 uppercase tracking-wider">آراء الطلاب والخريجين</p>
+              <p className="text-xs font-black text-indigo-600 dark:text-[#00e55b] uppercase tracking-wider">آراء الطلاب والخريجين</p>
               <h2 className="font-display text-3xl sm:text-4xl font-black text-slate-950 dark:text-zinc-100">قصص نجاح من قلب سوق العمل</h2>
               <p className="text-slate-600 dark:text-zinc-400 text-sm max-w-lg mx-auto">تجارب حقيقية لطلاب انطلقوا من الأكاديمية إلى كبرى الشركات والعمل الحر</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800/50 space-y-4 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-xl transition-all">
-                <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400">
+                <div className="flex items-center gap-1 text-amber-500 dark:text-[#00e55b]">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="w-4 h-4 fill-amber-400 dark:fill-[#00e55b] text-amber-400 dark:text-[#00e55b]" />
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed">
                   "الدبلومة غيرت مساري المهني بالكامل! الشرح كان عملياً على مشاريع إنتاج حقيقية، وحصلت على وظيفة مطور برمجيات بعد تخرجي بشهرين فقط."
                 </p>
                 <div className="pt-3 border-t border-slate-100 dark:border-zinc-800 flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-amber-100 dark:bg-zinc-800 flex items-center justify-center text-xs font-black text-amber-700 dark:text-amber-400">
+                  <div className="w-9 h-9 rounded-full bg-amber-100 dark:bg-[#00e55b]/20 flex items-center justify-center text-xs font-black text-amber-700 dark:text-[#00e55b]">
                     أ
                   </div>
                   <div>
@@ -373,9 +373,9 @@ export default async function HomePage() {
               </div>
 
               <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800/50 space-y-4 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-xl transition-all">
-                <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400">
+                <div className="flex items-center gap-1 text-amber-500 dark:text-[#00e55b]">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="w-4 h-4 fill-amber-400 dark:fill-[#00e55b] text-amber-400 dark:text-[#00e55b]" />
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed">
@@ -393,9 +393,9 @@ export default async function HomePage() {
               </div>
 
               <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800/50 space-y-4 shadow-lg shadow-slate-200/50 dark:shadow-none hover:shadow-xl transition-all">
-                <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400">
+                <div className="flex items-center gap-1 text-amber-500 dark:text-[#00e55b]">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="w-4 h-4 fill-amber-400 dark:fill-[#00e55b] text-amber-400 dark:text-[#00e55b]" />
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed">

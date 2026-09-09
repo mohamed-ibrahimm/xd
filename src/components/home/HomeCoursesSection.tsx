@@ -136,8 +136,8 @@ export default function HomeCoursesSection({
             1. SECTION HEADER (Symmetrical, High Impact)
            ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-amber-500/10 border border-blue-200/80 dark:border-amber-500/25 text-blue-700 dark:text-amber-300 text-xs font-black shadow-xs">
-            <Sparkles className="w-4 h-4 text-blue-600 dark:text-amber-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-[#00e55b]/10 border border-blue-200/80 dark:border-[#00e55b]/25 text-blue-700 dark:text-[#70ff9b] text-xs font-black shadow-xs">
+            <Sparkles className="w-4 h-4 text-blue-600 dark:text-[#00e55b] animate-pulse" />
             <span>
               {selectedTrack === 'STUDENT'
                 ? 'شروحات مبسطة ومناهج يقدمها الطلاب المتميزون لزملائهم'
@@ -178,7 +178,7 @@ export default function HomeCoursesSection({
                 : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
             }`}
           >
-            <BookOpen className="w-4 h-4 text-blue-600 dark:text-amber-400" />
+            <BookOpen className="w-4 h-4 text-blue-600 dark:text-[#00e55b]" />
             <span>جميع الكورسات ({initialCourses.length})</span>
           </button>
 
@@ -277,7 +277,7 @@ export default function HomeCoursesSection({
            ========================================================================= */}
         {filteredCourses.length === 0 ? (
           <div className="p-12 text-center rounded-3xl bg-white/50 dark:bg-zinc-900/40 border border-slate-200/80 dark:border-zinc-800/80 max-w-xl mx-auto space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center mx-auto">
+            <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-500 dark:bg-[#00e55b]/15 dark:text-[#00e55b] flex items-center justify-center mx-auto">
               <BookOpen className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-black text-slate-900 dark:text-white">لا توجد كورسات مطابقة حالياً</h3>
@@ -324,7 +324,7 @@ export default function HomeCoursesSection({
                   className={`group relative flex flex-col justify-between rounded-2xl bg-white/95 dark:bg-zinc-900/80 backdrop-blur-2xl border border-slate-200/90 dark:border-zinc-800/90 ${theme.glowBorder} shadow-lg shadow-slate-900/5 dark:shadow-black/70 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden`}
                 >
                   {/* 1. Dynamic Top Accent Beam */}
-                  <div className={`h-1 w-full bg-gradient-to-r ${isStudentCourse ? 'from-amber-400 via-amber-300 to-yellow-500' : theme.topBar}`} />
+                  <div className={`h-1 w-full bg-gradient-to-r ${isStudentCourse ? 'from-amber-400 via-amber-300 to-yellow-500 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846]' : theme.topBar}`} />
 
                   {/* 2. Ambient Glow Flare */}
                   <div className={`absolute -top-20 -right-20 w-44 h-44 rounded-full bg-gradient-to-br ${theme.aura} blur-2xl group-hover:scale-150 transition-transform duration-700 pointer-events-none`} />
@@ -347,13 +347,13 @@ export default function HomeCoursesSection({
                       {/* Top Badges */}
                       <div className="absolute top-2.5 right-2.5 left-2.5 flex items-center justify-between pointer-events-none">
                         {isStudentCourse ? (
-                          <span className="px-3 py-1 rounded-full text-xs font-black bg-amber-500 backdrop-blur-md text-zinc-950 border border-amber-300 flex items-center gap-1 shadow-md">
+                          <span className="px-3 py-1 rounded-full text-xs font-black bg-amber-500 backdrop-blur-md text-zinc-950 border border-amber-300 dark:bg-[#00e55b] dark:text-black dark:border-[#10f068] flex items-center gap-1 shadow-md">
                             <GraduationCap className="w-3.5 h-3.5 text-zinc-950" />
                             <span>كورس طالب محاضر</span>
                           </span>
                         ) : course.category ? (
-                          <span className="px-3 py-1 rounded-full text-xs font-black bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/40 flex items-center gap-1 shadow-md">
-                            <CatIcon className="w-3.5 h-3.5 text-amber-400" />
+                          <span className="px-3 py-1 rounded-full text-xs font-black bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/40 dark:text-[#70ff9b] dark:border-[#00e55b]/40 flex items-center gap-1 shadow-md">
+                            <CatIcon className="w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b]" />
                             <span>{course.category.name}</span>
                           </span>
                         ) : (
@@ -372,12 +372,12 @@ export default function HomeCoursesSection({
                       {/* Bottom Metadata bar over image */}
                       <div className="absolute bottom-2.5 right-2.5 left-2.5 flex items-center justify-between text-xs text-white pointer-events-none font-bold">
                         <div className="flex items-center gap-1.5 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 shadow-md">
-                          <Clock className="w-3.5 h-3.5 text-amber-400" />
+                          <Clock className="w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b]" />
                           <span className="text-white font-bold">{formatDuration(course.durationHours)}</span>
                         </div>
 
-                        <div className="flex items-center gap-1 bg-amber-500/30 backdrop-blur-md text-amber-200 px-2.5 py-1 rounded-full border border-amber-400/40 shadow-md">
-                          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <div className="flex items-center gap-1 bg-amber-500/30 backdrop-blur-md text-amber-200 dark:bg-[#00e55b]/20 dark:text-[#70ff9b] px-2.5 py-1 rounded-full border border-amber-400/40 dark:border-[#00e55b]/40 shadow-md">
+                          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 dark:fill-[#00e55b] dark:text-[#00e55b]" />
                           <span className="font-bold">4.9</span>
                         </div>
 
@@ -403,7 +403,7 @@ export default function HomeCoursesSection({
                       </div>
 
                       {/* Centered Title with high contrast (No single-line cutoff dots) */}
-                      <h3 className="font-black text-base sm:text-lg lg:text-xl text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-400 transition-colors leading-snug text-center line-clamp-2 min-h-[3rem] flex items-center justify-center">
+                      <h3 className="font-black text-base sm:text-lg lg:text-xl text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#00e55b] transition-colors leading-snug text-center line-clamp-2 min-h-[3rem] flex items-center justify-center">
                         {course.title}
                       </h3>
                       
@@ -415,7 +415,7 @@ export default function HomeCoursesSection({
                       {/* Centered Sleek Instructor Pill */}
                       <div className="pt-1 flex justify-center">
                         <div className="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-slate-100/90 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 shadow-xs">
-                          <div className={`w-5 h-5 rounded-full bg-gradient-to-tr ${isStudentCourse ? 'from-amber-400 to-yellow-300' : theme.avatarRing} p-[1px] shrink-0`}>
+                          <div className={`w-5 h-5 rounded-full bg-gradient-to-tr ${isStudentCourse ? 'from-amber-400 to-yellow-300 dark:from-[#0df268] dark:to-[#00b846]' : theme.avatarRing} p-[1px] shrink-0`}>
                             <div className="w-full h-full rounded-full bg-slate-900 dark:bg-zinc-950 flex items-center justify-center text-[9px] font-black text-white">
                               {course.instructor?.officialFullName?.[0] || 'م'}
                             </div>
@@ -424,7 +424,7 @@ export default function HomeCoursesSection({
                             {course.instructor?.officialFullName || 'م / محمد إبراهيم'}
                           </span>
                           {isStudentCourse ? (
-                            <span className="text-[9.5px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-800 dark:text-amber-300 font-black border border-amber-500/30 flex items-center gap-0.5">
+                            <span className="text-[9.5px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-800 dark:bg-[#00e55b]/15 dark:text-[#70ff9b] font-black border border-amber-500/30 dark:border-[#00e55b]/30 flex items-center gap-0.5">
                               <GraduationCap className="w-2.5 h-2.5" />
                               طالب محاضر
                             </span>
@@ -457,7 +457,7 @@ export default function HomeCoursesSection({
                       <div className="h-4 w-px bg-slate-200 dark:bg-zinc-800" />
 
                       <div className="flex items-baseline gap-1">
-                        <span className="text-2xl sm:text-3xl font-black text-blue-700 dark:text-amber-400 tracking-tight drop-shadow-sm">
+                        <span className="text-2xl sm:text-3xl font-black text-blue-700 dark:text-[#00e55b] tracking-tight drop-shadow-sm">
                           {formatPrice(course.price)}
                         </span>
                       </div>

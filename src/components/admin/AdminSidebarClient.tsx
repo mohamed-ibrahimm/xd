@@ -176,9 +176,9 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
       {/* =========================================================================
           1. SLIM & ELEGANT TOP STATUS BAR (Contained in layout, zero overlap)
          ========================================================================= */}
-      <div className="w-full bg-white/90 dark:bg-zinc-900/90 border border-slate-200/80 dark:border-amber-500/25 backdrop-blur-xl px-4 sm:px-6 py-3 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm mb-6">
+      <div className="w-full bg-white/90 dark:bg-zinc-900/90 border border-slate-200/80 dark:border-[#00e55b]/30 backdrop-blur-xl px-4 sm:px-6 py-3 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm mb-6">
         <div className="flex items-center gap-2.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-sm shadow-amber-400/50" />
+          <div className="w-2.5 h-2.5 rounded-full bg-amber-400 dark:bg-[#00e55b] animate-pulse shadow-sm shadow-amber-400/50 dark:shadow-[#00e55b]/60" />
           <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
             {currentItem?.name || 'لوحة الإدارة'}
           </span>
@@ -193,8 +193,8 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
             href="/admin/settings"
             className={`px-3 py-1 rounded-lg transition-all ${
               pathname === '/admin/settings'
-                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+                ? 'bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 dark:hover:text-[#00e55b] hover:bg-white/5'
             }`}
           >
             الإعدادات (VIP)
@@ -203,8 +203,8 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
             href="/admin/courses"
             className={`px-3 py-1 rounded-lg transition-all ${
               pathname.startsWith('/admin/courses')
-                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+                ? 'bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 dark:hover:text-[#00e55b] hover:bg-white/5'
             }`}
           >
             الكورسات
@@ -213,8 +213,8 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
             href="/admin/instructors"
             className={`px-3 py-1 rounded-lg transition-all ${
               pathname.startsWith('/admin/instructors')
-                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+                ? 'bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 dark:hover:text-[#00e55b] hover:bg-white/5'
             }`}
           >
             المحاضرين
@@ -223,8 +223,8 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
             href="/admin/books"
             className={`px-3 py-1 rounded-lg transition-all ${
               pathname.startsWith('/admin/books')
-                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+                ? 'bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 dark:hover:text-[#00e55b] hover:bg-white/5'
             }`}
           >
             المذكرات
@@ -233,8 +233,8 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
             href="/admin/payments"
             className={`px-3 py-1 rounded-lg transition-all ${
               pathname.startsWith('/admin/payments')
-                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+                ? 'bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 dark:hover:text-[#00e55b] hover:bg-white/5'
             }`}
           >
             المدفوعات
@@ -253,7 +253,7 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
             }}
             className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-white text-xs font-black transition-all border border-slate-200 dark:border-white/10 shadow-xs cursor-pointer active:scale-95 group"
           >
-            <LayoutGrid className="w-3.5 h-3.5 text-amber-500 group-hover:rotate-90 transition-transform duration-300" />
+            <LayoutGrid className="w-3.5 h-3.5 text-amber-500 dark:text-[#00e55b] group-hover:rotate-90 transition-transform duration-300" />
             <span>أقسام الإدارة</span>
             <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-black/10 dark:bg-black/40 text-[10px] font-mono text-slate-500 dark:text-zinc-400 border border-black/5 dark:border-white/10">
               ⌘K
@@ -263,7 +263,7 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
           {/* Home Link */}
           <Link
             href="/"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 text-xs font-bold transition-all border border-amber-500/30 shrink-0"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/15 dark:bg-[#00e55b]/15 hover:bg-amber-500/25 dark:hover:bg-[#00e55b]/25 text-amber-800 dark:text-[#70ff9b] text-xs font-bold transition-all border border-amber-500/30 dark:border-[#00e55b]/40 shrink-0"
             title="العودة للموقع العام"
           >
             <Globe className="w-3.5 h-3.5" />
@@ -283,14 +283,14 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
           setIsOpen(true);
           setSearchQuery('');
         }}
-        className="fixed bottom-6 left-6 z-[9999] group flex items-center gap-2 p-1.5 pr-4 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-zinc-950 shadow-[0_10px_35px_rgba(245,158,11,0.45)] hover:shadow-[0_15px_45px_rgba(245,158,11,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ring-4 ring-amber-400/20"
+        className="fixed bottom-6 left-6 z-[9999] group flex items-center gap-2 p-1.5 pr-4 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] text-zinc-950 dark:text-black shadow-[0_10px_35px_rgba(245,158,11,0.45)] dark:shadow-[0_10px_35px_rgba(0,229,91,0.45)] hover:shadow-[0_15px_45px_rgba(245,158,11,0.6)] dark:hover:shadow-[0_15px_45px_rgba(0,229,91,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ring-4 ring-amber-400/20 dark:ring-[#00e55b]/30"
         title="فتح القائمة السريعة (Ctrl+K)"
         aria-label="أقسام الإدارة السريعة"
       >
         <span className="text-xs font-black tracking-wide whitespace-nowrap hidden sm:inline-block">
           أقسام الإدارة
         </span>
-        <div className="w-9 h-9 rounded-full bg-zinc-950 text-amber-400 flex items-center justify-center shadow-md group-hover:rotate-180 transition-transform duration-500">
+        <div className="w-9 h-9 rounded-full bg-zinc-950 text-amber-400 dark:bg-black dark:text-[#00e55b] flex items-center justify-center shadow-md group-hover:rotate-180 transition-transform duration-500">
           <LayoutGrid className="w-4 h-4" />
         </div>
       </button>
@@ -307,13 +307,13 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
           />
 
           {/* Modal Card */}
-          <div className="relative z-10 w-full max-w-2xl rounded-3xl bg-[#0e0a1f]/95 dark:bg-[#0c0918]/95 border-2 border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.9)] backdrop-blur-3xl p-4 sm:p-6 space-y-4 animate-in zoom-in-95 duration-200 text-right">
+          <div className="relative z-10 w-full max-w-2xl rounded-3xl bg-[#0e0a1f]/95 dark:bg-[#0c0918]/95 border-2 border-amber-500/40 dark:border-[#00e55b]/40 shadow-[0_25px_70px_rgba(0,0,0,0.9)] backdrop-blur-3xl p-4 sm:p-6 space-y-4 animate-in zoom-in-95 duration-200 text-right">
             
             {/* Modal Header & Search */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                  <div className="w-8 h-8 rounded-xl bg-amber-500/20 dark:bg-[#00e55b]/20 border border-amber-500/40 dark:border-[#00e55b]/40 flex items-center justify-center text-amber-400 dark:text-[#00e55b]">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
@@ -343,7 +343,7 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="ابحث عن قسم (مثل: الأسعار، الكورسات، المحاضرين، المدفوعات)..."
-                  className="w-full h-11 pr-10 pl-4 rounded-2xl bg-white/[0.06] border border-white/10 text-white placeholder:text-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
+                  className="w-full h-11 pr-10 pl-4 rounded-2xl bg-white/[0.06] border border-white/10 text-white placeholder:text-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 dark:focus:border-[#00e55b] dark:focus:ring-2 dark:focus:ring-[#00e55b]/20 transition-all"
                 />
                 <Search className="w-4 h-4 text-zinc-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
@@ -363,13 +363,13 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
                       onClick={() => setIsOpen(false)}
                       className={`group flex items-start gap-3 p-3 rounded-2xl border transition-all duration-200 ${
                         isActive
-                          ? 'bg-amber-500 text-zinc-950 border-amber-400 shadow-lg shadow-amber-500/25 font-black scale-[1.01]'
-                          : 'bg-white/[0.03] hover:bg-white/[0.08] text-white border-white/[0.06] hover:border-amber-500/40 hover:-translate-y-0.5'
+                          ? 'bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black border-amber-400 dark:border-[#10f068] shadow-lg shadow-amber-500/25 dark:shadow-[#00e55b]/25 font-black scale-[1.01]'
+                          : 'bg-white/[0.03] hover:bg-white/[0.08] text-white border-white/[0.06] hover:border-amber-500/40 dark:hover:border-[#00e55b]/40 hover:-translate-y-0.5'
                       }`}
                     >
                       <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 shadow-sm ${
                         isActive
-                          ? 'bg-zinc-950 text-amber-400'
+                          ? 'bg-zinc-950 dark:bg-black text-amber-400 dark:text-[#00e55b]'
                           : `bg-gradient-to-tr ${item.accent} text-white`
                       }`}>
                         <Icon className="w-4 h-4" />
@@ -377,28 +377,28 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-1 mb-0.5">
-                          <span className={`text-xs font-black truncate ${isActive ? 'text-zinc-950' : 'text-white group-hover:text-amber-300'}`}>
+                          <span className={`text-xs font-black truncate ${isActive ? 'text-zinc-950 dark:text-black' : 'text-white group-hover:text-amber-300 dark:group-hover:text-[#70ff9b]'}`}>
                             {item.name}
                           </span>
                           {item.badge && (
                             <span className={`text-[9px] font-black px-1.5 py-0.2 rounded-full shrink-0 ${
                               isActive
-                                ? 'bg-zinc-950 text-amber-400'
-                                : item.badgeColor || 'bg-amber-500/20 text-amber-300'
+                                ? 'bg-zinc-950 dark:bg-black text-amber-400 dark:text-[#00e55b]'
+                                : item.badgeColor || 'bg-amber-500/20 text-amber-300 dark:bg-[#00e55b]/20 dark:text-[#70ff9b]'
                             }`}>
                               {item.badge}
                             </span>
                           )}
                         </div>
                         <p className={`text-[10.5px] leading-snug line-clamp-1 ${
-                          isActive ? 'text-zinc-900 font-medium' : 'text-zinc-400 group-hover:text-zinc-300'
+                          isActive ? 'text-zinc-900 dark:text-zinc-900 font-medium' : 'text-zinc-400 group-hover:text-zinc-300'
                         }`}>
                           {item.description}
                         </p>
                       </div>
 
                       <ChevronLeft className={`w-4 h-4 shrink-0 mt-2 transition-transform group-hover:-translate-x-1 ${
-                        isActive ? 'text-zinc-950' : 'text-zinc-500 group-hover:text-amber-400'
+                        isActive ? 'text-zinc-950 dark:text-black' : 'text-zinc-500 group-hover:text-amber-400 dark:group-hover:text-[#00e55b]'
                       }`} />
                     </Link>
                   );
@@ -411,7 +411,7 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="text-xs text-amber-400 font-black hover:underline cursor-pointer"
+                    className="text-xs text-amber-400 dark:text-[#00e55b] font-black hover:underline cursor-pointer"
                   >
                     عرض كافة الأقسام
                   </button>

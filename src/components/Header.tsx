@@ -175,25 +175,25 @@ export default function Header({
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 p-2 sm:p-3.5 md:p-4 transition-all pointer-events-none">
-      <nav className="pointer-events-auto dynamic-navbar-aura max-w-[1536px] w-full sm:w-[98%] mx-auto flex items-center justify-between min-h-[3.75rem] sm:min-h-[4.75rem] px-4 sm:px-6 md:px-8 rounded-full bg-white/95 dark:bg-[#0c0918]/95 border border-slate-200/90 dark:border-amber-500/30 backdrop-blur-2xl shadow-xl shadow-slate-900/5 dark:shadow-[0_15px_50px_-10px_rgba(245,158,11,0.25)] relative gap-3 sm:gap-6">
+      <nav className="pointer-events-auto dynamic-navbar-aura max-w-[1536px] w-full sm:w-[98%] mx-auto flex items-center justify-between min-h-[3.75rem] sm:min-h-[4.75rem] px-4 sm:px-6 md:px-8 rounded-full bg-white/95 dark:bg-[#0c0918]/95 border border-slate-200/90 dark:border-[#00e55b]/35 backdrop-blur-2xl shadow-xl shadow-slate-900/5 dark:shadow-[0_15px_50px_-10px_rgba(0,229,91,0.25)] relative gap-3 sm:gap-6">
         
         {/* =========================================================================
             1. RIGHT: LOGO & PLATFORM TITLE WITH ROTATING GOLD HALO
            ========================================================================= */}
         <Link href="/" className="flex items-center gap-3 sm:gap-3.5 shrink-0 group py-1 min-w-0">
           <div className="dynamic-logo-emblem w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl p-[2px] shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform shrink-0">
-            <div className="w-full h-full bg-white dark:bg-[#0c0918] rounded-[10px] sm:rounded-[14px] flex items-center justify-center border border-amber-400/40 dark:border-amber-500/40 shadow-xs">
-              <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500 dark:text-amber-400" />
+            <div className="w-full h-full bg-white dark:bg-[#0c0918] rounded-[10px] sm:rounded-[14px] flex items-center justify-center border border-amber-400/40 dark:border-[#00e55b]/50 shadow-xs">
+              <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500 dark:text-[#00e55b]" />
             </div>
           </div>
           <div className="flex flex-col text-right justify-center min-w-0">
-            <span className="text-[9px] sm:text-[10.5px] font-black text-amber-500 dark:text-amber-400 flex items-center gap-1 leading-none mb-0.5 whitespace-nowrap">
+            <span className="text-[9px] sm:text-[10.5px] font-black text-amber-500 dark:text-[#00e55b] flex items-center gap-1 leading-none mb-0.5 whitespace-nowrap">
               منصة تعليمية معتمدة
             </span>
-            <span className="text-sm sm:text-base md:text-lg font-black text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-amber-300 transition-colors tracking-normal whitespace-nowrap leading-relaxed drop-shadow-xs">
+            <span className="text-sm sm:text-base md:text-lg font-black text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#0df268] transition-colors tracking-normal whitespace-nowrap leading-relaxed drop-shadow-xs">
               {platformName}
             </span>
-            <span className="text-[8.5px] sm:text-[10px] text-slate-500 dark:text-amber-200/80 font-medium whitespace-nowrap leading-relaxed mt-0.5 block">
+            <span className="text-[8.5px] sm:text-[10px] text-slate-500 dark:text-[#70ff9b]/80 font-medium whitespace-nowrap leading-relaxed mt-0.5 block">
               {platformTagline}
             </span>
           </div>
@@ -216,13 +216,13 @@ export default function Header({
               onClick={() => setCoursesMenuOpen(false)}
               className={`px-4.5 py-2 text-xs sm:text-[13px] font-black rounded-full transition-all inline-flex items-center gap-1.5 shrink-0 cursor-pointer shadow-md ${
                 pathname.startsWith('/courses')
-                  ? 'diploma-luxury-pill scale-105 ring-2 ring-amber-400/60 shadow-amber-500/25'
+                  ? 'diploma-luxury-pill scale-105 ring-2 ring-amber-400/60 dark:ring-[#00e55b]/60 shadow-amber-500/25 dark:shadow-[#00e55b]/30'
                   : 'diploma-luxury-pill hover:scale-105'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b] shrink-0 animate-pulse" />
               <span className="whitespace-nowrap font-black tracking-wide">جميع الكورسات</span>
-              <ChevronDown className={`w-3.5 h-3.5 text-amber-400 transition-transform duration-200 shrink-0 ${coursesMenuOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b] transition-transform duration-200 shrink-0 ${coursesMenuOpen ? 'rotate-180' : ''}`} />
             </Link>
 
             {/* Seamless Dropdown Bridge (no gap so mouse never loses focus) */}
@@ -231,11 +231,11 @@ export default function Header({
                 coursesMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-1'
               }`}
             >
-              <div className="rounded-3xl bg-white dark:bg-[#0c0918] border-2 border-slate-200 dark:border-amber-500/40 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-2.5 space-y-1.5 ring-1 ring-slate-900/5 dark:ring-white/10">
+              <div className="rounded-3xl bg-white dark:bg-[#0c0918] border-2 border-slate-200 dark:border-[#00e55b]/40 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-2.5 space-y-1.5 ring-1 ring-slate-900/5 dark:ring-white/10">
                 <Link
                   href="/courses"
                   onClick={() => setCoursesMenuOpen(false)}
-                  className="flex items-center justify-between p-2.5 rounded-2xl bg-amber-50 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 text-slate-900 dark:text-white transition-all group/item border border-amber-200 dark:border-amber-500/30"
+                  className="flex items-center justify-between p-2.5 rounded-2xl bg-amber-50 dark:bg-[#00e55b]/10 hover:bg-amber-100 dark:hover:bg-[#00e55b]/20 text-slate-900 dark:text-white transition-all group/item border border-amber-200 dark:border-[#00e55b]/30"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
@@ -246,7 +246,7 @@ export default function Header({
                       <span className="text-[10px] text-slate-500 dark:text-zinc-400">كافة التخصصات والمسارات</span>
                     </div>
                   </div>
-                  <ArrowLeft className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 group-hover/item:-translate-x-1 transition-transform" />
+                  <ArrowLeft className="w-3.5 h-3.5 text-amber-600 dark:text-[#00e55b] group-hover/item:-translate-x-1 transition-transform" />
                 </Link>
 
                 <Link
@@ -269,18 +269,18 @@ export default function Header({
                 <Link
                   href="/courses?type=students"
                   onClick={() => setCoursesMenuOpen(false)}
-                  className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50/90 dark:bg-zinc-900/70 hover:bg-amber-50 dark:hover:bg-amber-500/15 text-slate-900 dark:text-white transition-all group/item border border-slate-100 dark:border-zinc-800 hover:border-amber-300 dark:hover:border-amber-500/40"
+                  className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50/90 dark:bg-zinc-900/70 hover:bg-amber-50 dark:hover:bg-[#00e55b]/15 text-slate-900 dark:text-white transition-all group/item border border-slate-100 dark:border-zinc-800 hover:border-amber-300 dark:hover:border-[#00e55b]/40"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                       <GraduationCap className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="text-xs font-black block text-amber-800 dark:text-amber-300">كورسات الطلاب</span>
+                      <span className="text-xs font-black block text-amber-800 dark:text-[#70ff9b]">كورسات الطلاب</span>
                       <span className="text-[10px] text-slate-500 dark:text-zinc-400">شروحات ومناهج الطلبة</span>
                     </div>
                   </div>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-700 dark:text-amber-300 font-bold">طالب</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-500/20 dark:bg-[#00e55b]/20 text-amber-700 dark:text-[#70ff9b] font-bold">طالب</span>
                 </Link>
 
                 <Link
@@ -309,11 +309,11 @@ export default function Header({
             prefetch={true}
             className={`px-3.5 py-2 text-xs sm:text-[12.5px] font-black rounded-full transition-all inline-flex items-center gap-1.5 shrink-0 ${
               pathname.startsWith('/books')
-                ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 dark:from-amber-500 dark:via-yellow-400 dark:to-amber-500 text-white dark:text-zinc-950 font-black shadow-md scale-[1.02]'
-                : 'text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-amber-400 hover:bg-slate-200/60 dark:hover:bg-zinc-800/70'
+                ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] text-white dark:text-black font-black shadow-md scale-[1.02]'
+                : 'text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-[#00e55b] hover:bg-slate-200/60 dark:hover:bg-zinc-800/70'
             }`}
           >
-            <FileText className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-amber-400" />
+            <FileText className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-[#00e55b]" />
             <span className="whitespace-nowrap">المكتبة والمذكرات</span>
           </Link>
 
@@ -361,9 +361,9 @@ export default function Header({
             <div className="relative hidden lg:block">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-2 py-1 px-2.5 rounded-full border border-slate-200/90 dark:border-purple-800/60 bg-white/90 dark:bg-zinc-800/90 hover:border-amber-400 dark:hover:border-amber-400 transition-all shadow-xs cursor-pointer"
+                className="flex items-center gap-2 py-1 px-2.5 rounded-full border border-slate-200/90 dark:border-purple-800/60 bg-white/90 dark:bg-zinc-800/90 hover:border-amber-400 dark:hover:border-[#00e55b] transition-all shadow-xs cursor-pointer"
               >
-                <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-amber-400 dark:to-yellow-500 flex items-center justify-center text-[11px] font-black text-white dark:text-zinc-950 overflow-hidden shrink-0">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-[#0df268] dark:to-[#00e55b] flex items-center justify-center text-[11px] font-black text-white dark:text-black overflow-hidden shrink-0">
                   {currentUser.avatarUrl ? (
                     <img
                       src={currentUser.avatarUrl}
@@ -384,14 +384,14 @@ export default function Header({
               </button>
 
               {dropdownOpen && (
-                <div className="absolute left-0 mt-2.5 w-72 rounded-3xl bg-white dark:bg-[#0c0918] border border-slate-200/90 dark:border-amber-500/30 shadow-2xl backdrop-blur-2xl p-2.5 space-y-1.5 z-50 text-right animate-in fade-in slide-in-from-top-2 duration-150 ring-1 ring-black/5 dark:ring-white/10">
+                <div className="absolute left-0 mt-2.5 w-72 rounded-3xl bg-white dark:bg-[#0c0918] border border-slate-200/90 dark:border-[#00e55b]/40 shadow-2xl backdrop-blur-2xl p-2.5 space-y-1.5 z-50 text-right animate-in fade-in slide-in-from-top-2 duration-150 ring-1 ring-black/5 dark:ring-white/10">
                   {/* User Profile Header Card */}
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-zinc-900/80 border border-slate-200/80 dark:border-white/5 space-y-1">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[10px] font-medium text-slate-400 dark:text-zinc-400">الحساب الشخصي:</span>
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${
                         currentUser.role === 'ADMIN'
-                          ? 'bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-300'
+                          ? 'bg-amber-500/15 dark:bg-[#00e55b]/15 border-amber-500/30 dark:border-[#00e55b]/40 text-amber-600 dark:text-[#70ff9b]'
                           : currentUser.role === 'INSTRUCTOR'
                           ? 'bg-purple-500/15 border-purple-500/30 text-purple-600 dark:text-purple-300'
                           : 'bg-blue-500/15 border-blue-500/30 text-blue-600 dark:text-blue-300'
@@ -418,7 +418,7 @@ export default function Header({
                         className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-white hover:bg-primary-600 dark:hover:bg-primary-600/80 transition-colors group"
                       >
                         <div className="flex items-center gap-2">
-                          <LayoutDashboard className="w-4 h-4 text-amber-500 group-hover:text-white" />
+                          <LayoutDashboard className="w-4 h-4 text-amber-500 dark:text-[#00e55b] group-hover:text-white" />
                           <span>لوحة التحكم العامة</span>
                         </div>
                         <span className="text-[10px] text-zinc-400 group-hover:text-zinc-200">Admin</span>
@@ -427,13 +427,13 @@ export default function Header({
                       <Link
                         href="/admin/settings"
                         onClick={() => setDropdownOpen(false)}
-                        className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-black text-amber-800 dark:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 transition-colors group"
+                        className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-black text-amber-800 dark:text-[#70ff9b] bg-amber-500/10 dark:bg-[#00e55b]/10 hover:bg-amber-500/20 dark:hover:bg-[#00e55b]/20 transition-colors group"
                       >
                         <div className="flex items-center gap-2">
-                          <Sparkles className="w-4 h-4 text-amber-500" />
+                          <Sparkles className="w-4 h-4 text-amber-500 dark:text-[#00e55b]" />
                           <span>إعدادات المنصة والأسعار (VIP)</span>
                         </div>
-                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500 text-zinc-950 font-black">أهم قسم</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500 dark:bg-[#00e55b] text-zinc-950 dark:text-black font-black">أهم قسم</span>
                       </Link>
 
                       <Link
@@ -475,7 +475,7 @@ export default function Header({
                         onClick={() => setDropdownOpen(false)}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-white hover:bg-amber-600 transition-colors group"
                       >
-                        <FileText className="w-4 h-4 text-amber-400 group-hover:text-white" />
+                        <FileText className="w-4 h-4 text-amber-400 dark:text-[#00e55b] group-hover:text-white" />
                         <span>إدارة ونشر المذكرات</span>
                       </Link>
                     </div>
@@ -494,9 +494,9 @@ export default function Header({
                     <Link
                       href="/dashboard/library"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-white hover:bg-amber-600 transition-colors group"
+                      className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-white hover:bg-amber-600 dark:hover:bg-[#00e55b]/80 transition-colors group"
                     >
-                      <FileText className="w-4 h-4 text-amber-400 group-hover:text-white" />
+                      <FileText className="w-4 h-4 text-amber-400 dark:text-[#00e55b] group-hover:text-white" />
                       <span>مكتبتي الرقمية (المذكرات)</span>
                     </Link>
                   </div>
@@ -534,10 +534,10 @@ export default function Header({
               {/* Join: انضم كـ محاضر طالب (Visible on XL screens) */}
               <Link
                 href="/instructors/join?track=student"
-                className="hidden xl:flex px-2.5 py-1 rounded-full text-[11px] font-black bg-amber-100 hover:bg-amber-200 dark:bg-amber-950/60 dark:hover:bg-amber-900/80 border border-amber-300 dark:border-amber-500/50 text-amber-950 dark:text-amber-200 transition-all items-center gap-1 shrink-0 shadow-sm"
+                className="hidden xl:flex px-2.5 py-1 rounded-full text-[11px] font-black bg-amber-100 hover:bg-amber-200 dark:bg-[#00e55b]/10 dark:hover:bg-[#00e55b]/20 border border-amber-300 dark:border-[#00e55b]/40 text-amber-950 dark:text-[#70ff9b] transition-all items-center gap-1 shrink-0 shadow-sm"
                 title="منحة المحاضر الطالب لطلبة الجامعات والمدارس (شهر كامل مجاناً)"
               >
-                <GraduationCap className="w-3 h-3 text-amber-700 dark:text-amber-400" />
+                <GraduationCap className="w-3 h-3 text-amber-700 dark:text-[#00e55b]" />
                 <span>{navStudentBtnText}</span>
               </Link>
 
@@ -546,7 +546,7 @@ export default function Header({
                 href="/login"
                 className="px-2.5 py-1 rounded-full text-[11px] font-black text-slate-900 hover:text-black bg-slate-200/90 hover:bg-slate-300 border border-slate-300 dark:border-zinc-700 dark:text-zinc-100 dark:hover:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 transition-all shadow-xs flex items-center gap-1 shrink-0"
               >
-                <LogIn className="w-3 h-3 text-slate-800 dark:text-amber-400" />
+                <LogIn className="w-3 h-3 text-slate-800 dark:text-[#00e55b]" />
                 <span>دخول</span>
               </Link>
 
@@ -569,11 +569,11 @@ export default function Header({
               e.stopPropagation();
               toggleTheme();
             }}
-            className="w-8 h-8 rounded-full border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/90 text-amber-600 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-zinc-700 transition-all flex items-center justify-center shrink-0 shadow-xs cursor-pointer"
+            className="w-8 h-8 rounded-full border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/90 text-amber-600 dark:text-[#00e55b] hover:bg-slate-100 dark:hover:bg-zinc-700 transition-all flex items-center justify-center shrink-0 shadow-xs cursor-pointer"
             title={theme === 'DARK' ? 'التحويل إلى الوضع النهاري' : 'التحويل إلى الوضع الليلي'}
             aria-label="تبديل المظهر"
           >
-            {theme === 'DARK' ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-blue-600" />}
+            {theme === 'DARK' ? <Sun className="w-3.5 h-3.5 text-[#00e55b]" /> : <Moon className="w-3.5 h-3.5 text-blue-600" />}
           </button>
 
           {/* Mobile Menu Hamburger Button */}
@@ -601,14 +601,14 @@ export default function Header({
             {/* Drawer Top Header */}
             <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-md">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-purple-600 dark:via-fuchsia-600 dark:to-amber-400 p-[2px] shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-[#00b846] dark:via-[#00e55b] dark:to-[#10f068] p-[2px] shrink-0">
                   <div className="w-full h-full bg-white dark:bg-[#0c0918] rounded-[9px] flex items-center justify-center">
-                    <GraduationCap className="w-4 h-4 text-blue-600 dark:text-amber-400" />
+                    <GraduationCap className="w-4 h-4 text-blue-600 dark:text-[#00e55b]" />
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="text-xs font-black text-slate-900 dark:text-white leading-tight">{platformName}</p>
-                  <p className="text-[10px] text-amber-500 dark:text-amber-400 font-bold">منصة تعليمية معتمدة</p>
+                  <p className="text-[10px] text-amber-500 dark:text-[#00e55b] font-bold">منصة تعليمية معتمدة</p>
                 </div>
               </div>
               <button
@@ -625,7 +625,7 @@ export default function Header({
               <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/50 dark:from-purple-950/40 dark:to-zinc-900 border border-blue-100 dark:border-purple-800/40 space-y-2.5 shadow-md">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-amber-400 dark:to-yellow-500 flex items-center justify-center text-sm font-black text-white dark:text-zinc-950 overflow-hidden shadow-xs">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 dark:from-[#0df268] dark:to-[#00e55b] flex items-center justify-center text-sm font-black text-white dark:text-black overflow-hidden shadow-xs">
                       {currentUser.avatarUrl ? (
                         <img src={currentUser.avatarUrl} alt={currentUser.firstName} className="w-full h-full object-cover" />
                       ) : (
@@ -667,7 +667,7 @@ export default function Header({
                         onClick={() => setMobileMenuOpen(false)}
                         className="py-2 px-3 rounded-xl bg-purple-600 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-xs"
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                        <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-[#00e55b]" />
                         <span>إعدادات المنصة</span>
                       </Link>
                     </>
@@ -703,7 +703,7 @@ export default function Header({
                     onClick={() => setMobileMenuOpen(false)}
                     className="py-2.5 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 font-bold text-xs flex items-center justify-center gap-1.5"
                   >
-                    <LogIn className="w-4 h-4 text-blue-600 dark:text-amber-400" />
+                    <LogIn className="w-4 h-4 text-blue-600 dark:text-[#00e55b]" />
                     <span>تسجيل الدخول</span>
                   </Link>
                   <Link
@@ -729,9 +729,9 @@ export default function Header({
                   <Link
                     href="/instructors/join?track=student"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-700 dark:text-amber-300 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                    className="py-2.5 px-2 rounded-xl bg-amber-500/15 dark:bg-[#00e55b]/15 hover:bg-amber-500/25 dark:hover:bg-[#00e55b]/25 border border-amber-500/40 dark:border-[#00e55b]/40 text-amber-700 dark:text-[#70ff9b] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
                   >
-                    <GraduationCap className="w-4 h-4 text-amber-500" />
+                    <GraduationCap className="w-4 h-4 text-amber-500 dark:text-[#00e55b]" />
                     <span>انضم كـ محاضر طالب</span>
                   </Link>
                 </div>
@@ -757,9 +757,9 @@ export default function Header({
                       isActive
                         ? 'bg-blue-50 dark:bg-zinc-800 text-blue-700 dark:text-white border border-blue-200 dark:border-zinc-700 shadow-xs'
                         : isCenterpiece
-                        ? 'bg-gradient-to-r from-amber-500/15 to-purple-600/15 text-slate-900 dark:text-amber-300 border border-amber-500/30'
+                        ? 'bg-gradient-to-r from-amber-500/15 dark:from-[#00e55b]/15 to-purple-600/15 text-slate-900 dark:text-[#70ff9b] border border-amber-500/30 dark:border-[#00e55b]/40'
                         : isStudent
-                        ? 'bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/25 hover:bg-amber-500/20'
+                        ? 'bg-amber-500/10 dark:bg-[#00e55b]/10 text-amber-800 dark:text-[#70ff9b] border border-amber-500/25 dark:border-[#00e55b]/30 hover:bg-amber-500/20'
                         : isExpert
                         ? 'bg-indigo-500/10 text-indigo-800 dark:text-indigo-300 border border-indigo-500/25 hover:bg-indigo-500/20'
                         : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800/60 hover:text-slate-900 dark:hover:text-white'
@@ -769,9 +769,9 @@ export default function Header({
                       {link.icon && (
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                           isCenterpiece
-                            ? 'bg-amber-500/20 text-amber-500'
+                            ? 'bg-amber-500/20 dark:bg-[#00e55b]/20 text-amber-500 dark:text-[#00e55b]'
                             : isStudent
-                            ? 'bg-amber-500/20 text-amber-500'
+                            ? 'bg-amber-500/20 dark:bg-[#00e55b]/20 text-amber-500 dark:text-[#00e55b]'
                             : isExpert
                             ? 'bg-indigo-500/20 text-indigo-400'
                             : 'bg-slate-100 text-slate-600 dark:bg-zinc-800 dark:text-zinc-400'

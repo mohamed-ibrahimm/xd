@@ -37,21 +37,21 @@ export default function FloatingWhatsApp({ settings = {} }: FloatingWhatsAppProp
       <aside aria-label="الدعم الفني المباشر">
         <Link
           href="/support"
-          className="fixed bottom-3.5 sm:bottom-6 right-2 sm:right-6 z-50 flex items-center gap-2 p-2 sm:px-4 sm:py-2.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 shadow-xl shadow-amber-500/35 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all group border border-amber-300/60 backdrop-blur-sm cursor-pointer"
+          className="fixed bottom-3.5 sm:bottom-6 right-2 sm:right-6 z-50 flex items-center gap-2 p-2 sm:px-4 sm:py-2.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] dark:hover:from-[#10f068] dark:hover:to-[#00e55b] text-zinc-950 dark:text-black shadow-xl shadow-amber-500/35 dark:shadow-[0_10px_35px_rgba(0,229,91,0.45)] hover:shadow-2xl hover:scale-105 active:scale-95 transition-all group border border-amber-300/60 dark:border-[#00e55b]/60 backdrop-blur-sm cursor-pointer"
           title="تذاكر ومساعدة الدعم الفني"
         >
           <div className="relative flex items-center justify-center shrink-0">
-            <span className="absolute -inset-1 rounded-full bg-amber-300/50 animate-ping pointer-events-none" />
-            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-zinc-950 text-amber-400 flex items-center justify-center shadow-xs">
-              <Headphones className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
+            <span className="absolute -inset-1 rounded-full bg-amber-300/50 dark:bg-[#00e55b]/50 animate-ping pointer-events-none" />
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-zinc-950 dark:bg-black text-amber-400 dark:text-[#00e55b] flex items-center justify-center shadow-xs">
+              <Headphones className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 dark:text-[#00e55b] group-hover:rotate-12 transition-transform" />
             </div>
           </div>
           <div className="hidden sm:flex flex-col text-right">
             <div className="flex items-center gap-1 leading-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-950 animate-pulse" />
-              <span className="text-[10px] text-zinc-900 font-bold leading-none">دعم فوري</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-950 dark:bg-black animate-pulse" />
+              <span className="text-[10px] text-zinc-900 dark:text-black font-bold leading-none">دعم فوري</span>
             </div>
-            <span className="text-xs font-black leading-tight mt-0.5 whitespace-nowrap text-zinc-950">الدعم الفني</span>
+            <span className="text-xs font-black leading-tight mt-0.5 whitespace-nowrap text-zinc-950 dark:text-black">الدعم الفني</span>
           </div>
         </Link>
       </aside>
