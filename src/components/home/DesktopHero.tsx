@@ -9,9 +9,9 @@ import {
   FileText,
   Radio,
   Star,
-  CheckCircle2,
   MessageSquare,
   ShieldCheck,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface DesktopHeroProps {
@@ -38,8 +38,8 @@ export default function DesktopHero({
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
         <img
           src="/assets/egyptian-students.jpg"
-          alt="أجواء دراسة وتطوير البرمجيات للشباب المصري"
-          className="w-full h-full object-cover object-center opacity-[0.04] dark:opacity-[0.06] mix-blend-luminosity filter blur-[4px] scale-105"
+          alt="أجواء دراسة وتطوير البرمجيات"
+          className="w-full h-full object-cover object-center opacity-[0.03] dark:opacity-[0.05] mix-blend-luminosity filter blur-[4px] scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/95 dark:from-[#0c0918] dark:via-[#0c0918]/90 dark:to-[#0c0918]" />
         <div className="absolute -top-16 right-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle,_rgba(0,229,91,0.12),_transparent_65%)] blur-[90px] rounded-full pointer-events-none" />
@@ -48,102 +48,93 @@ export default function DesktopHero({
       <div className="max-w-[1440px] mx-auto w-full my-auto grid grid-cols-1 lg:grid-cols-12 items-center gap-8 xl:gap-14 z-10 px-2 sm:px-4">
         
         {/* =========================================================================
-            RIGHT COLUMN (1st in RTL DOM): AUTHENTIC EGYPTIAN STUDENTS LEARNING STAGE
+            RIGHT COLUMN (1st in RTL DOM): NATURAL EGYPTIAN STUDENTS SHOWCASE CARD
            ========================================================================= */}
         <div className="lg:col-span-5 xl:col-span-5 relative w-full flex justify-center order-1">
           
           {/* Ambient Glow Flare behind Card */}
-          <div className="absolute -inset-4 bg-gradient-to-tr from-[#00e55b]/25 via-emerald-600/15 to-transparent rounded-[32px] blur-2xl pointer-events-none -z-10" />
+          <div className="absolute -inset-2 bg-gradient-to-tr from-[#00e55b]/20 via-emerald-600/10 to-transparent rounded-3xl blur-xl pointer-events-none -z-10" />
 
-          {/* 1. Top Floating Card: Clickable Live Broadcast Studio Pill */}
-          <Link
-            href="/live"
-            className="absolute -top-4 -right-3 sm:-right-4 z-20 animate-float-slow group bg-white/95 dark:bg-[#0d0a1c]/95 backdrop-blur-xl px-3.5 py-2.5 rounded-2xl border border-slate-200/90 dark:border-[#00e55b]/40 shadow-xl dark:shadow-[0_12px_35px_rgba(0,229,91,0.25)] flex items-center gap-2.5 hover:scale-105 transition-all"
-            title="الدخول إلى أستوديو البث الحي المباشر"
-          >
-            <div className="w-8 h-8 rounded-xl bg-red-500/15 border border-red-500/30 dark:bg-[#00e55b]/15 dark:border-[#00e55b]/30 flex items-center justify-center text-red-600 dark:text-[#00e55b] shrink-0">
-              <Radio className="w-4 h-4 animate-pulse" />
-            </div>
-            <div className="text-right">
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs font-black text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#0df268] transition-colors">
-                  أستوديو البث المباشر
-                </span>
-                <span className="text-[8.5px] px-1.5 py-0.2 rounded-full bg-red-500/15 text-red-600 dark:bg-[#00e55b]/20 dark:text-[#70ff9b] font-black flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 dark:bg-[#00e55b] animate-ping" />
-                  حي 1080p
+          {/* Unified, Self-Contained Master Card: Zero Overlaps, Zero Collisions */}
+          <div className="w-full max-w-[460px] rounded-3xl bg-white/95 dark:bg-[#0d0a1c]/95 border border-slate-200/90 dark:border-[#00e55b]/30 shadow-2xl backdrop-blur-2xl overflow-hidden text-right group">
+            
+            {/* 1. Card Header */}
+            <div className="px-4 py-2.5 bg-slate-50 dark:bg-black/50 border-b border-slate-200/80 dark:border-white/[0.08] flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#00e55b] animate-pulse" />
+                <span className="text-xs font-black text-slate-800 dark:text-zinc-200">
+                  مجتمع التطوير والتطبيق العملي
                 </span>
               </div>
-              <p className="text-[9.5px] text-slate-500 dark:text-zinc-400 font-medium mt-0.5 group-hover:text-slate-800 dark:group-hover:text-zinc-200 transition-colors">
-                محاضرات تفاعلية ومناقشات برمجية ←
-              </p>
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-200/60 dark:bg-[#00e55b]/15 text-[10px] font-black text-slate-700 dark:text-[#70ff9b] border border-slate-300/60 dark:border-[#00e55b]/30">
+                <span>دفعة 2026</span>
+              </div>
             </div>
-          </Link>
 
-          {/* 2. Centerpiece: Modern Luxury Glass Card with Authentic Egyptian Students Photo */}
-          <div className="w-full max-w-[460px] rounded-[28px] bg-slate-900/90 dark:bg-[#070512]/90 border border-slate-700/60 dark:border-white/10 shadow-2xl backdrop-blur-2xl overflow-hidden text-right group relative">
-            
-            {/* Real Photograph of Egyptian Students Collaborating */}
-            <div className="relative h-[250px] xl:h-[275px] w-full overflow-hidden">
+            {/* 2. Photo: Authentic Natural Egyptian Students Studying in Library */}
+            <div className="relative h-[220px] xl:h-[240px] w-full overflow-hidden bg-slate-900">
               <img
                 src="/assets/egyptian-students.jpg"
-                alt="طلاب الأكاديمية أثناء التدريب العملي المشترك في القاهرة"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                alt="طلاب الأكاديمية أثناء التطبيق والبرمجة المشتركة"
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#070512] via-[#070512]/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               
-              {/* Studio Live Overlay Chip */}
-              <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10.5px] text-white font-bold">
-                <span className="w-2 h-2 rounded-full bg-[#00e55b] animate-pulse" />
-                <span>مجتمع المطورين والمهندسين</span>
+              {/* Discrete Bottom Overlay Badge */}
+              <div className="absolute bottom-2.5 right-3 left-3 flex items-center justify-between px-3 py-1.5 rounded-xl bg-black/70 backdrop-blur-md border border-white/10 text-[11px] text-white">
+                <span className="font-bold flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#00e55b]" />
+                  <span>تطبيق ومشاريع برمجية واقعية</span>
+                </span>
+                <span className="text-[#70ff9b] font-mono font-bold text-[10px]">100% عملي</span>
               </div>
+            </div>
 
-              {/* Bottom Interactive Feature Chips Inside Card */}
-              <div className="absolute bottom-3 right-3 left-3 flex items-center justify-between gap-2 z-10">
-                <Link
-                  href="/verify"
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-black/75 hover:bg-black/90 dark:bg-black/80 dark:hover:bg-[#00e55b]/20 backdrop-blur-md border border-white/15 dark:border-white/10 hover:border-[#00e55b]/40 text-[10.5px] font-bold text-slate-200 hover:text-white dark:hover:text-[#70ff9b] transition-all shadow-sm"
-                  title="فحص واعتماد الشهادات"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#00e55b] shrink-0" />
-                  <span className="truncate">اعتماد الشهادات رسميًا</span>
-                </Link>
+            {/* 3. Dedicated Interactive Dock (3 Clear Clickable Buttons with Zero Overlap) */}
+            <div className="p-3 bg-slate-50 dark:bg-black/40 border-t border-slate-200/80 dark:border-white/[0.06] grid grid-cols-3 gap-2">
+              
+              {/* Button 1: Live Broadcast */}
+              <Link
+                href="/live"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-red-50 hover:bg-red-100 dark:bg-red-500/10 dark:hover:bg-red-500/20 text-red-700 dark:text-red-400 border border-red-200/80 dark:border-red-500/25 text-[11px] font-bold transition-all hover:scale-[1.03] text-center"
+                title="أستوديو البث المباشر"
+              >
+                <div className="flex items-center gap-1">
+                  <Radio className="w-3.5 h-3.5 animate-pulse" />
+                  <span className="font-black">البث الحي</span>
+                </div>
+                <span className="text-[9px] text-red-600/80 dark:text-red-300/80 font-medium">مباشر 1080p</span>
+              </Link>
 
-                <Link
-                  href="/dashboard"
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-[#00e55b]/20 hover:bg-[#00e55b]/30 backdrop-blur-md border border-[#00e55b]/40 text-[10.5px] font-black text-[#70ff9b] transition-all shadow-sm"
-                  title="لوحة متابعة المشاريع العملية"
-                >
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#00e55b] shrink-0" />
-                  <span className="truncate">مشاريع عملية 100%</span>
-                  <ArrowLeft className="w-3 h-3 shrink-0" />
-                </Link>
-              </div>
+              {/* Button 2: Instant Chat & Consultation */}
+              <Link
+                href="/chat"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-purple-50 hover:bg-purple-100 dark:bg-purple-500/10 dark:hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-200/80 dark:border-purple-500/25 text-[11px] font-bold transition-all hover:scale-[1.03] text-center"
+                title="الاستشارات والمحادثة الفورية"
+              >
+                <div className="flex items-center gap-1">
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span className="font-black">استشارات</span>
+                </div>
+                <span className="text-[9px] text-purple-600/80 dark:text-purple-300/80 font-medium">توجيه فوري</span>
+              </Link>
+
+              {/* Button 3: Certificate Verification */}
+              <Link
+                href="/verify"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-[#00e55b]/10 dark:hover:bg-[#00e55b]/20 text-emerald-800 dark:text-[#70ff9b] border border-emerald-200/80 dark:border-[#00e55b]/30 text-[11px] font-bold transition-all hover:scale-[1.03] text-center"
+                title="فحص واعتماد الشهادات"
+              >
+                <div className="flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-[#00e55b]" />
+                  <span className="font-black">الشهادات</span>
+                </div>
+                <span className="text-[9px] text-emerald-700/80 dark:text-[#70ff9b]/80 font-medium">اعتماد رسمي</span>
+              </Link>
+
             </div>
 
           </div>
-
-          {/* 3. Bottom Floating Card: Instant Engineering Consultation & Chat Portal */}
-          <Link
-            href="/chat"
-            className="absolute -bottom-4 -left-3 sm:-left-4 z-20 animate-float-slow group bg-white/95 dark:bg-[#0d0a1c]/95 backdrop-blur-xl px-3.5 py-2.5 rounded-2xl border border-slate-200/90 dark:border-purple-500/40 shadow-xl dark:shadow-[0_12px_35px_rgba(168,85,247,0.25)] flex items-center gap-2.5 hover:scale-105 transition-all"
-            title="محادثة وتوجيه واستفسارات برمجية فورية"
-          >
-            <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-600 dark:text-purple-300 shrink-0">
-              <MessageSquare className="w-4 h-4" />
-            </div>
-            <div className="text-right">
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs font-black text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
-                  استشارات برمجية فورية
-                </span>
-                <span className="w-2 h-2 rounded-full bg-[#00e55b] animate-pulse" />
-              </div>
-              <p className="text-[9.5px] text-slate-500 dark:text-zinc-400 font-medium mt-0.5 group-hover:text-slate-800 dark:group-hover:text-zinc-200 transition-colors">
-                اطرح استفساراتك الهندسية وتواصل مباشرة ←
-              </p>
-            </div>
-          </Link>
 
         </div>
 
