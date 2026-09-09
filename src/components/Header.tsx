@@ -214,14 +214,26 @@ export default function Header({
               href="/courses"
               prefetch={true}
               onClick={() => setCoursesMenuOpen(false)}
-              className={`px-4.5 py-2 text-xs sm:text-[13px] font-black rounded-full transition-all inline-flex items-center gap-2 shrink-0 cursor-pointer shadow-md ${
+              className={`px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-[13px] font-black rounded-full transition-all inline-flex items-center gap-2 shrink-0 cursor-pointer ${
                 pathname.startsWith('/courses')
-                  ? 'diploma-luxury-pill scale-105 ring-2 ring-purple-400/60 dark:ring-[#00e55b]/60 shadow-purple-500/25 dark:shadow-[#00e55b]/30'
-                  : 'diploma-luxury-pill hover:scale-105'
+                  ? 'bg-slate-900 text-white dark:bg-[#00e55b]/15 dark:text-[#70ff9b] border-2 border-emerald-500 dark:border-[#00e55b] shadow-lg shadow-emerald-500/20 dark:shadow-[0_0_20px_rgba(0,229,91,0.35)] scale-105'
+                  : 'bg-white/80 hover:bg-white text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] dark:text-zinc-100 border border-slate-200/90 dark:border-white/15 hover:border-emerald-500/50 dark:hover:border-[#00e55b]/60 shadow-sm hover:shadow-md dark:hover:shadow-[0_0_18px_rgba(0,229,91,0.25)] hover:scale-[1.03]'
               }`}
             >
-              <BookOpen className="w-4 h-4 text-purple-600 dark:text-[#70ff9b] shrink-0 transition-transform group-hover:scale-110" />
+              {/* Micro Icon Badge */}
+              <div className="w-5 h-5 rounded-lg bg-emerald-500/15 dark:bg-[#00e55b]/15 text-emerald-600 dark:text-[#00e55b] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <BookOpen className="w-3.5 h-3.5" />
+              </div>
+
+              {/* Label */}
               <span className="whitespace-nowrap font-black tracking-wide">جميع الكورسات</span>
+
+              {/* Dropdown Chevron Indicator */}
+              <ChevronDown
+                className={`w-3.5 h-3.5 text-slate-400 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-[#00e55b] transition-transform duration-300 shrink-0 ${
+                  coursesMenuOpen ? 'rotate-180 text-emerald-600 dark:text-[#00e55b]' : 'group-hover:translate-y-0.5'
+                }`}
+              />
             </Link>
 
             {/* Seamless Dropdown Bridge (no gap so mouse never loses focus) */}
