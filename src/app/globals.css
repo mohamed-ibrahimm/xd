@@ -1,14 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-cairo: 'Cairo', 'IBM Plex Sans Arabic', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-ibm-plex: 'Cairo', 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
-  --font-tajawal: 'Cairo', 'Tajawal', sans-serif;
-  --font-alexandria: 'Cairo', sans-serif;
+  --font-cairo: var(--font-cairo), 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ibm-plex: var(--font-cairo), 'Cairo', sans-serif;
+  --font-tajawal: var(--font-cairo), 'Cairo', sans-serif;
+  --font-alexandria: var(--font-cairo), 'Cairo', sans-serif;
   --bg-app: #0f0f15;
   --bg-surface: #15151e;
   --bg-surface-raised: #1c1c28;
@@ -34,18 +32,16 @@ body.light-theme {
 
 * {
   box-sizing: border-box;
-  font-family: 'Cairo', 'IBM Plex Sans Arabic', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 html,
 body {
-  font-family: 'Cairo', 'IBM Plex Sans Arabic', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: var(--font-cairo), 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   background-color: #0f0f15;
   background-image: 
     radial-gradient(ellipse at 50% -10%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 50%, rgba(217, 119, 6, 0.03) 0%, transparent 50%),
     radial-gradient(ellipse at 20% 80%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
-  background-attachment: fixed;
   color: #f4f4f5;
   direction: rtl;
   text-align: right;
@@ -65,18 +61,6 @@ body {
 /* =========================================================================
    Light Mode System (Luminous Aurora Canvas & Calming Contrast)
    ========================================================================= */
-@keyframes dynamicAuroraMesh {
-  0% {
-    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 100%, 0% 100%;
-  }
-  50% {
-    background-position: 10% 5%, 90% 15%, 8% 45%, 95% 85%, 5% 95%;
-  }
-  100% {
-    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 100%, 0% 100%;
-  }
-}
-
 html.light-theme,
 html.light-theme body,
 body.light-theme,
@@ -84,14 +68,11 @@ body.light-theme,
 [data-theme="light"] body {
   background-color: #f4f6fb !important;
   background-image: 
-    radial-gradient(ellipse 85% 55% at 50% -15%, rgba(99, 102, 241, 0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 65% 55% at 95% 15%, rgba(245, 158, 11, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse 65% 55% at 5% 35%, rgba(14, 165, 233, 0.20) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 55% at 90% 65%, rgba(168, 85, 247, 0.16) 0%, transparent 55%),
-    radial-gradient(ellipse 80% 65% at 10% 85%, rgba(16, 185, 129, 0.15) 0%, transparent 60%) !important;
-  background-attachment: fixed !important;
-  background-size: 130% 130% !important;
-  animation: dynamicAuroraMesh 16s ease-in-out infinite !important;
+    radial-gradient(ellipse 85% 55% at 50% -15%, rgba(99, 102, 241, 0.16) 0%, transparent 65%),
+    radial-gradient(ellipse 65% 55% at 95% 15%, rgba(245, 158, 11, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 65% 55% at 5% 35%, rgba(14, 165, 233, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 55% at 90% 65%, rgba(168, 85, 247, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 65% at 10% 85%, rgba(16, 185, 129, 0.10) 0%, transparent 60%) !important;
   color: #0f172a !important;
 }
 
@@ -363,34 +344,7 @@ html.light-theme header nav a[href="/register"] svg,
   color: #ffffff !important;
 }
 
-/* DYNAMIC MOVING BACKGROUND ORBS & PARTICLES (عناصر وخلفيات متحركة بانسيابية وراء الكلام) */
-@keyframes floatOrbA {
-  0% { transform: translate(0px, 0px) scale(1); }
-  50% { transform: translate(40px, -30px) scale(1.1); }
-  100% { transform: translate(-25px, 25px) scale(0.95); }
-}
 
-@keyframes floatOrbB {
-  0% { transform: translate(0px, 0px) scale(1); }
-  50% { transform: translate(-45px, 30px) scale(1.12); }
-  100% { transform: translate(30px, -35px) scale(0.92); }
-}
-
-@keyframes floatOrbC {
-  0% { transform: translate(0px, 0px) scale(0.95); }
-  50% { transform: translate(30px, 40px) scale(1.08); }
-  100% { transform: translate(-35px, -25px) scale(1); }
-}
-
-.dynamic-float-a {
-  animation: floatOrbA 9s ease-in-out infinite alternate;
-}
-.dynamic-float-b {
-  animation: floatOrbB 12s ease-in-out infinite alternate;
-}
-.dynamic-float-c {
-  animation: floatOrbC 15s ease-in-out infinite alternate;
-}
 
 /* DYNAMIC ROTATING BEAM BUTTON (الزر الدوار الفخم المحاط بشعاع متوهج يدور بسلاسة) */
 .shimmer-border-wrapper {
@@ -402,6 +356,10 @@ html.light-theme header nav a[href="/register"] svg,
   border-radius: 9999px !important;
   overflow: hidden !important;
   background: transparent !important;
+  isolation: isolate !important;
+  transform: translateZ(0) !important;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
 }
 
@@ -410,6 +368,8 @@ html.light-theme header nav a[href="/register"] svg,
   display: block !important;
   position: absolute !important;
   inset: -200% !important;
+  will-change: transform !important;
+  transform: translateZ(0) !important;
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
@@ -827,50 +787,7 @@ html.light-theme .mobile-drawer-sheet [class*="bg-zinc-950"],
   transform: scale(0.97);
 }
 
-.shimmer-border-wrapper {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px;
-  border-radius: 9999px;
-  overflow: hidden;
-  isolation: isolate;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  mask-image: radial-gradient(white, black);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-}
 
-.shimmer-border-wrapper:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.45);
-}
-
-.shimmer-border-wrapper:active {
-  transform: scale(0.97);
-}
-
-.shimmer-beam-gold {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(245, 158, 11, 0.4) 20%,
-    #fef08a 45%,
-    #ffffff 50%,
-    #f59e0b 55%,
-    rgba(245, 158, 11, 0.4) 80%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: goldLaserSweep 2.5s linear infinite;
-  pointer-events: none;
-}
 
 .shimmer-beam-purple {
   position: absolute;
@@ -979,16 +896,14 @@ html.dark .shimmer-border-wrapper:hover .shimmer-button-content,
 @keyframes pageEnter {
   0% {
     opacity: 0;
-    transform: translateY(5px);
   }
   100% {
     opacity: 1;
-    transform: none;
   }
 }
 
 .animate-page-enter {
-  animation: pageEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pageEnter 0.15s ease-out forwards;
 }
 
 @keyframes shimmer {
@@ -1001,13 +916,6 @@ html.dark .shimmer-border-wrapper:hover .shimmer-button-content,
    Dynamic Multi-Color Systems (Requested by User)
    ========================================================================= */
 
-/* 1. Dynamic Moving Multi-Color Aura for Navbar */
-@keyframes navAuraFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .dynamic-navbar-aura {
   position: relative;
   transition: all 0.3s ease;
@@ -1018,19 +926,10 @@ html.dark .shimmer-border-wrapper:hover .shimmer-button-content,
   position: absolute;
   inset: -1px;
   border-radius: 9999px;
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.4), rgba(168, 85, 247, 0.3), rgba(251, 191, 36, 0.4), rgba(147, 51, 234, 0.3), rgba(245, 158, 11, 0.4));
-  background-size: 200% 200%;
-  animation: navAuraFlow 8s ease infinite;
-  opacity: 0.35;
-  filter: blur(8px);
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.3), rgba(168, 85, 247, 0.2), rgba(251, 191, 36, 0.3), rgba(147, 51, 234, 0.2), rgba(245, 158, 11, 0.3));
+  opacity: 0.4;
   z-index: -1;
   pointer-events: none;
-}
-
-/* 2. Dynamic Rotating Glowing Logo Emblem */
-@keyframes rotateEmblemAura {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .dynamic-logo-emblem {
@@ -1042,8 +941,7 @@ html.dark .shimmer-border-wrapper:hover .shimmer-button-content,
   content: '';
   position: absolute;
   inset: -50%;
-  background: conic-gradient(from 0deg, #f59e0b, #fbbf24, #d97706, #fef08a, #b45309, #f59e0b);
-  animation: rotateEmblemAura 4s linear infinite;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24, #d97706);
   z-index: 0;
 }
 
@@ -1128,35 +1026,16 @@ html.dark .diploma-luxury-pill,
   box-shadow: 0 14px 35px -5px rgba(79, 70, 229, 0.55), 0 0 30px rgba(217, 70, 239, 0.45) !important;
 }
 
-/* 6. Multi-color Random Floating Dynamic Ambient Drifts */
-@keyframes auroraDrift1 {
-  0%, 100% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(60px, -45px) scale(1.15); }
-  66% { transform: translate(-45px, 55px) scale(0.9); }
+/* 6. Multi-color Ambient Drifts (Static, GPU-Friendly Ambiance) */
+.dynamic-drift-1,
+.dynamic-drift-2,
+.dynamic-drift-3,
+.dynamic-drift-4 {
+  animation: none !important;
+  opacity: 0.55;
+  pointer-events: none;
+  transform: translateZ(0);
 }
-
-@keyframes auroraDrift2 {
-  0%, 100% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(-55px, 65px) scale(1.1); }
-  66% { transform: translate(45px, -35px) scale(0.95); }
-}
-
-@keyframes auroraDrift3 {
-  0%, 100% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(45px, 45px) scale(1.2); }
-  66% { transform: translate(-65px, -45px) scale(0.85); }
-}
-
-@keyframes auroraDrift4 {
-  0%, 100% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(-45px, -55px) scale(1.1); }
-  66% { transform: translate(55px, 35px) scale(0.9); }
-}
-
-.dynamic-drift-1 { animation: auroraDrift1 14s ease-in-out infinite; }
-.dynamic-drift-2 { animation: auroraDrift2 18s ease-in-out infinite; }
-.dynamic-drift-3 { animation: auroraDrift3 16s ease-in-out infinite; }
-.dynamic-drift-4 { animation: auroraDrift4 20s ease-in-out infinite; }
 
 /* 7. Dynamic Multi-Color Trending Diploma Hero CTA (تكسر الألوان لتخطف العين فوراً) */
 @keyframes trendingAuroraFlow {

@@ -143,22 +143,11 @@ export default async function HomePage() {
 
   return (
     <div className="page-canvas relative overflow-hidden pb-24 text-zinc-100 min-h-screen">
-      {/* Majestic Ambient Multi-Colored Radiant Lighting & Atmospheric Canvas */}
-      <div className="ambient-glow absolute inset-0 pointer-events-none overflow-hidden z-0">
-        {/* Top central imperial gold & violet dome */}
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[1300px] h-[650px] bg-[radial-gradient(ellipse_at_top,_rgba(245,158,11,0.22),_rgba(124,58,237,0.18)_40%,_transparent_75%)] dark:bg-[radial-gradient(ellipse_at_top,_rgba(245,158,11,0.2),_rgba(124,58,237,0.16)_40%,_transparent_75%)] blur-[90px]" />
-        
-        {/* Right warm amber-solar flare */}
-        <div className="absolute top-1/4 -right-28 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(245,158,11,0.18),_rgba(251,146,60,0.12)_50%,_transparent_65%)] dark:bg-[radial-gradient(circle,_rgba(245,158,11,0.16),_rgba(217,119,6,0.1)_50%,_transparent_65%)] blur-[120px] rounded-full animate-ambient-drift" />
-        
-        {/* Left royal purple-indigo aurora bloom */}
-        <div className="absolute top-1/3 -left-32 w-[850px] h-[850px] bg-[radial-gradient(circle,_rgba(147,51,234,0.2),_rgba(99,102,241,0.15)_50%,_transparent_70%)] dark:bg-[radial-gradient(circle,_rgba(168,85,247,0.15),_rgba(99,102,241,0.12)_50%,_transparent_70%)] blur-[130px] rounded-full" />
-        
-        {/* Center luminous golden spotlight */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-[radial-gradient(ellipse,_rgba(251,191,36,0.14),_transparent_65%)] dark:bg-[radial-gradient(ellipse,_rgba(251,191,36,0.12),_transparent_65%)] blur-[100px]" />
-        
-        {/* Bottom soft cyan-mint glow */}
-        <div className="absolute bottom-1/4 right-1/4 w-[650px] h-[650px] bg-[radial-gradient(circle,_rgba(20,184,166,0.12),_transparent_70%)] dark:bg-[radial-gradient(circle,_rgba(20,184,166,0.08),_transparent_70%)] blur-[120px]" />
+      {/* Sleek, Hardware-Accelerated Ambient Glow Canvas (Zero Lag, Fast Compositing) */}
+      <div className="ambient-glow absolute inset-0 pointer-events-none overflow-hidden z-0 select-none">
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(245,158,11,0.18),_rgba(124,58,237,0.12)_45%,_transparent_70%)] blur-[60px]" />
+        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(245,158,11,0.12),_transparent_65%)] blur-[70px] rounded-full" />
+        <div className="absolute top-1/3 -left-20 w-[600px] h-[600px] bg-[radial-gradient(circle,_rgba(147,51,234,0.12),_transparent_65%)] blur-[70px] rounded-full" />
       </div>
 
       <div className="relative z-10 flex flex-col">

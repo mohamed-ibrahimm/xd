@@ -13,8 +13,8 @@ interface FloatingWhatsAppProps {
 export default function FloatingWhatsApp({ settings = {} }: FloatingWhatsAppProps) {
   const pathname = usePathname();
 
-  // Hide in video classroom to keep full focus on the lessons
-  if (pathname.startsWith('/learn')) {
+  // Hide in video classroom, admin studio, and instructor portal
+  if (pathname.startsWith('/learn') || pathname.startsWith('/admin') || pathname.startsWith('/instructor')) {
     return null;
   }
 

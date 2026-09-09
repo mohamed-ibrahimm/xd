@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -44,6 +45,11 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // 10 Essential Admin Links with rich descriptions & high-impact visual themes
   const allNavItems: NavItem[] = useMemo(() => [
@@ -167,7 +173,10 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
       {/* =========================================================================
           1. SLIM & ELEGANT TOP STATUS BAR (Contained in layout, zero overlap)
          ========================================================================= */}
-      <div className="w-full bg-white/90 dark:bg-zinc-900/90 border border-slate-200/80 dark:border-amber-500/25 backdrop-blur-xl px-4 sm:px-6 py-3 rounded-2xl flex items-center justify-between shadow-sm mb-6">
+      {/* =========================================================================
+          1. SLIM & ELEGANT TOP STATUS BAR (Contained in layout, zero overlap)
+         ========================================================================= */}
+      <div className="w-full bg-white/90 dark:bg-zinc-900/90 border border-slate-200/80 dark:border-amber-500/25 backdrop-blur-xl px-4 sm:px-6 py-3 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm mb-6">
         <div className="flex items-center gap-2.5">
           <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-sm shadow-amber-400/50" />
           <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
@@ -178,11 +187,70 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
           </span>
         </div>
 
+        {/* Quick Direct Links */}
+        <div className="hidden xl:flex items-center gap-1 text-xs font-bold">
+          <Link
+            href="/admin/settings"
+            className={`px-3 py-1 rounded-lg transition-all ${
+              pathname === '/admin/settings'
+                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+            }`}
+          >
+            الإعدادات (VIP)
+          </Link>
+          <Link
+            href="/admin/courses"
+            className={`px-3 py-1 rounded-lg transition-all ${
+              pathname.startsWith('/admin/courses')
+                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+            }`}
+          >
+            الكورسات
+          </Link>
+          <Link
+            href="/admin/instructors"
+            className={`px-3 py-1 rounded-lg transition-all ${
+              pathname.startsWith('/admin/instructors')
+                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+            }`}
+          >
+            المحاضرين
+          </Link>
+          <Link
+            href="/admin/books"
+            className={`px-3 py-1 rounded-lg transition-all ${
+              pathname.startsWith('/admin/books')
+                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+            }`}
+          >
+            المذكرات
+          </Link>
+          <Link
+            href="/admin/payments"
+            className={`px-3 py-1 rounded-lg transition-all ${
+              pathname.startsWith('/admin/payments')
+                ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-amber-400 hover:bg-white/5'
+            }`}
+          >
+            المدفوعات
+          </Link>
+        </div>
+
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Quick Launcher Trigger Button */}
           <button
             type="button"
-            onClick={() => { setIsOpen(true); setSearchQuery(''); }}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsOpen(true);
+              setSearchQuery('');
+            }}
             className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-white text-xs font-black transition-all border border-slate-200 dark:border-white/10 shadow-xs cursor-pointer active:scale-95 group"
           >
             <LayoutGrid className="w-3.5 h-3.5 text-amber-500 group-hover:rotate-90 transition-transform duration-300" />
@@ -209,7 +277,12 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
          ========================================================================= */}
       <button
         type="button"
-        onClick={() => { setIsOpen(true); setSearchQuery(''); }}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsOpen(true);
+          setSearchQuery('');
+        }}
         className="fixed bottom-6 left-6 z-[9999] group flex items-center gap-2 p-1.5 pr-4 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-zinc-950 shadow-[0_10px_35px_rgba(245,158,11,0.45)] hover:shadow-[0_15px_45px_rgba(245,158,11,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ring-4 ring-amber-400/20"
         title="فتح القائمة السريعة (Ctrl+K)"
         aria-label="أقسام الإدارة السريعة"
@@ -223,10 +296,10 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
       </button>
 
       {/* =========================================================================
-          3. LUXURY QUICK COMMAND PALETTE MODAL (Fast, Beautiful & Searchable)
+          3. LUXURY QUICK COMMAND PALETTE MODAL (Rendered into document.body via Portal)
          ========================================================================= */}
-      {isOpen && (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-150">
+      {mounted && isOpen && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[999999] flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-150">
           {/* Backdrop Blur */}
           <div
             className="fixed inset-0 bg-black/80 backdrop-blur-md"
@@ -358,7 +431,8 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
