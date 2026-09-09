@@ -30,18 +30,18 @@ export default function DesktopHero({
   cleanPlatformName,
 }: DesktopHeroProps) {
   return (
-    <section className="hidden md:flex flex-col justify-center items-center min-h-[calc(100vh-3rem)] pt-24 sm:pt-28 lg:pt-32 pb-16 lg:pb-24 relative overflow-hidden">
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-10 w-full my-auto">
+    <section className="hidden md:flex flex-col justify-between min-h-[calc(100vh-4rem)] pt-24 sm:pt-28 pb-12 sm:pb-16 relative overflow-hidden">
+      <div className="max-w-[1680px] xl:max-w-[1780px] mx-auto px-6 sm:px-10 lg:px-14 w-full my-auto">
         
         {/* =========================================================================
-            MODERN 2-COLUMN ASYMMETRIC SPLIT HERO GRID (RTL First: Right Content, Left Virtual Stage)
+            MODERN 2-COLUMN ASYMMETRIC SPLIT HERO GRID (Expanded Width & Breathable Spacing)
            ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
           
           {/* =======================================================================
-              RIGHT COLUMN: TYPOGRAPHY, STUDENT TRUST PROOF & ACTION MATRIX
+              RIGHT COLUMN: TYPOGRAPHY & ACTION MATRIX (EXPANDED & SPACIOUS)
              ======================================================================= */}
-          <div className="lg:col-span-7 space-y-6 text-right">
+          <div className="lg:col-span-7 xl:col-span-8 space-y-7 text-right">
             
             {/* Top Promotional Shimmer Announcement */}
             {settings.BANNER_ENABLED !== 'false' && (
@@ -63,44 +63,22 @@ export default function DesktopHero({
               </div>
             )}
 
-            {/* Headline with authoritative, high-energy presence */}
-            <div className="space-y-3">
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[54px] font-black text-slate-950 dark:text-white leading-[1.2] tracking-tight">
-                {settings.HERO_TITLE || 'بوابتك الذكية لاحتراف'}
-                <span className="block mt-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-[#00e55b] dark:via-[#10f068] dark:to-[#00b846] bg-clip-text text-transparent">
-                  {settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي'}
+            {/* Headline with authoritative, high-energy presence and spacious, non-overlapping leading */}
+            <div className="space-y-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[48px] font-black text-slate-950 dark:text-white leading-[1.38] tracking-normal">
+                <span className="block">{settings.HERO_TITLE || 'بوابتك الذكية لاحتراف'}</span>
+                <span className="block mt-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-[#0df268] dark:via-[#00e55b] dark:to-[#00b846] bg-clip-text text-transparent leading-[1.38] py-1">
+                  {(settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي').replace(/،/g, '').trim()}
                 </span>
               </h1>
 
-              <p className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-zinc-300 max-w-2xl leading-relaxed font-medium pt-1">
+              <p className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-zinc-300 max-w-2xl leading-relaxed font-normal pt-1">
                 {settings.HERO_SUBTITLE || `${cleanPlatformName} — مسارات تدريبية هندسية متكاملة، دبلومات برمجية معتمدة، ومشاريع إنتاج واقعية تؤهلك لسوق العمل بثقة واحتراف.`}
               </p>
             </div>
 
-            {/* Student Social Proof & Learning Ambition Row */}
-            <div className="flex flex-wrap items-center gap-4 pt-1">
-              <div className="flex -space-x-2.5 rtl:space-x-reverse shrink-0">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="طالب بالأكاديمية" className="w-9 h-9 rounded-full border-2 border-white dark:border-[#0c0918] object-cover shadow-sm" />
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="طالب بالأكاديمية" className="w-9 h-9 rounded-full border-2 border-white dark:border-[#0c0918] object-cover shadow-sm" />
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="طالب بالأكاديمية" className="w-9 h-9 rounded-full border-2 border-white dark:border-[#0c0918] object-cover shadow-sm" />
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="طالبة بالأكاديمية" className="w-9 h-9 rounded-full border-2 border-white dark:border-[#0c0918] object-cover shadow-sm" />
-              </div>
-              <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-700 dark:text-zinc-300">
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#00e55b] animate-pulse" />
-                  <span className="text-slate-900 dark:text-zinc-100 font-extrabold">+1,540 طالب يدرسون الآن</span>
-                </span>
-                <span className="text-slate-300 dark:text-zinc-700">•</span>
-                <div className="flex items-center gap-1 text-amber-500 dark:text-[#00e55b]">
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  <span className="font-black text-slate-900 dark:text-white">4.9/5</span>
-                  <span className="text-slate-500 dark:text-zinc-400 font-medium">(تقييم خريجي المنصة)</span>
-                </div>
-              </div>
-            </div>
-
-            {/* 4 Premium Action Pillars Lowered with High-End Hierarchy */}
-            <div className="space-y-3 pt-3">
+            {/* 4 Premium Action Pillars with Comfortable Breathing Room */}
+            <div className="space-y-3.5 pt-2 mb-2">
               {/* Row 1: Primary Bestselling Diploma & Digital Notes Marketplace */}
               <div className="flex flex-wrap items-center gap-3">
                 {/* 1. Diploma Button (Electric Cyber Neon Green Pill) */}
@@ -161,7 +139,7 @@ export default function DesktopHero({
           {/* =======================================================================
               LEFT COLUMN: VIRTUAL CLASSROOM & ACTIVE STUDENT AMBITION STAGE
              ======================================================================= */}
-          <div className="lg:col-span-5 relative w-full pt-8 lg:pt-0">
+          <div className="lg:col-span-5 xl:col-span-4 relative w-full pt-8 lg:pt-0">
             
             {/* Ambient Background Flare */}
             <div className="absolute -inset-4 bg-gradient-to-tr from-[#00e55b]/20 via-purple-600/15 to-blue-600/20 rounded-3xl blur-2xl pointer-events-none -z-10" />
@@ -208,33 +186,33 @@ export default function DesktopHero({
                 </div>
               </div>
 
-              {/* Code Snippet */}
-              <div className="p-5 font-mono text-xs leading-relaxed space-y-2 text-slate-300 dark:text-zinc-200">
-                <p className="text-slate-500 dark:text-zinc-500 text-[11px]">// أكاديمية م / محمد إبراهيم — الدبلومة الشاملة</p>
+              {/* Code Snippet (Strictly LTR) */}
+              <div className="p-5 font-mono text-xs leading-relaxed space-y-2 text-slate-300 dark:text-zinc-200" dir="ltr">
+                <p className="text-slate-500 dark:text-zinc-500 text-[11px]">// Career Engineering Track</p>
                 <p>
                   <span className="text-purple-400">const</span>{' '}
                   <span className="text-[#00e55b] font-bold">studentGraduate</span> ={' '}
                   <span className="text-sky-400">await</span> qimam.<span className="text-amber-300">enrollCareerTrack</span>({'{'}
                 </p>
-                <p className="pr-4 text-zinc-400">
+                <p className="pl-4 text-zinc-400">
                   specialization:{' '}
-                  <span className="text-emerald-400">&quot;Full-Stack & AI Systems&quot;</span>,
+                  <span className="text-emerald-400">&quot;Full-Stack &amp; AI Systems&quot;</span>,
                 </p>
-                <p className="pr-4 text-zinc-400">
+                <p className="pl-4 text-zinc-400">
                   practicalProjects:{' '}
-                  <span className="text-cyan-300">12 مشاريع واقعية</span>,
+                  <span className="text-cyan-300">12</span>,
                 </p>
-                <p className="pr-4 text-zinc-400">
+                <p className="pl-4 text-zinc-400">
                   verifiedCertificateQR:{' '}
                   <span className="text-purple-300">true</span>,
                 </p>
-                <p className="pr-4 text-zinc-400">
+                <p className="pl-4 text-zinc-400">
                   status:{' '}
-                  <span className="text-[#00e55b] font-bold">&quot;امتياز مع مرتبة الشرف&quot;</span>
+                  <span className="text-[#00e55b] font-bold">&quot;Distinction With Honors&quot;</span>
                 </p>
                 <p>{'}'});</p>
-                <div className="pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-[11px]">
-                  <span className="text-[#70ff9b] font-bold flex items-center gap-1">
+                <div className="pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-[11px]" dir="rtl">
+                  <span className="text-[#70ff9b] font-bold flex items-center gap-1 font-sans">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#00e55b]" />
                     <span>تم بناء ونشر أول مشروع إنتاجي واقعي بنجاح</span>
                   </span>
