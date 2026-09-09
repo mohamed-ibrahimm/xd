@@ -17,6 +17,14 @@ import {
   Clock,
   Flame,
   Bot,
+  MessageCircle,
+  Headphones,
+  Mail,
+  Facebook,
+  Send,
+  Youtube,
+  Linkedin,
+  ShieldCheck,
 } from 'lucide-react';
 
 async function getHomeData() {
@@ -414,6 +422,120 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* =======================================================================
+            BOTTOM QUICK DIRECT CONTACT STRIP (Relocated from hero as requested)
+           ======================================================================= */}
+        {hasAnySocial && (
+          <section className="px-4 sm:px-6 py-14 sm:py-16 bg-slate-900/[0.03] dark:bg-zinc-950/60 border-t border-slate-200/80 dark:border-zinc-800/80 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,229,91,0.06),_transparent_70%)] pointer-events-none" />
+            <div className="max-w-5xl mx-auto relative z-10 text-center space-y-8">
+              
+              {/* Header */}
+              <div className="space-y-2.5 max-w-xl mx-auto">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-[#00e55b]/10 border border-blue-200 dark:border-[#00e55b]/30 text-blue-700 dark:text-[#70ff9b] text-xs font-bold">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>تواصل فوري ومباشر مع إدارة الأكاديمية</span>
+                </div>
+                <h3 className="font-display text-2xl sm:text-3xl font-black text-slate-950 dark:text-zinc-100">
+                  فريقنا معك في كل خطوة
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
+                  هل لديك استفسار عن الكورسات، أو ترغب في مساعدة فورية بالتسجيل؟ تواصل معنا مباشرة عبر القناة الأنسب لك
+                </p>
+              </div>
+
+              {/* Action Buttons Matrix */}
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                {whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-[#00e55b] dark:hover:bg-[#0df268] dark:text-black font-black text-xs sm:text-sm transition-all shadow-lg shadow-emerald-600/20 dark:shadow-[0_4px_25px_rgba(0,229,91,0.35)] hover:scale-105 active:scale-95"
+                    title="محادثة واتساب مباشرة"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-current shrink-0" />
+                    <span>واتساب الأكاديمية (رد فوري)</span>
+                  </a>
+                )}
+
+                <Link
+                  href="/support"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-white hover:bg-slate-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-slate-900 dark:text-zinc-100 border border-slate-200 dark:border-zinc-700 font-bold text-xs sm:text-sm transition-all shadow-sm hover:scale-105 active:scale-95"
+                  title="الدعم الفني والمساعدة"
+                >
+                  <Headphones className="w-4 h-4 text-blue-600 dark:text-[#00e55b] shrink-0" />
+                  <span>مركز الدعم الفني</span>
+                </Link>
+
+                {contactEmail && (
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-slate-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm"
+                    title="راسلنا عبر البريد"
+                  >
+                    <Mail className="w-4 h-4 text-slate-600 dark:text-zinc-400 shrink-0" />
+                    <span>البريد الإلكتروني</span>
+                  </a>
+                )}
+
+                {facebookUrl && (
+                  <a
+                    href={facebookUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-slate-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm"
+                    title="صفحة الفيسبوك الرسمية"
+                  >
+                    <Facebook className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <span>فيسبوك</span>
+                  </a>
+                )}
+
+                {telegramUrl && (
+                  <a
+                    href={telegramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-slate-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm"
+                    title="قناة التيليجرام"
+                  >
+                    <Send className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
+                    <span>تيليجرام</span>
+                  </a>
+                )}
+
+                {youtubeUrl && (
+                  <a
+                    href={youtubeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-slate-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm"
+                    title="قناة اليوتيوب الرسمية"
+                  >
+                    <Youtube className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0" />
+                    <span>يوتيوب</span>
+                  </a>
+                )}
+
+                {linkedinUrl && (
+                  <a
+                    href={linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-slate-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-300 border border-slate-200 dark:border-zinc-800 text-xs font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm"
+                    title="لينكد إن"
+                  >
+                    <Linkedin className="w-4 h-4 text-blue-700 dark:text-blue-400 shrink-0" />
+                    <span>لينكد إن</span>
+                  </a>
+                )}
+              </div>
+
+            </div>
+          </section>
+        )}
 
       </div>
     </div>
