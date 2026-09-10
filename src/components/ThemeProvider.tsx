@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 type Theme = 'DARK' | 'LIGHT';
 
@@ -11,7 +11,7 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'DARK',
+  theme: 'LIGHT',
   toggleTheme: () => {},
   setTheme: () => {},
 });
@@ -20,68 +20,73 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('DARK');
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem('qimam_theme') as Theme | null;
-    if (saved && (saved === 'DARK' || saved === 'LIGHT')) {
-      setThemeState(saved);
-      applyTheme(saved);
-    } else {
-      applyTheme('DARK');
-    }
-  }, []);
-
-  const applyTheme = (t: Theme) => {
+  const applyTheme = useCallback((t: Theme) => {
     if (typeof document === 'undefined') return;
     const root = document.documentElement;
     const body = document.body;
+
     if (t === 'LIGHT') {
-      root.classList.add('light-theme');
       root.classList.remove('dark');
+      root.classList.add('light-theme');
       root.setAttribute('data-theme', 'light');
-      root.style.setProperty('--bg-app', '#f6f8fc');
-      root.style.setProperty('--bg-surface', '#ffffff');
-      root.style.setProperty('--text-main', '#0f172a');
-      root.style.setProperty('--text-sub', '#334155');
-      root.style.setProperty('--text-muted', '#64748b');
       root.style.colorScheme = 'light';
       if (body) {
-        body.classList.add('light-theme');
         body.classList.remove('dark');
+        body.classList.add('light-theme');
         body.setAttribute('data-theme', 'light');
-        body.style.backgroundColor = '#f6f8fc';
-        body.style.color = '#0f172a';
       }
     } else {
       root.classList.remove('light-theme');
       root.classList.add('dark');
       root.setAttribute('data-theme', 'dark');
-      root.style.setProperty('--bg-app', '#0f0f15');
-      root.style.setProperty('--bg-surface', '#15151e');
-      root.style.setProperty('--text-main', '#f4f4f5');
-      root.style.setProperty('--text-sub', '#cbd5e1');
-      root.style.setProperty('--text-muted', '#94a3b8');
       root.style.colorScheme = 'dark';
       if (body) {
         body.classList.remove('light-theme');
         body.classList.add('dark');
         body.setAttribute('data-theme', 'dark');
-        body.style.backgroundColor = '#0f0f15';
-        body.style.color = '#f4f4f5';
       }
     }
-  };
+  }, []);
 
-  const setTheme = (t: Theme) => {
+  useEffect(() => {
+    setMounted(true);
+    // Read saved preference, default to DARK (Dark Tech Neon Emerald)
+    let saved: Theme = 'DARK';
+    try {
+      const stored = localStorage.getItem('qimam_theme_v2') || localStorage.getItem('qimam_theme');
+      if (stored === 'LIGHT') {
+        saved = 'LIGHT';
+      } else {
+        saved = 'DARK';
+      }
+    } catch (e) {
+      saved = 'DARK';
+    }
+
+    setThemeState(saved);
+    applyTheme(saved);
+  }, [applyTheme]);
+
+  const setTheme = useCallback((t: Theme) => {
     setThemeState(t);
-    localStorage.setItem('qimam_theme', t);
+    try {
+      localStorage.setItem('qimam_theme_v2', t);
+      localStorage.setItem('qimam_theme', t);
+    } catch (e) {}
     applyTheme(t);
-  };
+  }, [applyTheme]);
 
-  const toggleTheme = () => {
-    const nextTheme = theme === 'DARK' ? 'LIGHT' : 'DARK';
-    setTheme(nextTheme);
-  };
+  const toggleTheme = useCallback(() => {
+    setThemeState((prev) => {
+      const nextTheme = prev === 'DARK' ? 'LIGHT' : 'DARK';
+      try {
+        localStorage.setItem('qimam_theme_v2', nextTheme);
+        localStorage.setItem('qimam_theme', nextTheme);
+      } catch (e) {}
+      applyTheme(nextTheme);
+      return nextTheme;
+    });
+  }, [applyTheme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

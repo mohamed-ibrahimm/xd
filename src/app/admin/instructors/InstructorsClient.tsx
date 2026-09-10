@@ -310,9 +310,9 @@ export default function InstructorsClient({
       </div>
 
       {/* Instructors Table */}
-      <div className="overflow-x-auto rounded-3xl border border-slate-200 dark:border-border bg-white dark:bg-surface shadow-xl">
+      <div className="overflow-x-auto rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#111113] shadow-xl">
         <table className="w-full text-right text-xs">
-          <thead className="bg-slate-50 dark:bg-surface-raised border-b border-slate-200 dark:border-border text-slate-500 dark:text-zinc-400 font-bold">
+          <thead className="bg-slate-50 dark:bg-white/[0.04] border-b border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 font-bold">
             <tr>
               <th className="p-3.5">المحاضر</th>
               <th className="p-3.5">الكورسات</th>
@@ -322,18 +322,18 @@ export default function InstructorsClient({
               <th className="p-3.5 text-center">الإجراءات</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-border/60">
+          <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
             {filteredInstructors.map((inst) => {
               const sub = inst.subscriptionState;
               return (
-                <tr key={inst.id} className="hover:bg-slate-50/80 dark:hover:bg-surface-raised/40 transition-colors">
+                <tr key={inst.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
                   <td className="p-3.5">
                     <div className="font-black text-slate-900 dark:text-white text-sm">{inst.officialFullName}</div>
                     <div className="text-[11px] text-slate-500 dark:text-zinc-400">{inst.email}</div>
                     <div className="text-[11px] text-slate-400 dark:text-zinc-500 font-mono">{inst.phone || 'بدون هاتف'}</div>
                   </td>
                   <td className="p-3.5">
-                    <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-surface-raised border border-slate-200 dark:border-border font-bold text-slate-800 dark:text-white">
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 font-bold text-slate-800 dark:text-white">
                       {inst._count?.instructedCourses || 0} كورس
                     </span>
                   </td>

@@ -7,6 +7,7 @@ export const revalidate = 0;
 
 export async function GET() {
   try {
+    await requireAuth(['ADMIN']);
     const settings = await prisma.platformSetting.findMany();
     const settingsMap = Object.fromEntries(settings.map((s) => [s.key, s.value]));
     return NextResponse.json(

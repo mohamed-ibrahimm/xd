@@ -1,7 +1,8 @@
-﻿'use client';
+'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   BookOpen,
@@ -10,16 +11,19 @@ import {
   Tag,
   Receipt,
   Sparkles,
-  Search,
   SlidersHorizontal,
   User,
   X,
   FileText,
   Radio,
-  LayoutGrid,
-  ChevronLeft,
   Globe,
+  LogOut,
+  Menu,
+  GraduationCap,
+  Sun,
+  Moon,
 } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 
 export type InstructorTabType =
   | 'overview'
@@ -48,14 +52,13 @@ interface Props {
 interface NavItem {
   id?: InstructorTabType;
   name: string;
-  description: string;
   icon: any;
   href?: string;
   badge?: string;
   badgeColor?: string;
-  accent: string;
-  isExternal?: boolean;
+  isAction?: boolean;
   action?: () => void;
+  isExternal?: boolean;
 }
 
 export default function InstructorSidebarClient({
@@ -70,414 +73,360 @@ export default function InstructorSidebarClient({
   onNewCourseClick,
   publicProfileSlug,
 }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
-  // 10 Rich Navigation Cards for Instructor matching Admin design
-  const allNavItems: NavItem[] = useMemo(
+  // Grouped Navigation Sections
+  const navSections: { title: string; items: NavItem[] }[] = useMemo(
     () => [
       {
-        id: 'overview',
-        name: 'نظرة عامة والتحليلات',
-        description: 'متابعة إحصائيات الطلاب، المبيعات المباشرة، وحالة اشتراك الاستوديو',
-        icon: LayoutDashboard,
-        accent: 'from-blue-500 to-indigo-600',
+        title: 'أستوديو التدريس والبث',
+        items: [
+          {
+            id: 'overview' as InstructorTabType,
+            name: 'نظرة عامة والتحليلات',
+            icon: LayoutDashboard,
+          },
+          {
+            id: 'live' as InstructorTabType,
+            name: 'أستوديو البث المباشر (VIP)',
+            icon: Radio,
+            badge: 'LIVE VIP',
+            badgeColor: 'bg-rose-500 text-white animate-pulse shadow-sm shadow-rose-500/30',
+          },
+        ],
       },
       {
-        id: 'live',
-        name: 'أستوديو البث المباشر (Google Meet VIP)',
-        description: 'شرح حي تفاعلي، مشاركة الشاشة بدقة 1080p، كويزات Kahoot وفتح المايك',
-        icon: Radio,
-        badge: 'VIP LIVE',
-        badgeColor: 'bg-rose-500 text-white shadow-rose-500/30 animate-pulse',
-        accent: 'from-rose-500 via-rose-600 to-amber-500',
+        title: 'الكورسات والكتب الرقمية',
+        items: [
+          {
+            id: 'courses' as InstructorTabType,
+            name: 'دوراتي التدريبية',
+            icon: BookOpen,
+            badge: coursesCount > 0 ? `${coursesCount}` : undefined,
+            badgeColor: 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30',
+          },
+          {
+            name: 'إضافة كورس جديد',
+            icon: Plus,
+            isAction: true,
+            action: onNewCourseClick,
+            badge: 'جديد',
+            badgeColor: 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+          },
+          {
+            name: 'مذكراتي وكتبي (DRM)',
+            href: '/instructor/books',
+            icon: FileText,
+            badge: '85%',
+            badgeColor: 'bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30',
+          },
+          {
+            id: 'pricing' as InstructorTabType,
+            name: 'تعديل أسعار الكورسات والكتب',
+            icon: SlidersHorizontal,
+          },
+        ],
       },
       {
-        id: 'courses',
-        name: 'دوراتي وكورساتي التدريبية',
-        description: 'إدارة المناهج، الدروس، الامتحانات، والفيديوهات التعليمية',
-        icon: BookOpen,
-        badge: coursesCount > 0 ? `${coursesCount} دورة` : undefined,
-        badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
-        accent: 'from-amber-400 to-yellow-500',
-      },
-      {
-        name: 'إضافة كورس تدريبي جديد',
-        description: 'رفع دورة جديدة مع المناهج والمحاضرات وحماية DRM',
-        icon: Plus,
-        badge: 'جديد',
-        badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
-        accent: 'from-emerald-400 to-teal-500',
-        action: onNewCourseClick,
-      },
-      {
-        name: 'مذكراتي وكتبي الرقمية (DRM Shield)',
-        description: 'نشر المذكرات والملخصات مع تشفير كامل ومنع الطباعة والتسريب',
-        href: '/instructor/books',
-        icon: FileText,
-        badge: 'أرباح 85%',
-        badgeColor: 'bg-purple-500/20 text-purple-300 border border-purple-500/30',
-        accent: 'from-purple-500 to-indigo-600',
-      },
-      {
-        id: 'pricing',
-        name: 'تعديل أسعار الكورسات والكتب',
-        description: 'تغيير أسعار الدورات والكتب فورياً وتحديد عروض التخفيض',
-        icon: SlidersHorizontal,
-        badge: 'تعديل سريع',
-        badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
-        accent: 'from-emerald-500 to-green-600',
-      },
-      {
-        id: 'orders',
-        name: 'طلبات الطلاب وإيصالات التحويل',
-        description: 'مراجعة إيصالات فودافون كاش وإنستاباي وتأكيد اشتراك الطلاب',
-        icon: Receipt,
-        badge: pendingOrdersCount > 0 ? `${pendingOrdersCount} معلق` : undefined,
-        badgeColor: pendingOrdersCount > 0 ? 'bg-rose-500 text-white animate-pulse' : 'bg-purple-500/20 text-purple-300',
-        accent: 'from-rose-500 to-pink-600',
-      },
-      {
-        id: 'payments',
-        name: 'بيانات استلام أرباحي المباشرة',
-        description: 'تحديد عنوان InstaPay ورقم فودافون كاش لتحويلات الطلاب 100%',
-        icon: CreditCard,
-        accent: 'from-cyan-500 to-blue-600',
-      },
-      {
-        id: 'coupons',
-        name: 'كوبونات وقسائم الخصم',
-        description: 'إنشاء أكواد خصم بنسبة مئوية أو قيمة مالية لطلابك',
-        icon: Tag,
-        badge: couponsCount > 0 ? `${couponsCount} نشط` : undefined,
-        badgeColor: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
-        accent: 'from-blue-500 to-indigo-600',
-      },
-      {
-        id: 'subscription',
-        name: 'باقة اشتراك الاستوديو (SaaS)',
-        description: 'تجديد أو ترقية باقة الأكاديمية (شهري، سنوي، طالب، بث مباشر VIP)',
-        icon: Sparkles,
-        badge: subscriptionPlan === 'FREE_TRIAL' ? 'تجريبي' : subscriptionPlan || 'PRO',
-        badgeColor: 'bg-amber-500 text-zinc-950 font-black',
-        accent: 'from-amber-400 to-orange-500',
-      },
-      {
-        name: 'تصفح صفحتي كمحاضر للطلاب',
-        description: 'معاينة البروفايل العام والكورسات المنشورة كما يراها الطلاب',
-        href: publicProfileSlug ? `/instructors/${publicProfileSlug}` : '/courses',
-        icon: User,
-        isExternal: true,
-        accent: 'from-slate-500 to-zinc-600',
+        title: 'المالية والاشتراكات',
+        items: [
+          {
+            id: 'orders' as InstructorTabType,
+            name: 'طلبات الطلاب والإيصالات',
+            icon: Receipt,
+            badge: pendingOrdersCount > 0 ? `${pendingOrdersCount} معلق` : undefined,
+            badgeColor: pendingOrdersCount > 0 ? 'bg-rose-500 text-white animate-pulse' : undefined,
+          },
+          {
+            id: 'payments' as InstructorTabType,
+            name: 'بيانات استلام أرباحي',
+            icon: CreditCard,
+          },
+          {
+            id: 'coupons' as InstructorTabType,
+            name: 'كوبونات الخصم',
+            icon: Tag,
+            badge: couponsCount > 0 ? `${couponsCount}` : undefined,
+            badgeColor: 'bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/30',
+          },
+          {
+            id: 'subscription' as InstructorTabType,
+            name: 'باقة استوديو المحاضر (SaaS)',
+            icon: Sparkles,
+            badge: subscriptionPlan === 'FREE_TRIAL' ? 'تجريبي' : 'PRO',
+            badgeColor: 'bg-amber-500 text-black font-black',
+          },
+        ],
       },
     ],
-    [coursesCount, pendingOrdersCount, couponsCount, onNewCourseClick, publicProfileSlug, subscriptionPlan]
+    [coursesCount, pendingOrdersCount, couponsCount, onNewCourseClick, subscriptionPlan]
   );
 
-  // Keyboard Shortcut: Cmd+K or Ctrl+K or Escape
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setIsOpen((prev) => !prev);
-      } else if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    router.push('/login');
+    router.refresh();
+  };
 
-  // Filter items by search query
-  const filteredItems = useMemo(() => {
-    if (!searchQuery.trim()) return allNavItems;
-    const q = searchQuery.toLowerCase().trim();
-    return allNavItems.filter(
-      (item) => item.name.toLowerCase().includes(q) || item.description.toLowerCase().includes(q)
-    );
-  }, [allNavItems, searchQuery]);
+  const handleSelectTab = (tabId: InstructorTabType) => {
+    setActiveTab(tabId);
+    setMobileDrawerOpen(false);
+  };
 
-  // Current active item for Top Status Bar
-  const currentItem = useMemo(() => {
-    return allNavItems.find((item) => item.id === activeTab) || allNavItems[0];
-  }, [allNavItems, activeTab]);
-
-  return (
-    <>
-      {/* =========================================================================
-          1. SLIM & ELEGANT TOP STATUS BAR (Matching Admin exactly, Zero Layout Shift)
-         ========================================================================= */}
-      <div className="w-full bg-white/90 dark:bg-zinc-900/90 border border-slate-200/80 dark:border-amber-500/25 backdrop-blur-xl px-4 sm:px-6 py-3 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm mb-6">
-        <div className="flex items-center gap-2.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-sm shadow-amber-400/50" />
-          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
-            {currentItem?.name || 'استوديو المحاضر'}
-          </span>
-          <span className="hidden md:inline-block text-[11px] text-slate-500 dark:text-zinc-400 font-medium">
-            • {instructorName}
-          </span>
-          <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 font-bold border border-amber-500/30">
-            {subscriptionPlan === 'FREE_TRIAL' ? 'فترة تجريبية' : 'SaaS Pro'}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-          {/* Direct Live Broadcast Button */}
-          <Link
-            href="/live/instant-room"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-rose-600 via-rose-500 to-amber-500 text-white text-xs font-black shadow-md shadow-rose-600/25 hover:scale-105 transition-all cursor-pointer"
-          >
-            <Radio className="w-3.5 h-3.5 animate-pulse" />
-            <span>أستوديو البث (Live)</span>
-          </Link>
-
-          {/* Quick Launcher Trigger Button (⌘K) */}
-          <button
-            type="button"
-            onClick={() => {
-              setIsOpen(true);
-              setSearchQuery('');
-            }}
-            className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-white text-xs font-black transition-all border border-slate-200 dark:border-white/10 shadow-xs cursor-pointer active:scale-95 group"
-          >
-            <LayoutGrid className="w-3.5 h-3.5 text-amber-500 group-hover:rotate-90 transition-transform duration-300" />
-            <span>أقسام الاستوديو</span>
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-black/10 dark:bg-black/40 text-[10px] font-mono text-slate-500 dark:text-zinc-400 border border-black/5 dark:border-white/10">
-              ⌘K
-            </kbd>
-          </button>
-
-          {/* Home Link */}
-          <Link
-            href="/"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 text-xs font-bold transition-all border border-amber-500/30 shrink-0"
-            title="العودة للموقع العام"
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span className="hidden xs:inline">الموقع العام</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* =========================================================================
-          2. FLOATING CIRCULAR COMMAND TRIGGER (Bottom-Left Floating Button)
-         ========================================================================= */}
-      <button
-        type="button"
-        onClick={() => {
-          setIsOpen(true);
-          setSearchQuery('');
-        }}
-        className="fixed bottom-6 left-6 z-[9999] group flex items-center gap-2 p-1.5 pr-4 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-zinc-950 shadow-[0_10px_35px_rgba(245,158,11,0.45)] hover:shadow-[0_15px_45px_rgba(245,158,11,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ring-4 ring-amber-400/20"
-        title="فتح أقسام الاستوديو (Ctrl+K)"
-        aria-label="أقسام استوديو المحاضر"
-      >
-        <span className="text-xs font-black tracking-wide whitespace-nowrap hidden sm:inline-block">
-          أقسام الاستوديو
-        </span>
-        <div className="w-9 h-9 rounded-full bg-zinc-950 text-amber-400 flex items-center justify-center shadow-md group-hover:rotate-180 transition-transform duration-500">
-          <LayoutGrid className="w-4 h-4" />
-        </div>
-      </button>
-
-      {/* =========================================================================
-          3. LUXURY QUICK COMMAND PALETTE MODAL (Searchable, Fast & Beautiful)
-         ========================================================================= */}
-      {isOpen && (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-150">
-          {/* Backdrop Blur */}
-          <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
-            onClick={() => setIsOpen(false)}
-          />
-
-          {/* Modal Card */}
-          <div className="relative z-10 w-full max-w-2xl rounded-3xl bg-[#0e0a1f]/95 dark:bg-[#0c0918]/95 border-2 border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.9)] backdrop-blur-3xl p-4 sm:p-6 space-y-4 animate-in zoom-in-95 duration-200 text-right">
-            {/* Modal Header & Search */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
-                    <Sparkles className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm sm:text-base font-black text-white">
-                      أقسام استوديو المحاضر السحابي 
-                    </h3>
-                    <p className="text-[11px] text-zinc-400">
-                      انتقل لأي قسم بالاستوديو أو أطلق البث المباشر بضغطة زر
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-zinc-300 hover:text-white transition-colors cursor-pointer"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Instant Search Bar */}
-              <div className="relative">
-                <input
-                  type="text"
-                  autoFocus
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="ابحث عن قسم (مثل: البث المباشر، الكورسات، المذكرات، الأسعار، الأرباح)..."
-                  className="w-full h-11 pr-10 pl-4 rounded-2xl bg-white/[0.06] border border-white/10 text-white placeholder:text-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all"
-                />
-                <Search className="w-4 h-4 text-zinc-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              </div>
+  const renderNavContent = () => (
+    <div className="flex flex-col h-full justify-between">
+      <div className="space-y-6">
+        {/* Brand Header */}
+        <div className="flex items-center gap-3 px-2 pb-5 border-b border-slate-200/80 dark:border-white/10">
+          <div className="w-10 h-10 rounded-2xl bg-amber-500 text-black flex items-center justify-center font-black shadow-md shrink-0">
+            <GraduationCap className="w-5 h-5" />
+          </div>
+          <div className="text-start min-w-0">
+            <h2 className="text-sm font-black text-slate-900 dark:text-white truncate">
+              استوديو المحاضر
+            </h2>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400">
+                منصة قمم التعليمية
+              </span>
             </div>
+          </div>
+        </div>
 
-            {/* Interactive Grid of Navigation Cards */}
-            <div className="max-h-[60vh] overflow-y-auto pr-1 pl-1 space-y-2 scrollbar-thin">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {filteredItems.map((item, idx) => {
-                  const isActive = item.id && activeTab === item.id;
+        {/* Instructor Profile Badge */}
+        <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xs font-black shrink-0">
+              {instructorName.charAt(0) || 'م'}
+            </div>
+            <div className="text-start min-w-0">
+              <p className="text-xs font-black text-slate-900 dark:text-white truncate">{instructorName}</p>
+              <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">
+                {instructorEmail}
+              </span>
+            </div>
+          </div>
+          <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 shrink-0">
+            {subscriptionPlan === 'FREE_TRIAL' ? 'تجريبي' : 'SaaS Pro'}
+          </span>
+        </div>
+
+        {/* Theme Toggle Button (Light / Night Mode Switcher) */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleTheme();
+          }}
+          className="w-full flex items-center justify-between p-2.5 px-3.5 rounded-2xl bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200/80 dark:hover:bg-white/[0.08] border border-slate-200/70 dark:border-white/10 text-xs font-bold transition-all cursor-pointer group shadow-xs"
+          title={theme === 'DARK' ? 'التحويل إلى الوضع النهاري (فاتح)' : 'التحويل إلى الوضع الليلي (داكن)'}
+        >
+          <div className="flex items-center gap-2.5">
+            {theme === 'DARK' ? (
+              <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform shrink-0" />
+            ) : (
+              <Moon className="w-4 h-4 text-purple-600 group-hover:-rotate-12 transition-transform shrink-0" />
+            )}
+            <span className="text-slate-800 dark:text-zinc-200">
+              {theme === 'DARK' ? 'الوضع النهاري (فاتح)' : 'الوضع الليلي (داكن)'}
+            </span>
+          </div>
+          <span className="px-2 py-0.5 rounded-full text-[9.5px] font-black bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+            {theme === 'DARK' ? 'Dark' : 'Light'}
+          </span>
+        </button>
+
+        {/* Grouped Nav Items */}
+        <div className="space-y-5 text-start">
+          {navSections.map((section, sIdx) => (
+            <div key={sIdx} className="space-y-1.5">
+              <span className="px-3 text-[10.5px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider block">
+                {section.title}
+              </span>
+              <div className="space-y-0.5">
+                {section.items.map((item, iIdx) => {
                   const Icon = item.icon;
 
-                  const handleClick = () => {
-                    if (item.action) {
-                      item.action();
-                      setIsOpen(false);
-                      return;
-                    }
-                    if (item.id) {
-                      setActiveTab(item.id);
-                      setIsOpen(false);
-                    }
-                  };
+                  if (item.isAction && item.action) {
+                    return (
+                      <button
+                        key={iIdx}
+                        type="button"
+                        onClick={() => {
+                          item.action?.();
+                          setMobileDrawerOpen(false);
+                        }}
+                        className="w-full group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-950 dark:hover:text-white transition-all cursor-pointer text-start"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <Icon className="w-4 h-4 shrink-0 text-emerald-500 transition-transform group-hover:scale-110" />
+                          <span className="truncate">{item.name}</span>
+                        </div>
+                        {item.badge && (
+                          <span className={`px-2 py-0.5 rounded-full text-[9.5px] font-black shrink-0 ${
+                            item.badgeColor || 'bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-zinc-300'
+                          }`}>
+                            {item.badge}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  }
 
                   if (item.href) {
                     return (
                       <Link
-                        key={item.href || idx}
+                        key={iIdx}
                         href={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className="group flex items-start gap-3 p-3 rounded-2xl border transition-all duration-200 bg-white/[0.03] hover:bg-white/[0.08] text-white border-white/[0.06] hover:border-amber-500/40 hover:-translate-y-0.5 cursor-pointer"
+                        onClick={() => setMobileDrawerOpen(false)}
+                        className="group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-950 dark:hover:text-white transition-all text-start"
                       >
-                        <div
-                          className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 shadow-sm bg-gradient-to-tr ${item.accent} text-white`}
-                        >
-                          <Icon className="w-4 h-4" />
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <Icon className="w-4 h-4 shrink-0 text-purple-500 transition-transform group-hover:scale-110" />
+                          <span className="truncate">{item.name}</span>
                         </div>
-
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between gap-1 mb-0.5">
-                            <span className="text-xs font-black truncate text-white group-hover:text-amber-300">
-                              {item.name}
-                            </span>
-                            {item.badge && (
-                              <span
-                                className={`text-[9px] font-black px-1.5 py-0.2 rounded-full shrink-0 ${
-                                  item.badgeColor || 'bg-amber-500/20 text-amber-300'
-                                }`}
-                              >
-                                {item.badge}
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-[10.5px] leading-snug line-clamp-1 text-zinc-400 group-hover:text-zinc-300">
-                            {item.description}
-                          </p>
-                        </div>
-
-                        <ChevronLeft className="w-4 h-4 shrink-0 mt-2 transition-transform group-hover:-translate-x-1 text-zinc-500 group-hover:text-amber-400" />
+                        {item.badge && (
+                          <span className={`px-2 py-0.5 rounded-full text-[9.5px] font-black shrink-0 ${
+                            item.badgeColor || 'bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-zinc-300'
+                          }`}>
+                            {item.badge}
+                          </span>
+                        )}
                       </Link>
                     );
                   }
 
+                  const isActive = item.id === activeTab;
+
                   return (
                     <button
-                      key={item.id || item.name || idx}
+                      key={iIdx}
                       type="button"
-                      onClick={handleClick}
-                      className={`w-full group flex items-start gap-3 p-3 rounded-2xl border text-right transition-all duration-200 cursor-pointer ${
+                      onClick={() => item.id && handleSelectTab(item.id)}
+                      className={`w-full group flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all text-start cursor-pointer ${
                         isActive
-                          ? 'bg-amber-500 text-zinc-950 border-amber-400 shadow-lg shadow-amber-500/25 font-black scale-[1.01]'
-                          : 'bg-white/[0.03] hover:bg-white/[0.08] text-white border-white/[0.06] hover:border-amber-500/40 hover:-translate-y-0.5'
+                          ? 'bg-amber-500 text-black font-black shadow-md scale-[1.01]'
+                          : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] hover:text-slate-950 dark:hover:text-white'
                       }`}
                     >
-                      <div
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 shadow-sm ${
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Icon className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
+                          isActive ? 'text-black' : 'text-slate-500 dark:text-zinc-400'
+                        }`} />
+                        <span className="truncate">{item.name}</span>
+                      </div>
+
+                      {item.badge && (
+                        <span className={`px-2 py-0.5 rounded-full text-[9.5px] font-black shrink-0 ${
                           isActive
-                            ? 'bg-zinc-950 text-amber-400'
-                            : `bg-gradient-to-tr ${item.accent} text-white`
-                        }`}
-                      >
-                        <Icon className="w-4 h-4" />
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-1 mb-0.5">
-                          <span
-                            className={`text-xs font-black truncate ${
-                              isActive ? 'text-zinc-950' : 'text-white group-hover:text-amber-300'
-                            }`}
-                          >
-                            {item.name}
-                          </span>
-                          {item.badge && (
-                            <span
-                              className={`text-[9px] font-black px-1.5 py-0.2 rounded-full shrink-0 ${
-                                isActive
-                                  ? 'bg-zinc-950 text-amber-400'
-                                  : item.badgeColor || 'bg-amber-500/20 text-amber-300'
-                              }`}
-                            >
-                              {item.badge}
-                            </span>
-                          )}
-                        </div>
-                        <p
-                          className={`text-[10.5px] leading-snug line-clamp-1 ${
-                            isActive
-                              ? 'text-zinc-900 font-medium'
-                              : 'text-zinc-400 group-hover:text-zinc-300'
-                          }`}
-                        >
-                          {item.description}
-                        </p>
-                      </div>
-
-                      <ChevronLeft
-                        className={`w-4 h-4 shrink-0 mt-2 transition-transform group-hover:-translate-x-1 ${
-                          isActive ? 'text-zinc-950' : 'text-zinc-500 group-hover:text-amber-400'
-                        }`}
-                      />
+                            ? 'bg-black/20 text-black'
+                            : item.badgeColor || 'bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-zinc-300'
+                        }`}>
+                          {item.badge}
+                        </span>
+                      )}
                     </button>
                   );
                 })}
               </div>
-
-              {filteredItems.length === 0 && (
-                <div className="p-8 text-center text-zinc-400 space-y-2">
-                  <p className="text-xs">لم يتم العثور على قسم يطابق بحثك</p>
-                  <button
-                    type="button"
-                    onClick={() => setSearchQuery('')}
-                    className="text-xs text-amber-400 font-black hover:underline cursor-pointer"
-                  >
-                    عرض كافة الأقسام
-                  </button>
-                </div>
-              )}
             </div>
+          ))}
+        </div>
+      </div>
 
-            {/* Modal Footer */}
-            <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between text-[11px] text-zinc-400">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-zinc-300 font-bold">المحاضر: {instructorName}</span>
-              </div>
-              <span className="hidden sm:inline text-zinc-500">
-                اضغط <kbd className="px-1 py-0.5 rounded bg-white/10 text-[10px] text-zinc-300 font-mono">ESC</kbd> للإغلاق
-              </span>
+      {/* Footer Navigation Actions */}
+      <div className="pt-4 border-t border-slate-200/80 dark:border-white/10 space-y-1 text-start">
+        {publicProfileSlug && (
+          <Link
+            href={`/instructors/${publicProfileSlug}`}
+            className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+          >
+            <User className="w-4 h-4 text-slate-500 dark:text-zinc-400" />
+            <span>معاينة صفحتي للطلاب</span>
+          </Link>
+        )}
+
+        <Link
+          href="/"
+          className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+        >
+          <Globe className="w-4 h-4 text-slate-500 dark:text-zinc-400" />
+          <span>زيارة الموقع العام</span>
+        </Link>
+
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer text-start"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>تسجيل الخروج</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* 1. DESKTOP PERMANENT PINNED SAAS SIDEBAR */}
+      <aside className="hidden lg:flex flex-col w-64 xl:w-72 bg-white/95 dark:bg-[#0c0918]/95 border-l border-slate-200/80 dark:border-white/10 shrink-0 h-screen sticky top-0 overflow-y-auto p-4 z-30 shadow-sm backdrop-blur-xl">
+        {renderNavContent()}
+      </aside>
+
+      {/* 2. MOBILE TOP BAR (With Hamburger Toggle) */}
+      <div className="lg:hidden w-full bg-white/95 dark:bg-[#0c0918]/95 border-b border-slate-200/80 dark:border-white/10 px-4 py-3 flex items-center justify-between sticky top-0 z-40 backdrop-blur-xl">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-amber-500 text-black flex items-center justify-center font-black">
+            <GraduationCap className="w-4 h-4" />
+          </div>
+          <div>
+            <h2 className="text-xs font-black text-slate-900 dark:text-white leading-tight">استوديو المحاضر</h2>
+            <span className="text-[10px] text-slate-500 dark:text-zinc-400">{instructorName}</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="p-2 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-white/15 transition-colors cursor-pointer"
+            aria-label="تبديل المظهر"
+            title={theme === 'DARK' ? 'التحويل إلى الوضع النهاري' : 'التحويل إلى الوضع الليلي'}
+          >
+            {theme === 'DARK' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-purple-600" />}
+          </button>
+
+          <button
+            onClick={() => setMobileDrawerOpen(true)}
+            className="p-2 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white hover:bg-slate-200 transition-colors cursor-pointer"
+            aria-label="فتح القائمة"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* 3. MOBILE OFF-CANVAS DRAWER */}
+      {mobileDrawerOpen && (
+        <div className="fixed inset-0 z-[99999] lg:hidden animate-in fade-in duration-150">
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setMobileDrawerOpen(false)}
+          />
+          <div className="fixed inset-y-0 right-0 w-72 bg-white dark:bg-[#0c0918] p-5 shadow-2xl overflow-y-auto z-10 animate-in slide-in-from-right duration-200">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-white/10">
+              <span className="text-xs font-black text-slate-900 dark:text-white">أقسام الاستوديو</span>
+              <button
+                onClick={() => setMobileDrawerOpen(false)}
+                className="p-1.5 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-zinc-400 hover:text-rose-500"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
+            {renderNavContent()}
           </div>
         </div>
       )}

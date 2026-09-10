@@ -153,7 +153,7 @@ export default function BooksCatalogClient({
       {/* =========================================================================
           1. CENTERED WORLD-CLASS HERO BANNER (Full-width, Symmetrical Glassmorphism)
          ========================================================================= */}
-      <div className="relative rounded-[40px] overflow-hidden p-6 sm:p-10 md:p-12 border-2 border-amber-500/30 bg-slate-950 dark:bg-gradient-to-br dark:from-[#0c081e] dark:via-[#140e2b] dark:to-[#0a0618] text-white shadow-[0_25px_70px_rgba(0,0,0,0.8)] text-center">
+      <div className="relative rounded-[40px] overflow-hidden p-6 sm:p-10 md:p-12 border border-pink-200/80 dark:border-[rgba(233,79,159,0.25)] bg-white/95 dark:bg-[#111113] text-slate-900 dark:text-white shadow-xl shadow-[0_25px_70px_rgba(0,0,0,0.8)] text-center">
         
         {/* Dynamic Glowing Ambiance */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-gradient-to-b from-amber-500/20 via-purple-600/15 to-transparent rounded-full blur-[140px] pointer-events-none" />
@@ -163,21 +163,21 @@ export default function BooksCatalogClient({
         <div className="relative z-10 max-w-4xl mx-auto space-y-4">
           
           {/* Top Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-amber-500/15 border border-amber-500/50 text-amber-300 text-xs sm:text-sm font-black shadow-lg shadow-amber-500/10">
-            <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-50 dark:bg-[rgba(233,79,159,0.10)] border border-pink-200 dark:border-[rgba(233,79,159,0.25)] text-[#D83F8F] dark:text-[#E94F9F] text-xs sm:text-sm font-black shadow-lg shadow-amber-500/10">
+            <Sparkles className="w-4 h-4 text-[#D83F8F] dark:text-[#E94F9F] animate-pulse" />
             <span>سوق ومكتبة المذكرات والمراجع الرقمية المشفرة</span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[62px] font-black text-white leading-[1.18] tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[58px] font-black text-slate-900 dark:text-white leading-[1.18] tracking-tight">
             ملخصات دراسية، كتب تخصصية، <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#D83F8F] via-[#FF5CAD] to-[#B83278] dark:from-[#E94F9F] dark:via-[#FF5CAD] dark:to-[#E94F9F] bg-clip-text text-transparent">
               وبنوك أسئلة باحترافية كاملة
             </span>
           </h1>
 
           {/* Subtitle Description */}
-          <p className="text-sm sm:text-base md:text-lg text-zinc-300 leading-relaxed max-w-3xl mx-auto font-normal">
+          <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-zinc-300 leading-relaxed max-w-3xl mx-auto font-normal">
             تصفح واشترِ أقوى المذكرات والكتب المعدة بواسطة نخبة المحاضرين والطلاب المتفوقين، واقرأها من أي جهاز مع حماية مشددة بنظام DRM ومعاينة مجانية لأولى الصفحات.
           </p>
 
@@ -208,11 +208,11 @@ export default function BooksCatalogClient({
           <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
             <a
               href="#catalog-grid"
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-zinc-950 font-black text-xs sm:text-sm shadow-xl shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
+              className="px-6 py-3 rounded-full bg-[#D83F8F] hover:bg-[#B83278] dark:bg-[#E94F9F] dark:hover:bg-[#FF5CAD] text-white dark:text-black font-black text-xs sm:text-sm shadow-xl shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
             >
-              <Flame className="w-4 h-4 text-zinc-950" />
+              <Flame className="w-4 h-4 text-white dark:text-black" />
               <span>تصفح كافة المذكرات والكتب المتاحة</span>
-              <ArrowLeft className="w-4 h-4 text-zinc-950" />
+              <ArrowLeft className="w-4 h-4 text-white dark:text-black" />
             </a>
 
             <Link
@@ -234,8 +234,8 @@ export default function BooksCatalogClient({
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-zinc-800 pb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-zinc-950 flex items-center justify-center font-black shadow-md shadow-amber-500/20">
-                <Flame className="w-5 h-5 text-zinc-950 animate-bounce" />
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-white dark:text-black flex items-center justify-center font-black shadow-md shadow-amber-500/20">
+                <Flame className="w-5 h-5 text-white dark:text-black animate-bounce" />
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
@@ -257,9 +257,9 @@ export default function BooksCatalogClient({
               const isPurchased = purchasedBookIds.includes(book.id);
               const authorAvatar = getAuthorAvatar(book);
               const badgeColors = idx === 0
-                ? 'from-amber-500 to-yellow-400 text-zinc-950'
+                ? 'from-amber-500 to-yellow-400 text-white dark:text-black'
                 : idx === 1
-                ? 'from-emerald-500 to-teal-400 text-zinc-950'
+                ? 'from-emerald-500 to-teal-400 text-white dark:text-black'
                 : 'from-purple-600 to-indigo-500 text-white';
 
               return (
@@ -295,7 +295,7 @@ export default function BooksCatalogClient({
                       <span className="px-2.5 py-1 rounded-xl bg-black/70 backdrop-blur-md text-[11px]">
                         {book.pageCount} صفحة
                       </span>
-                      <span className="px-2.5 py-1 rounded-xl bg-amber-500 text-zinc-950 font-black text-[11px]">
+                      <span className="px-2.5 py-1 rounded-xl bg-amber-500 text-white dark:text-black font-black text-[11px]">
                         معاينة {book.previewPagesCount} صفحات
                       </span>
                     </div>
@@ -375,7 +375,7 @@ export default function BooksCatalogClient({
                       <div className="flex items-center gap-2">
                         <Link
                           href={`/books/${book.slug}`}
-                          className="px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-200 hover:bg-amber-500 hover:text-zinc-950 font-black text-xs transition-all flex items-center gap-1.5 shadow-xs"
+                          className="px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-200 hover:bg-amber-500 hover:text-white dark:text-black font-black text-xs transition-all flex items-center gap-1.5 shadow-xs"
                           title="عرض تفاصيل المذكرة والقارئ"
                         >
                           <Eye className="w-3.5 h-3.5" />
@@ -401,7 +401,7 @@ export default function BooksCatalogClient({
                         ) : (
                           <Link
                             href={`/checkout?bookId=${book.id}`}
-                            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-zinc-950 font-black text-xs flex items-center gap-1.5 shadow-lg shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all"
+                            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-white dark:text-black font-black text-xs flex items-center gap-1.5 shadow-lg shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all"
                           >
                             <ShoppingBag className="w-4 h-4" />
                             <span>شراء</span>
@@ -457,7 +457,7 @@ export default function BooksCatalogClient({
                 onClick={() => setPriceFilter('ALL')}
                 className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
                   priceFilter === 'ALL'
-                    ? 'bg-amber-500 text-zinc-950 shadow-xs'
+                    ? 'bg-amber-500 text-white dark:text-black shadow-xs'
                     : 'text-slate-600 dark:text-zinc-400 hover:text-white'
                 }`}
               >
@@ -468,7 +468,7 @@ export default function BooksCatalogClient({
                 onClick={() => setPriceFilter('PAID')}
                 className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
                   priceFilter === 'PAID'
-                    ? 'bg-amber-500 text-zinc-950 shadow-xs'
+                    ? 'bg-amber-500 text-white dark:text-black shadow-xs'
                     : 'text-slate-600 dark:text-zinc-400 hover:text-white'
                 }`}
               >
@@ -514,14 +514,14 @@ export default function BooksCatalogClient({
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold shrink-0 transition-all cursor-pointer border ${
                   isSelected
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-zinc-950 font-black border-amber-400 shadow-xl shadow-amber-500/20 scale-[1.02]'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-white dark:text-black font-black border-amber-400 shadow-xl shadow-amber-500/20 scale-[1.02]'
                     : 'bg-white dark:bg-[#130e28] border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
                 }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{cat.name}</span>
                 <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold ${
-                  isSelected ? 'bg-zinc-950/20 text-zinc-950' : 'bg-black/10 dark:bg-white/10'
+                  isSelected ? 'bg-zinc-950/20 text-white dark:text-black' : 'bg-black/10 dark:bg-white/10'
                 }`}>
                   {cat.count}
                 </span>
@@ -598,7 +598,7 @@ export default function BooksCatalogClient({
                       <span className="px-2.5 py-1 rounded-xl bg-black/80 backdrop-blur-xs font-mono text-[11px] border border-white/10">
                         {book.pageCount} صفحة
                       </span>
-                      <span className="px-2.5 py-1 rounded-xl bg-amber-500 text-zinc-950 font-black text-[11px] shadow-sm">
+                      <span className="px-2.5 py-1 rounded-xl bg-amber-500 text-white dark:text-black font-black text-[11px] shadow-sm">
                         معاينة {book.previewPagesCount} صفحات
                       </span>
                     </div>
@@ -676,7 +676,7 @@ export default function BooksCatalogClient({
                       <div className="flex items-center gap-1.5">
                         <Link
                           href={`/books/${book.slug}`}
-                          className="p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 hover:text-zinc-950 hover:bg-amber-500 transition-all font-bold text-xs flex items-center gap-1"
+                          className="p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 hover:text-white dark:text-black hover:bg-amber-500 transition-all font-bold text-xs flex items-center gap-1"
                           title="عرض تفاصيل المذكرة والقارئ"
                         >
                           <Eye className="w-3.5 h-3.5" />
@@ -702,7 +702,7 @@ export default function BooksCatalogClient({
                         ) : (
                           <Link
                             href={`/checkout?bookId=${book.id}`}
-                            className="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-zinc-950 font-black text-xs flex items-center gap-1 shadow-md shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all"
+                            className="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-white dark:text-black font-black text-xs flex items-center gap-1 shadow-md shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all"
                           >
                             <ShoppingBag className="w-3.5 h-3.5" />
                             <span>شراء</span>
@@ -735,7 +735,7 @@ export default function BooksCatalogClient({
                 setSelectedCategory('ALL');
                 setPriceFilter('ALL');
               }}
-              className="px-6 py-2.5 rounded-2xl bg-amber-500 text-zinc-950 font-black text-xs shadow-md cursor-pointer"
+              className="px-6 py-2.5 rounded-2xl bg-amber-500 text-white dark:text-black font-black text-xs shadow-md cursor-pointer"
             >
               إعادة تعيين الفلاتر
             </button>
@@ -765,9 +765,9 @@ export default function BooksCatalogClient({
         <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
           <Link
             href="/instructor/books/new"
-            className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-zinc-950 font-black text-xs sm:text-sm shadow-xl shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all text-center flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-[#D83F8F] hover:bg-[#B83278] dark:bg-[#E94F9F] dark:hover:bg-[#FF5CAD] text-white dark:text-black font-black text-xs sm:text-sm shadow-xl shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all text-center flex items-center justify-center gap-2"
           >
-            <FileText className="w-4 h-4 text-zinc-950" />
+            <FileText className="w-4 h-4 text-white dark:text-black" />
             <span>نشر مذكرة جديدة الآن</span>
           </Link>
 

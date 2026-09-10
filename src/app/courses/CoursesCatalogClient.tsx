@@ -242,13 +242,13 @@ export default function CoursesCatalogClient({
   );
 
   return (
-    <div className="relative min-h-screen py-8 px-3 sm:px-6 lg:px-10 overflow-hidden">
+    <div className="relative min-h-screen py-8 px-3 sm:px-6 lg:px-10 overflow-hidden bg-[#FAF8FA] dark:bg-[#050505] text-slate-900 dark:text-[#FAFAFA]">
       {/* Dynamic Background Mesh Orbs (Dual-Theme Compatible) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
-        <div className="dynamic-drift-1 absolute top-[3%] right-[10%] w-[600px] h-[600px] bg-amber-400/20 dark:bg-amber-500/10 rounded-full blur-[150px]" />
-        <div className="dynamic-drift-2 absolute bottom-[15%] left-[8%] w-[650px] h-[650px] bg-indigo-500/20 dark:bg-purple-600/15 rounded-full blur-[160px]" />
-        <div className="dynamic-drift-3 absolute top-[35%] left-[20%] w-[450px] h-[450px] bg-cyan-400/15 dark:bg-cyan-500/10 rounded-full blur-[130px]" />
-        <div className="dynamic-drift-4 absolute bottom-[8%] right-[18%] w-[500px] h-[500px] bg-rose-400/15 dark:bg-rose-600/10 rounded-full blur-[140px]" />
+        <div className="dynamic-drift-1 absolute top-[3%] right-[10%] w-[600px] h-[600px] bg-pink-400/15 dark:bg-[rgba(233,79,159,0.06)] rounded-full blur-[150px]" />
+        <div className="dynamic-drift-2 absolute bottom-[15%] left-[8%] w-[650px] h-[650px] bg-purple-400/15 dark:bg-[rgba(244,123,183,0.04)] rounded-full blur-[160px]" />
+        <div className="dynamic-drift-3 absolute top-[35%] left-[20%] w-[450px] h-[450px] bg-pink-400/10 dark:bg-[rgba(233,79,159,0.04)] rounded-full blur-[130px]" />
+        <div className="dynamic-drift-4 absolute bottom-[8%] right-[18%] w-[500px] h-[500px] bg-purple-400/10 dark:bg-[rgba(244,123,183,0.04)] rounded-full blur-[140px]" />
       </div>
 
       <div className="max-w-[1650px] w-full mx-auto space-y-10">
@@ -256,10 +256,10 @@ export default function CoursesCatalogClient({
         {/* =========================================================================
             1. DYNAMIC SPOTLIGHT VIP STAGE (الكورسات الأكثر نشراً، بحثاً وضجة)
            ========================================================================= */}
-        <div className="relative p-[2px] rounded-[32px] bg-gradient-to-r from-amber-500/50 via-purple-600/50 to-cyan-500/50 shadow-2xl shadow-purple-950/25 overflow-hidden group">
+        <div className="relative rounded-3xl border border-pink-200/80 dark:border-[rgba(233,79,159,0.25)] bg-white/95 dark:bg-[#111113] shadow-xl overflow-hidden backdrop-blur-2xl p-6 sm:p-10">
           
           {/* Inner Glowing Container */}
-          <div className="relative rounded-[30px] p-6 sm:p-10 bg-white/95 dark:bg-gradient-to-b dark:from-[#15102d] dark:via-[#100c24] dark:to-[#0b0818] backdrop-blur-2xl overflow-hidden text-center">
+          <div className="relative z-10 text-center">
             
             {/* Ambient Internal Glow Highlights */}
             <div className="absolute top-0 right-1/4 w-80 h-80 bg-amber-500/15 dark:bg-amber-500/15 rounded-full blur-[100px] pointer-events-none" />
@@ -270,8 +270,8 @@ export default function CoursesCatalogClient({
             <div className="relative z-10 max-w-4xl mx-auto space-y-3">
               
               {/* Pulsing Dynamic Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 dark:bg-amber-400/10 border border-amber-500/40 text-amber-700 dark:text-amber-300 text-xs sm:text-sm font-black shadow-xs">
-                <Flame className="w-4 h-4 text-amber-500 animate-bounce" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-50 dark:bg-[rgba(233,79,159,0.10)] border border-pink-200 dark:border-[rgba(233,79,159,0.25)] text-[#D83F8F] dark:text-[#E94F9F] text-xs sm:text-sm font-black shadow-xs">
+                <Sparkles className="w-4 h-4 text-[#D83F8F] dark:text-[#E94F9F]" />
                 <span>منصة الصدارة: الكورسات الأكثر نشراً وبحثاً والضجة الأكبر في سوق العمل</span>
               </div>
 
@@ -281,7 +281,7 @@ export default function CoursesCatalogClient({
               </h1>
               
               <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-300 font-medium max-w-2xl mx-auto leading-relaxed">
-                انضم إلى آلاف المتعلمين واحترف البرمجة والذكاء الاصطناعي والتصميم مع <span className="font-black text-amber-600 dark:text-amber-400">المهندس محمد إبراهيم</span> عبر مسارات عملية كاملة.
+                انضم إلى آلاف المتعلمين واحترف البرمجة والذكاء الاصطناعي والتصميم مع <span className="font-black text-[#D83F8F] dark:text-[#E94F9F]">المهندس محمد إبراهيم</span> عبر مسارات عملية كاملة.
               </p>
 
               {/* Top 3 Spotlight Key Metrics */}
@@ -338,7 +338,7 @@ export default function CoursesCatalogClient({
                   return (
                     <div
                       key={course.id}
-                      className={`group relative rounded-3xl bg-white dark:bg-[#16122f]/90 border border-slate-200/90 dark:border-purple-800/40 ${rankConfig.borderHover} p-4 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:-translate-y-1.5 backdrop-blur-xl text-center`}
+                      className={`group relative rounded-3xl bg-white dark:bg-[#17171A] border border-slate-200/90 dark:border-[rgba(233,79,159,0.20)] hover:border-[#D83F8F] dark:hover:border-[#E94F9F] ${rankConfig.borderHover} p-4 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:-translate-y-1.5 backdrop-blur-xl text-center`}
                     >
                       <div className="space-y-3">
                         {/* Compact Thumbnail Container */}
@@ -386,7 +386,7 @@ export default function CoursesCatalogClient({
                         </div>
 
                         {/* Course Title Centered */}
-                        <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug line-clamp-2 px-1">
+                        <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-[#D83F8F] dark:group-hover:text-[#E94F9F] transition-colors leading-snug line-clamp-2 px-1">
                           {course.title}
                         </h3>
 
@@ -424,10 +424,10 @@ export default function CoursesCatalogClient({
 
                         <Link
                           href={`/courses/${course.slug}`}
-                          className="w-full h-10 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-zinc-950 font-black text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98]"
+                          className="w-full h-10 rounded-xl bg-[#D83F8F] hover:bg-[#B83278] dark:bg-[#E94F9F] dark:hover:bg-[#FF5CAD] text-white dark:text-black font-black text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98]"
                         >
                           <span>عرض تفاصيل الكورس والعرض</span>
-                          <ArrowLeft className="w-3.5 h-3.5 text-zinc-950" />
+                          <ArrowLeft className="w-3.5 h-3.5 text-white dark:text-black" />
                         </Link>
                       </div>
                     </div>
@@ -445,7 +445,7 @@ export default function CoursesCatalogClient({
                 onClick={() => setSelectedType('ALL')}
                 className={`px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                   selectedType === 'ALL'
-                    ? 'bg-white dark:bg-zinc-800 text-blue-700 dark:text-white shadow-md border border-slate-200 dark:border-zinc-700 ring-2 ring-blue-500/20'
+                    ? 'bg-[#D83F8F] dark:bg-[#E94F9F] text-white dark:text-black shadow-md font-bold'
                     : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-white/10'
                 }`}
               >
@@ -512,7 +512,7 @@ export default function CoursesCatalogClient({
             <div className={`${mobileFilterOpen ? 'block' : 'hidden'} lg:block space-y-6`}>
               
               {/* Filter Group: Track (All / Student / Expert) */}
-              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#120e24]/90 border border-slate-200/90 dark:border-purple-900/50 shadow-xl space-y-4 backdrop-blur-xl">
+              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.18)] shadow-xl space-y-4 backdrop-blur-xl">
                 <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
                   <BookOpen className="w-4 h-4 text-amber-500" />
                   <span>مسار الكورس ونوع المحاضر</span>
@@ -578,7 +578,7 @@ export default function CoursesCatalogClient({
               </div>
 
               {/* Filter Group: Categories */}
-              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#120e24]/90 border border-slate-200/90 dark:border-purple-900/50 shadow-xl space-y-4 backdrop-blur-xl">
+              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.18)] shadow-xl space-y-4 backdrop-blur-xl">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <BookOpen className="w-4 h-4 text-amber-500" />
@@ -637,7 +637,7 @@ export default function CoursesCatalogClient({
               </div>
 
               {/* Filter Group: Level */}
-              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#120e24]/90 border border-slate-200/90 dark:border-purple-900/50 shadow-xl space-y-4 backdrop-blur-xl">
+              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.18)] shadow-xl space-y-4 backdrop-blur-xl">
                 <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
                   <GraduationCap className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                   <span>المستوى التدريبي</span>
@@ -656,7 +656,7 @@ export default function CoursesCatalogClient({
                       onClick={() => setSelectedLevel(lvl.id)}
                       className={`py-2 px-3 rounded-xl text-xs font-bold text-center transition-all cursor-pointer ${
                         selectedLevel === lvl.id
-                          ? 'bg-purple-600 text-white shadow-md'
+                          ? 'bg-[#D83F8F] dark:bg-[#E94F9F] text-white dark:text-black shadow-md font-bold'
                           : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/5'
                       }`}
                     >
@@ -667,7 +667,7 @@ export default function CoursesCatalogClient({
               </div>
 
               {/* Filter Group: Deals & Price */}
-              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#120e24]/90 border border-slate-200/90 dark:border-purple-900/50 shadow-xl space-y-4 backdrop-blur-xl">
+              <div className="p-6 rounded-3xl bg-white/90 dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.18)] shadow-xl space-y-4 backdrop-blur-xl">
                 <h3 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
                   <Percent className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>السعر والعروض</span>
@@ -686,7 +686,7 @@ export default function CoursesCatalogClient({
                       onClick={() => setSelectedPriceFilter(item.id as any)}
                       className={`w-full py-2.5 px-3 rounded-2xl text-xs font-bold text-right flex items-center justify-between transition-all cursor-pointer ${
                         selectedPriceFilter === item.id
-                          ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40 shadow-xs'
+                          ? 'bg-pink-50 dark:bg-[rgba(233,79,159,0.15)] text-[#D83F8F] dark:text-[#E94F9F] border border-pink-200 dark:border-[rgba(233,79,159,0.30)] shadow-xs'
                           : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
                       }`}
                     >
@@ -736,7 +736,7 @@ export default function CoursesCatalogClient({
           <main className="lg:col-span-3 space-y-6">
             
             {/* Top Search & Filter Bar */}
-            <div className="p-4 sm:p-5 rounded-3xl bg-white/90 dark:bg-[#120e24]/90 border border-slate-200/90 dark:border-purple-900/50 shadow-xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 backdrop-blur-xl">
+            <div className="p-4 sm:p-5 rounded-3xl bg-white/90 dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.18)] shadow-xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 backdrop-blur-xl">
               
               {/* Search Input */}
               <div className="relative flex-1">
@@ -745,7 +745,7 @@ export default function CoursesCatalogClient({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="ابحث عن اسم الكورس، التقنية، أو المحاضر..."
-                  className="w-full h-12 pr-11 pl-9 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-500 text-xs sm:text-sm font-medium focus:outline-none focus:border-amber-400 focus:bg-white dark:focus:bg-white/[0.08] transition-all shadow-xs"
+                  className="w-full h-12 pr-11 pl-9 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-500 text-xs sm:text-sm font-medium focus:outline-none focus:border-[#D83F8F] dark:focus:border-[#E94F9F] focus:bg-white dark:focus:bg-white/[0.08] transition-all shadow-xs"
                 />
                 <Search className="w-4 h-4 text-slate-400 dark:text-zinc-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                 {searchQuery && (
@@ -770,7 +770,7 @@ export default function CoursesCatalogClient({
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value as any)}
-                    className="h-12 px-4 pl-9 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs sm:text-sm font-bold focus:outline-none focus:border-amber-400 cursor-pointer appearance-none shadow-xs"
+                    className="h-12 px-4 pl-9 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs sm:text-sm font-bold focus:outline-none focus:border-[#D83F8F] dark:focus:border-[#E94F9F] cursor-pointer appearance-none shadow-xs"
                   >
                     <option value="POPULAR" className="bg-white dark:bg-[#120e24] text-slate-900 dark:text-white">الأكثر طلباً ورواجاً</option>
                     <option value="NEWEST" className="bg-white dark:bg-[#120e24] text-slate-900 dark:text-white">الأحدث إضافتاً</option>
@@ -826,7 +826,7 @@ export default function CoursesCatalogClient({
 
             {/* Courses Grid - Fully Centered Typography and Card Details */}
             {filteredCourses.length === 0 ? (
-              <div className="py-20 text-center rounded-3xl bg-white/90 dark:bg-[#120e24]/90 border border-slate-200/90 dark:border-purple-900/50 space-y-4 p-8 shadow-xl">
+              <div className="py-20 text-center rounded-3xl bg-white/90 dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.18)] space-y-4 p-8 shadow-xl">
                 <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto text-slate-400 dark:text-zinc-500">
                   <BookOpen className="w-8 h-8" />
                 </div>
@@ -859,7 +859,7 @@ export default function CoursesCatalogClient({
                   return (
                     <div
                       key={course.id}
-                      className="group rounded-3xl bg-white/95 dark:bg-[#120e24]/95 hover:bg-white dark:hover:bg-[#16122d] border border-slate-200/90 dark:border-purple-900/50 hover:border-amber-500/50 dark:hover:border-amber-500/50 p-5 transition-all duration-300 flex flex-col justify-between shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 dark:hover:shadow-purple-950/50 hover:-translate-y-1.5 text-center"
+                      className="group rounded-3xl bg-white dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.18)] hover:border-[#D83F8F] dark:hover:border-[#E94F9F] p-5 transition-all duration-300 flex flex-col justify-between shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 dark:hover:shadow-purple-950/50 hover:-translate-y-1.5 text-center"
                     >
                       <div className="space-y-4">
                         {/* Thumbnail & Floating Badges */}
@@ -902,7 +902,7 @@ export default function CoursesCatalogClient({
 
                         {/* Title & Short Description Centered */}
                         <div className="space-y-2 text-center">
-                          <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
+                          <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white group-hover:text-[#D83F8F] dark:group-hover:text-[#E94F9F] transition-colors leading-snug line-clamp-2">
                             {course.title}
                           </h3>
 
@@ -969,7 +969,7 @@ export default function CoursesCatalogClient({
                             سعر الاشتراك في الكورس
                           </span>
                           <div className="flex items-center justify-center gap-2">
-                            <span className="text-xl font-black text-slate-900 dark:text-white">
+                            <span className="text-xl sm:text-2xl font-black text-[#D83F8F] dark:text-[#E94F9F]">
                               {course.isFree || course.price === 0 ? 'مجاناً' : formatPrice(course.price)}
                             </span>
                             {course.compareAtPrice && course.compareAtPrice > course.price && (
@@ -982,10 +982,10 @@ export default function CoursesCatalogClient({
 
                         <Link
                           href={`/courses/${course.slug}`}
-                          className="w-full h-12 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-zinc-950 font-black text-xs sm:text-sm transition-all shadow-md shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                          className="w-full h-12 rounded-2xl bg-[#D83F8F] hover:bg-[#B83278] dark:bg-[#E94F9F] dark:hover:bg-[#FF5CAD] text-white dark:text-black font-black text-xs sm:text-sm transition-all shadow-md shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
                         >
                           <span>تفاصيل الكورس والاشتراك</span>
-                          <ArrowLeft className="w-4 h-4 text-zinc-950" />
+                          <ArrowLeft className="w-4 h-4 text-white dark:text-black" />
                         </Link>
                       </div>
                     </div>

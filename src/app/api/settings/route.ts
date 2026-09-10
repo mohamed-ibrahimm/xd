@@ -7,11 +7,28 @@ export async function GET() {
   try {
     const settings = await prisma.platformSetting.findMany();
     const map = Object.fromEntries(settings.map((s) => [s.key, s.value]));
+
+    // Sanitize settings: strip any sensitive credentials or secrets
+    const safeSettingsMap: Record<string, string> = {};
+    for (const [k, v] of Object.entries(map)) {
+      const upper = k.toUpperCase();
+      if (
+        !upper.includes('SECRET') &&
+        !upper.includes('KEY') &&
+        !upper.includes('PASS') &&
+        !upper.includes('TOKEN') &&
+        !upper.includes('CREDENTIAL') &&
+        !upper.includes('PRIVATE')
+      ) {
+        safeSettingsMap[k] = v;
+      }
+    }
+
     const rawWhatsapp = map['WHATSAPP_NUMBER'] || map['CONTACT_WHATSAPP'] || map['CONTACT_PHONE'] || '';
     const safeWhatsapp = (rawWhatsapp && !rawWhatsapp.includes('1001234567')) ? rawWhatsapp : '01555791568';
     
     return NextResponse.json({
-      settings: map,
+      settings: safeSettingsMap,
       platformName: (map['PLATFORM_NAME'] || 'أكاديمية م / محمد إبراهيم').replace(/سنجر/g, '').trim() || 'أكاديمية م / محمد إبراهيم',
       platformTagline: map['PLATFORM_TAGLINE'] || 'بوابتك الاحترافية لاحتراف البرمجة والذكاء الاصطناعي والتصميم',
       watermarkEnabled: map['WATERMARK_ENABLED'] !== 'false',

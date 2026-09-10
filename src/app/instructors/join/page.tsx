@@ -172,7 +172,7 @@ export default function InstructorJoinPage() {
               onClick={() => setActiveTrack('all')}
               className={`px-3.5 sm:px-4.5 py-1.5 rounded-xl sm:rounded-full text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 activeTrack === 'all'
-                  ? 'bg-slate-900 text-white dark:bg-white dark:text-zinc-950 shadow-sm'
+                  ? 'bg-slate-900 text-white dark:bg-[#E94F9F] dark:text-[#080808] shadow-sm'
                   : 'text-slate-600 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10'
               }`}
             >

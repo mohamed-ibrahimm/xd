@@ -59,16 +59,16 @@ export default function CertificateDesignerPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-border">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-border">
         <div>
-          <Link href="/admin" className="text-xs text-zinc-400 hover:text-white mb-1 block">
+          <Link href="/admin" className="text-xs text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white mb-1 block">
             ← العودة للوحة تحكم الإدارة
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-2">
-            <Award className="w-6 h-6 text-primary-400" />
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+            <Award className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             مصمم قوالب الشهادات التفاعلي (Certificate Designer)
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1">
             خصص مظهر وهوية الشهادات المعتمدة والمتغيرات الديناميكية مع معاينة حية فورية
           </p>
         </div>
@@ -76,7 +76,7 @@ export default function CertificateDesignerPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg flex items-center gap-2 disabled:opacity-50"
+          className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg flex items-center gap-2 disabled:opacity-50 cursor-pointer"
         >
           <Save className="w-4 h-4" />
           <span>{saving ? 'جاري الحفظ...' : savedSuccess ? 'تم الحفظ بنجاح! ' : 'حفظ ونشر القالب'}</span>
@@ -86,22 +86,22 @@ export default function CertificateDesignerPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left Column: Designer Controls */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="p-6 rounded-3xl bg-surface border border-border space-y-5">
-            <h3 className="text-sm font-bold text-white">إعدادات القالب</h3>
+          <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border shadow-sm space-y-5">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">إعدادات القالب</h3>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">اسم القالب</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-zinc-300 mb-1">اسم القالب</label>
               <input
                 type="text"
                 value={templateName}
                 onChange={(e) => setTemplateName(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">اللون الرئيسي</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-zinc-300 mb-1">اللون الرئيسي</label>
                 <div className="flex items-center gap-2">
                   <input
                     type="color"
@@ -109,12 +109,12 @@ export default function CertificateDesignerPage() {
                     onChange={(e) => setPrimaryColor(e.target.value)}
                     className="w-8 h-8 rounded-lg border-0 bg-transparent cursor-pointer"
                   />
-                  <span className="text-xs font-mono text-zinc-400">{primaryColor}</span>
+                  <span className="text-xs font-mono text-slate-600 dark:text-zinc-400">{primaryColor}</span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">لون التمييز (Accent)</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-zinc-300 mb-1">لون التمييز (Accent)</label>
                 <div className="flex items-center gap-2">
                   <input
                     type="color"
@@ -122,16 +122,16 @@ export default function CertificateDesignerPage() {
                     onChange={(e) => setAccentColor(e.target.value)}
                     className="w-8 h-8 rounded-lg border-0 bg-transparent cursor-pointer"
                   />
-                  <span className="text-xs font-mono text-zinc-400">{accentColor}</span>
+                  <span className="text-xs font-mono text-slate-600 dark:text-zinc-400">{accentColor}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Dynamic Variables Switchers */}
-          <div className="p-6 rounded-3xl bg-surface border border-border space-y-3">
-            <h3 className="text-sm font-bold text-white">الحقول والمتغيرات الديناميكية</h3>
-            <p className="text-[11px] text-zinc-400">تحكم بالعناصر المعروضة داخل الشهادة:</p>
+          <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border shadow-sm space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">الحقول والمتغيرات الديناميكية</h3>
+            <p className="text-[11px] text-slate-500 dark:text-zinc-400">تحكم بالعناصر المعروضة داخل الشهادة:</p>
 
             <div className="space-y-2 pt-2 text-xs">
               {Object.entries({
@@ -151,16 +151,16 @@ export default function CertificateDesignerPage() {
                     key={key}
                     type="button"
                     onClick={() => toggleField(key as keyof typeof fields)}
-                    className={`w-full p-2.5 px-3 rounded-xl border text-right flex items-center justify-between transition-colors ${
+                    className={`w-full p-2.5 px-3 rounded-xl border text-right flex items-center justify-between transition-colors cursor-pointer ${
                       isEnabled
-                        ? 'bg-primary-950/50 border-primary-700 text-white font-bold'
-                        : 'bg-surface-raised border-border text-zinc-500'
+                        ? 'bg-pink-50 border-pink-400 text-pink-900 font-bold dark:bg-primary-950/50 dark:border-primary-700 dark:text-white'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 dark:bg-surface-raised dark:border-border dark:text-zinc-500'
                     }`}
                   >
                     <span>{label}</span>
                     <div
                       className={`w-4 h-4 rounded border flex items-center justify-center ${
-                        isEnabled ? 'bg-primary-600 border-primary-400' : 'border-zinc-700'
+                        isEnabled ? 'bg-primary-600 border-primary-400' : 'border-slate-300 dark:border-zinc-700'
                       }`}
                     >
                       {isEnabled && <Check className="w-3 h-3 text-white" />}
@@ -174,9 +174,9 @@ export default function CertificateDesignerPage() {
 
         {/* Right Column: Live Visual Preview */}
         <div className="lg:col-span-2 space-y-3">
-          <div className="flex items-center justify-between text-xs text-zinc-400">
-            <span className="flex items-center gap-1 font-bold text-white">
-              <Eye className="w-4 h-4 text-primary-400" />
+          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-zinc-400">
+            <span className="flex items-center gap-1 font-bold text-slate-900 dark:text-white">
+              <Eye className="w-4 h-4 text-primary-600 dark:text-primary-400" />
               المعاينة الحية التفاعلية
             </span>
             <span>الأبعاد: قياسي A4 Landscape</span>

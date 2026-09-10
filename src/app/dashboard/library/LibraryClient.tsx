@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -105,7 +105,7 @@ export default function LibraryClient({
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'PURCHASED'
                 ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-white'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             المذكرات المشتراة ({purchasedBooks.length})
@@ -116,7 +116,7 @@ export default function LibraryClient({
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'FREE'
                 ? 'bg-amber-500 text-zinc-950 font-black shadow-xs'
-                : 'text-slate-600 dark:text-zinc-400 hover:text-white'
+                : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             المذكرات المجانية المتاحة ({freeBooks.length})

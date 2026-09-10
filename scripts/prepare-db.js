@@ -48,7 +48,7 @@ if (!dbUrl) {
   for (const [key, val] of Object.entries(process.env)) {
     if (typeof val === 'string' && (val.startsWith('postgresql://') || val.startsWith('postgres://') || val.startsWith('prisma+postgres://'))) {
       dbUrl = val.trim();
-      console.log(`🔍 [Database Auto-Detect] Found PostgreSQL URL in environment variable: ${key}`);
+      console.log(`[Database Auto-Detect] Found PostgreSQL URL in environment variable: ${key}`);
       break;
     }
   }
@@ -72,7 +72,7 @@ if (isPostgres) {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }`);
-  console.log('📦 [Database Setup] Configured Prisma for PostgreSQL (Supabase / Production).');
+  console.log('[Database Setup] Configured Prisma for PostgreSQL (Supabase / Production).');
 } else {
   if (!process.env.DATABASE_URL) {
     process.env.DATABASE_URL = 'file:./dev.db';
@@ -81,7 +81,7 @@ if (isPostgres) {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }`);
-  console.log('💻 [Database Setup] Configured Prisma for SQLite.');
+  console.log('[Database Setup] Configured Prisma for SQLite.');
 }
 
 fs.writeFileSync(schemaPath, schema, 'utf8');

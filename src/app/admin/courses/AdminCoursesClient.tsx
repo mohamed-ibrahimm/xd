@@ -205,11 +205,11 @@ export default function AdminCoursesClient({ initialCourses }: AdminCoursesClien
       </div>
 
       {/* Courses Table */}
-      <div className="rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-border bg-slate-50 dark:bg-surface-raised/60 text-slate-500 dark:text-zinc-400 font-bold">
+              <tr className="border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-zinc-400 font-bold">
                 <th className="p-4">الكورس</th>
                 <th className="p-4">التصنيف</th>
                 <th className="p-4">المحاضر</th>
@@ -220,7 +220,7 @@ export default function AdminCoursesClient({ initialCourses }: AdminCoursesClien
                 <th className="p-4 text-center">الإجراءات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-border/40">
+            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
               {filteredCourses.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="p-12 text-center text-slate-500 dark:text-zinc-500">
@@ -229,7 +229,7 @@ export default function AdminCoursesClient({ initialCourses }: AdminCoursesClien
                 </tr>
               ) : (
                 filteredCourses.map((c) => (
-                  <tr key={c.id} className="hover:bg-slate-50 dark:hover:bg-surface-raised/30 transition-colors">
+                  <tr key={c.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
                     <td className="p-4 font-bold text-slate-900 dark:text-white max-w-xs">
                       <Link href={`/courses/${c.slug}`} className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                         {c.title}
@@ -286,8 +286,8 @@ export default function AdminCoursesClient({ initialCourses }: AdminCoursesClien
       {/* Delete Confirmation Modal */}
       {deletingCourse && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-white dark:bg-surface border border-rose-300 dark:border-rose-900/60 rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl animate-in fade-in zoom-in-95">
-            <div className="flex items-start justify-between gap-3 pb-3 border-b border-slate-200 dark:border-border">
+          <div className="relative w-full max-w-md bg-white dark:bg-[#111113] border border-rose-300 dark:border-rose-900/60 rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl animate-in fade-in zoom-in-95">
+            <div className="flex items-start justify-between gap-3 pb-3 border-b border-slate-200 dark:border-zinc-800">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-rose-100 dark:bg-rose-950 border border-rose-300 dark:border-rose-800 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
                   <AlertTriangle className="w-5 h-5" />
@@ -299,13 +299,13 @@ export default function AdminCoursesClient({ initialCourses }: AdminCoursesClien
               </div>
               <button
                 onClick={() => !isDeleting && setDeletingCourse(null)}
-                className="p-1 rounded-lg bg-slate-100 dark:bg-surface-raised text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white"
+                className="p-1 rounded-lg bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="space-y-2 text-xs text-slate-700 dark:text-zinc-300 leading-relaxed bg-slate-50 dark:bg-surface-raised/60 p-4 rounded-2xl border border-slate-200 dark:border-border/80">
+            <div className="space-y-2 text-xs text-slate-700 dark:text-zinc-300 leading-relaxed bg-slate-50 dark:bg-white/[0.04] p-4 rounded-2xl border border-slate-200 dark:border-zinc-800">
               <p>
                 هل أنت متأكد من رغبتك في حذف الكورس التالي نهائياً من المنصة: <br />
                 <strong className="text-slate-900 dark:text-white text-sm block mt-1">"{deletingCourse.title}"</strong>
@@ -320,7 +320,7 @@ export default function AdminCoursesClient({ initialCourses }: AdminCoursesClien
                 type="button"
                 disabled={isDeleting}
                 onClick={() => setDeletingCourse(null)}
-                className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-surface-raised dark:hover:bg-surface-card border border-slate-300 dark:border-border text-xs font-bold text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-slate-300 dark:border-zinc-700 text-xs font-bold text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white transition-colors"
               >
                 إلغاء وتراجع
               </button>
@@ -341,15 +341,15 @@ export default function AdminCoursesClient({ initialCourses }: AdminCoursesClien
       {/* Add Course Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
-          <div className="relative w-full max-w-lg bg-white dark:bg-surface border border-slate-200 dark:border-border rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-border">
+          <div className="relative w-full max-w-lg bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-zinc-800">
               <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
                 <Plus className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 <span>إضافة كورس جديد (Admin)</span>
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="p-1 rounded-lg bg-slate-100 dark:bg-surface-raised text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white"
+                className="p-1 rounded-lg bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>

@@ -641,7 +641,7 @@ async function main() {
 
   await prisma.announcement.create({
     data: {
-      title: '🚀 أهلاً بكم في الإصدار الجديد من أكاديمية قِمَم التعليمية!',
+      title: 'أهلاً بكم في الإصدار الجديد من أكاديمية قِمَم التعليمية!',
       content: 'يسرنا إطلاق المنصة المطورة بمشغل فيديو متقدم، ومساعد ذكاء اصطناعي فوري داخل الدروس، ونظام تحقق معتمد من الشهادات بالـ QR Code.',
       targetAudience: 'ALL',
       createdById: admin.id
@@ -658,12 +658,12 @@ async function main() {
     }
   });
 
-  console.log('✅ Database seeded successfully with real production-grade data!');
+  console.log('[Seed] Database seeded successfully with real production-grade data!');
   console.log('----------------------------------------------------');
-  console.log('👤 Admin:      admin / admin (or admin@qimam.edu)');
-  console.log('👨‍🏫 Instructor: instructor / instructor (or instructor@qimam.edu)');
-  console.log('👨‍🎓 Student:    student / student (or student@qimam.edu)');
-  console.log('👩‍🎓 Student 2:  sara@qimam.edu / student');
+  console.log('Admin:       admin / admin (or admin@qimam.edu)');
+  console.log('Instructor:  instructor / instructor (or instructor@qimam.edu)');
+  console.log('Student:     student / student (or student@qimam.edu)');
+  console.log('Student 2:   sara@qimam.edu / student');
   console.log('----------------------------------------------------');
 }
 

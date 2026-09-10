@@ -3,12 +3,19 @@ import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/lib/email';
 import { generateCertificateNumber } from '@/lib/utils';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
+    }
+
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(`progress:${user.id}:${clientIp}`, { limit: 60, windowMs: 60 * 1000 });
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز معدل تحديث التقدم المسموح به' }, { status: 429 });
     }
 
     const { lessonId, watchedSeconds, totalSeconds, watchedPercent, isCompleted } = await req.json();
@@ -39,6 +46,24 @@ export async function POST(req: Request) {
 
     const course = lesson.section.course;
 
+    // SECURITY: Strictly require active enrollment to track progress or claim certificates
+    const enrollment = await prisma.enrollment.findFirst({
+      where: {
+        userId: user.id,
+        courseId: course.id,
+        status: 'ACTIVE',
+      }
+    });
+
+    if (!enrollment && user.role !== 'ADMIN' && course.instructorId !== user.id) {
+      return NextResponse.json({ error: 'غير مصرح: يتطلب هذا الإجراء اشتراكاً نشطاً في الكورس' }, { status: 403 });
+    }
+
+    const calculatedCompletion = Boolean(
+      (isCompleted && (watchedPercent >= 50 || totalSeconds === 0)) ||
+      (watchedPercent >= course.completionThresholdPercent)
+    );
+
     // Upsert LessonProgress
     const progress = await prisma.lessonProgress.upsert({
       where: {
@@ -53,15 +78,15 @@ export async function POST(req: Request) {
         watchedSeconds: watchedSeconds || 0,
         totalSeconds: totalSeconds || 0,
         watchedPercent: watchedPercent || 0,
-        isCompleted: Boolean(isCompleted || (watchedPercent >= course.completionThresholdPercent)),
-        completedAt: (isCompleted || watchedPercent >= course.completionThresholdPercent) ? new Date() : null,
+        isCompleted: calculatedCompletion,
+        completedAt: calculatedCompletion ? new Date() : null,
       },
       update: {
         watchedSeconds: Math.max(watchedSeconds || 0),
         totalSeconds: totalSeconds || 0,
         watchedPercent: Math.max(watchedPercent || 0),
-        isCompleted: Boolean(isCompleted || (watchedPercent >= course.completionThresholdPercent)),
-        completedAt: (isCompleted || watchedPercent >= course.completionThresholdPercent) ? new Date() : undefined,
+        isCompleted: calculatedCompletion,
+        completedAt: calculatedCompletion ? new Date() : undefined,
         lastWatchedAt: new Date(),
       }
     });
@@ -82,10 +107,6 @@ export async function POST(req: Request) {
     const isCourseFinished = coursePercent >= 100;
 
     // Update Enrollment
-    const enrollment = await prisma.enrollment.findFirst({
-      where: { userId: user.id, courseId: course.id }
-    });
-
     if (enrollment) {
       await prisma.enrollment.update({
         where: { id: enrollment.id },
@@ -97,8 +118,8 @@ export async function POST(req: Request) {
       });
     }
 
-    // Auto issue certificate if 100% finished and certificateEnabled
-    if (isCourseFinished && course.certificateEnabled) {
+    // Auto issue certificate ONLY if enrolled, course 100% finished, and certificateEnabled
+    if (enrollment && isCourseFinished && course.certificateEnabled) {
       const existingCert = await prisma.certificate.findFirst({
         where: { userId: user.id, courseId: course.id }
       });

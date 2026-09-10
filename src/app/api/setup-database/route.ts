@@ -2,15 +2,29 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
+import { getCurrentUser } from '@/lib/auth';
+
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-export async function GET() {
+export async function GET(req: Request) {
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ error: 'هذا الإجراء معطل تماماً في بيئة الإنتاج' }, { status: 403 });
+  }
+
+  const setupKey = req.headers.get('x-setup-key');
+  const user = await getCurrentUser();
+  const isAuthorized = (user && user.role === 'ADMIN') || (process.env.SETUP_KEY && setupKey === process.env.SETUP_KEY);
+
+  if (!isAuthorized) {
+    return NextResponse.json({ error: 'غير مصرح: يتطلب صلاحيات المدير' }, { status: 403 });
+  }
+
   return await seedDatabase();
 }
 
-export async function POST() {
-  return await seedDatabase();
+export async function POST(req: Request) {
+  return GET(req);
 }
 
 async function seedDatabase() {
@@ -421,11 +435,6 @@ async function seedDatabase() {
         diplomas: diplomaCount,
         books: bookCount,
         categories: categoryCount,
-      },
-      accounts: {
-        admin: 'admin@qimam.edu / admin',
-        instructor: 'instructor@qimam.edu / instructor',
-        student: 'student@qimam.edu / student',
       },
       timestamp: new Date().toISOString(),
     });

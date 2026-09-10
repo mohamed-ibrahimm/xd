@@ -152,9 +152,9 @@ export default function AdminStudentVerificationsPage() {
       </div>
 
       {/* Students Table */}
-      <div className="overflow-x-auto rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl">
+      <div className="overflow-x-auto rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#111113] shadow-xl">
         <table className="w-full text-right text-xs">
-          <thead className="bg-slate-50 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 text-slate-500 dark:text-zinc-400 font-bold">
+          <thead className="bg-slate-50 dark:bg-white/[0.04] border-b border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 font-bold">
             <tr>
               <th className="p-4">الطالب</th>
               <th className="p-4">الجامعة والكلية</th>
@@ -183,7 +183,7 @@ export default function AdminStudentVerificationsPage() {
                 const isAgeCompliant = age !== null && age <= 23;
 
                 return (
-                  <tr key={s.id} className="hover:bg-slate-50/80 dark:hover:bg-zinc-850/50 transition-colors">
+                  <tr key={s.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
                     <td className="p-4">
                       <div className="font-bold text-slate-900 dark:text-white text-sm">
                         {s.officialFullName || `${s.firstName} ${s.lastName}`}

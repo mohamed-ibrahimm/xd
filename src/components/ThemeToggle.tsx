@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
@@ -19,7 +19,7 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
       title={theme === 'DARK' ? 'التحويل إلى الوضع النهاري (أبيض)' : 'التحويل إلى الوضع الليلي'}
       aria-label="تبديل المظهر"
     >
-      {theme === 'DARK' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-purple-400" />}
+      {theme === 'DARK' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#D83F8F] dark:text-[#E94F9F]" />}
     </button>
   );
 }

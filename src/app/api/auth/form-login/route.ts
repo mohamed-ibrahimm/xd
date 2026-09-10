@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyPassword, createSessionToken, AUTH_COOKIE_NAME } from '@/lib/auth';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
@@ -21,12 +24,12 @@ export async function POST(req: Request) {
     if (contentType.includes('application/x-www-form-urlencoded') || contentType.includes('multipart/form-data')) {
       const formData = await req.formData();
       identifier = (formData.get('identifier') as string || formData.get('loginIdentifier') as string || '').trim().toLowerCase();
-      password = (formData.get('password') as string || '').trim();
+      password = (formData.get('password') as string || '');
       callbackUrl = (formData.get('callbackUrl') as string || '').trim();
     } else {
       const body = await req.json();
       identifier = (body.identifier || body.loginIdentifier || '').trim().toLowerCase();
-      password = (body.password || '').trim();
+      password = (body.password || '');
       callbackUrl = (body.callbackUrl || '').trim();
     }
 
@@ -35,20 +38,16 @@ export async function POST(req: Request) {
       return NextResponse.redirect(loginUrl, 303);
     }
 
-    const trimmedPass = password.toLowerCase();
+    const ip = getClientIp(req);
 
-    // Check built-in demo credentials
-    const isBuiltInAdmin = (identifier === 'admin' || identifier === 'admin@qimam.edu') &&
-      ['admin', 'password123', '123456', 'admin123'].includes(trimmedPass);
+    // Rate Limiting: 5 attempts per minute per IP + identifier
+    const rateCheck = checkRateLimit(`form_login_${ip}_${identifier}`, { limit: 5, windowMs: 60 * 1000 });
+    if (!rateCheck.allowed) {
+      const rateLimitUrl = new URL('/login?error=rate_limited', origin);
+      return NextResponse.redirect(rateLimitUrl, 303);
+    }
 
-    const isBuiltInInstructor = (identifier === 'instructor' || identifier === 'instructor@qimam.edu') &&
-      ['instructor', 'password123', '123456'].includes(trimmedPass);
-
-    const isBuiltInStudent = (identifier === 'student' || identifier === 'student@qimam.edu') &&
-      ['student', 'password123', '123456'].includes(trimmedPass);
-
-    let user: any = null;
-
+    let user = null;
     try {
       user = await prisma.user.findFirst({
         where: {
@@ -59,52 +58,18 @@ export async function POST(req: Request) {
         }
       });
     } catch (dbErr) {
-      console.warn('Prisma lookup failed in form-login:', dbErr);
+      console.error('Prisma lookup failed in form-login:', dbErr);
+      const errUrl = new URL('/login?error=db_error', origin);
+      return NextResponse.redirect(errUrl, 303);
     }
 
-    if (user) {
-      const isDemoPass = [
-        'admin',
-        'instructor',
-        'student',
-        'password123',
-        '123456',
-        'admin123',
-        user.username?.toLowerCase(),
-        user.role?.toLowerCase()
-      ].filter(Boolean).includes(trimmedPass);
+    if (!user || !user.passwordHash) {
+      const loginUrl = new URL('/login?error=invalid_credentials', origin);
+      return NextResponse.redirect(loginUrl, 303);
+    }
 
-      const isValidPassword = isDemoPass || (await verifyPassword(password, user.passwordHash));
-
-      if (!isValidPassword) {
-        const loginUrl = new URL('/login?error=invalid_credentials', origin);
-        return NextResponse.redirect(loginUrl, 303);
-      }
-    } else if (isBuiltInAdmin) {
-      user = {
-        id: 'cmtbhka5t0000tjd08k8digp4',
-        email: 'admin@qimam.edu',
-        role: 'ADMIN',
-        username: 'admin',
-        officialFullName: 'م / محمد إبراهيم (المدير)',
-      };
-    } else if (isBuiltInInstructor) {
-      user = {
-        id: 'cmtbhka5y0001tjd061dbshqn',
-        email: 'instructor@qimam.edu',
-        role: 'INSTRUCTOR',
-        username: 'instructor',
-        officialFullName: 'د. كريم عبد العزيز (المحاضر)',
-      };
-    } else if (isBuiltInStudent) {
-      user = {
-        id: 'cmtbhka630002tjd0wg6o051z',
-        email: 'student@qimam.edu',
-        role: 'STUDENT',
-        username: 'student',
-        officialFullName: 'أحمد محمود (طالب)',
-      };
-    } else {
+    const isValidPassword = await verifyPassword(password, user.passwordHash);
+    if (!isValidPassword) {
       const loginUrl = new URL('/login?error=invalid_credentials', origin);
       return NextResponse.redirect(loginUrl, 303);
     }
@@ -131,7 +96,9 @@ export async function POST(req: Request) {
     let target = '/dashboard';
     if (user.role === 'ADMIN') target = '/admin';
     else if (user.role === 'INSTRUCTOR') target = '/instructor';
-    if (callbackUrl && callbackUrl !== '/login' && !callbackUrl.startsWith('/login')) {
+    
+    // Prevent open redirects: target must start with / and not //
+    if (callbackUrl && callbackUrl.startsWith('/') && !callbackUrl.startsWith('//') && !callbackUrl.startsWith('/login')) {
       target = callbackUrl;
     }
 

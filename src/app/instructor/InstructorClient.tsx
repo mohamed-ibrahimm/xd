@@ -460,7 +460,7 @@ export default function InstructorClient({
   }, 0);
 
   return (
-    <div className="min-h-screen relative flex flex-col">
+    <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#06040d] flex flex-col lg:flex-row text-slate-900 dark:text-zinc-100 font-[family-name:var(--font-cairo)] relative">
       {/* Dynamic Ambient Mesh in Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div className="dynamic-drift-1 absolute top-[5%] right-[15%] w-[550px] h-[550px] bg-amber-500/10 rounded-full blur-[130px]" />
@@ -469,28 +469,29 @@ export default function InstructorClient({
         <div className="dynamic-drift-4 absolute bottom-[25%] left-[25%] w-[480px] h-[480px] bg-emerald-500/10 rounded-full blur-[125px]" />
       </div>
 
-      {/* Main Studio View Area matching Admin Layout (Full Width & Pristine Centered Spacing) */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pb-16 relative z-10 w-full min-w-0 space-y-6">
-        {/* Modern Slim Status Bar & Floating Command Palette Launcher matching Admin */}
-        <InstructorSidebarClient
-          instructorName={user.officialFullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'محاضر قمم'}
-          instructorEmail={user.email}
-          subscriptionPlan={user.subscriptionPlan || 'FREE_TRIAL'}
-          coursesCount={courses.length}
-          pendingOrdersCount={pendingPaymentsCount}
-          couponsCount={coupons.length}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          onNewCourseClick={() => {
-            if (isExpired) {
-              setMessage({ type: 'error', text: 'انتهت الفترة التجريبية، يرجى تجديد الاشتراك أولاً لإضافة دورات جديدة' });
-              return;
-            }
-            setModalError(null);
-            setShowAddModal(true);
-          }}
-          publicProfileSlug={user.username || user.id}
-        />
+      {/* 1. Permanent SaaS Sidebar on Desktop + Mobile Drawer */}
+      <InstructorSidebarClient
+        instructorName={user.officialFullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'محاضر قمم'}
+        instructorEmail={user.email}
+        subscriptionPlan={user.subscriptionPlan || 'FREE_TRIAL'}
+        coursesCount={courses.length}
+        pendingOrdersCount={pendingPaymentsCount}
+        couponsCount={coupons.length}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onNewCourseClick={() => {
+          if (isExpired) {
+            setMessage({ type: 'error', text: 'انتهت الفترة التجريبية، يرجى تجديد الاشتراك أولاً لإضافة دورات جديدة' });
+            return;
+          }
+          setModalError(null);
+          setShowAddModal(true);
+        }}
+        publicProfileSlug={user.username || user.id}
+      />
+
+      {/* 2. Main Studio View Area */}
+      <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 pb-16 relative z-10 space-y-6 overflow-x-hidden">
           {/* Studio Top Control Card */}
           <div className="p-5 sm:p-6 rounded-3xl bg-white/90 dark:bg-[#0e0a1f]/90 border border-slate-200/90 dark:border-purple-900/40 shadow-xl backdrop-blur-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-1.5">
@@ -564,27 +565,27 @@ export default function InstructorClient({
           <div
             className={`p-4 sm:p-5 rounded-3xl border shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all ${
               isExpired
-                ? 'bg-rose-950/40 border-rose-800/80 shadow-rose-950/30 text-rose-200'
+                ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800/80 shadow-rose-950/10 text-rose-900 dark:text-rose-200'
                 : isTrial
-                ? 'bg-gradient-to-r from-amber-950/50 via-yellow-950/30 to-amber-950/50 border-amber-500/40 shadow-amber-950/20 text-amber-200'
-                : 'bg-emerald-950/40 border-emerald-800/80 shadow-emerald-950/30 text-emerald-200'
+                ? 'bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-500/40 shadow-amber-950/10 text-amber-900 dark:text-amber-200'
+                : 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/80 shadow-emerald-950/10 text-emerald-900 dark:text-emerald-200'
             }`}
           >
             <div className="flex items-center gap-3.5">
               <div
                 className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${
                   isExpired
-                    ? 'bg-rose-500/20 border-rose-500/40 text-rose-400'
+                    ? 'bg-rose-500/15 border-rose-300 dark:border-rose-500/40 text-rose-600 dark:text-rose-400'
                     : isTrial
-                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-400'
-                    : 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400'
+                    ? 'bg-amber-500/15 border-amber-300 dark:border-amber-500/40 text-amber-600 dark:text-amber-400'
+                    : 'bg-emerald-500/15 border-emerald-300 dark:border-emerald-500/40 text-emerald-600 dark:text-emerald-400'
                 }`}
               >
                 {isExpired ? <AlertTriangle className="w-5 h-5" /> : isTrial ? <Clock className="w-5 h-5" /> : <Sparkles className="w-5 h-5" />}
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-sm font-black text-white">
+                  <span className="text-sm font-black text-slate-900 dark:text-white">
                     {isExpired
                       ? 'انتهت الفترة التجريبية وتوقفت مبيعات كورساتك مؤقتاً'
                       : isTrial
@@ -594,16 +595,16 @@ export default function InstructorClient({
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] font-black border ${
                       isExpired
-                        ? 'bg-rose-900/60 border-rose-700 text-rose-300'
+                        ? 'bg-rose-100 dark:bg-rose-900/60 border-rose-300 dark:border-rose-700 text-rose-800 dark:text-rose-300'
                         : isTrial
-                        ? 'bg-amber-900/60 border-amber-600 text-amber-300'
-                        : 'bg-emerald-900/60 border-emerald-600 text-emerald-300'
+                        ? 'bg-amber-100 dark:bg-amber-900/60 border-amber-300 dark:border-amber-600 text-amber-800 dark:text-amber-300'
+                        : 'bg-emerald-100 dark:bg-emerald-900/60 border-emerald-300 dark:border-emerald-600 text-emerald-800 dark:text-emerald-300'
                     }`}
                   >
                     {isExpired ? 'اشتراك منتهي' : isTrial ? '14 يوماً مجاناً' : 'مشترك معتمد'}
                   </span>
                 </div>
-                <p className="text-xs text-zinc-300">
+                <p className="text-xs text-slate-600 dark:text-zinc-300">
                   {isExpired
                     ? 'يرجى تجديد اشتراكك (الشهري أو السنوي) لإعادة فتح استقبال طلبات الطلاب على كورساتك فورياً.'
                     : isTrial
@@ -620,7 +621,7 @@ export default function InstructorClient({
                   ? 'bg-gradient-to-r from-rose-600 to-red-600 text-white shadow-rose-950/50'
                   : isTrial
                   ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-zinc-950 shadow-amber-950/40'
-                  : 'bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700'
+                  : 'bg-emerald-600 hover:bg-emerald-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white border border-emerald-700 dark:border-zinc-700'
               }`}
             >
               <CreditCard className="w-4 h-4" />
@@ -657,21 +658,21 @@ export default function InstructorClient({
           <div className="space-y-6">
             
             {/* VIP LIVE BROADCAST STUDIO HERO CARD */}
-            <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#180f33] via-[#241347] to-[#120a26] border-2 border-rose-500/40 shadow-xl shadow-purple-950/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-rose-50 via-pink-50/70 to-purple-50 dark:from-[#180f33] dark:via-[#241347] dark:to-[#120a26] border-2 border-rose-200 dark:border-rose-500/40 shadow-xl shadow-rose-500/5 dark:shadow-purple-950/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-rose-500/30 shrink-0">
                   <Radio className="w-6 h-6 animate-pulse" />
                 </div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-black uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-500/40 text-[10px] font-black uppercase">
                       VIP Live Studio
                     </span>
-                    <span className="text-xs sm:text-sm font-black text-white">
+                    <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
                       أستوديو البث المباشر ومشاركة الشاشة (Google Meet Style)
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-300 font-medium leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-zinc-300 font-medium leading-relaxed">
                     اشرح لطلابك لحظياً بدقة 1080p، شارك شاشتك، واطلق مسابقات وكويزات تفاعلية حية (Kahoot Mode).
                   </p>
                 </div>
@@ -686,7 +687,7 @@ export default function InstructorClient({
                       setMessage({ type: 'success', text: 'تم نسخ رابط دعوة الطلاب لغرفة البث المباشر!' });
                     }
                   }}
-                  className="flex-1 md:flex-initial px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-zinc-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer border border-white/10"
+                  className="flex-1 md:flex-initial px-4 py-2.5 rounded-xl bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/15 text-slate-700 dark:text-zinc-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer border border-slate-200 dark:border-white/10 shadow-xs"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>نسخ رابط الطلاب</span>
@@ -1028,22 +1029,22 @@ export default function InstructorClient({
           {/* Courses List */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">الدورات التي تقدمها ({courses.length})</h2>
-              <span className="text-xs text-zinc-400">يمكنك إدارة المنهج، رفع الفيديوهات، ومتابعة الطلاب</span>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">الدورات التي تقدمها ({courses.length})</h2>
+              <span className="text-xs text-slate-500 dark:text-zinc-400">يمكنك إدارة المنهج، رفع الفيديوهات، ومتابعة الطلاب</span>
             </div>
 
             {courses.length === 0 ? (
-              <div className="p-12 rounded-3xl bg-surface border border-border text-center space-y-4">
-                <BookOpen className="w-12 h-12 text-zinc-600 mx-auto" />
-                <h3 className="text-base font-bold text-white">لا توجد لديك دورات حالياً</h3>
-                <p className="text-xs text-zinc-400">قم بإضافة أول دورة تدريبية لك في الأكاديمية خلال فترتك التجريبية</p>
+              <div className="p-12 rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 text-center space-y-4 shadow-sm">
+                <BookOpen className="w-12 h-12 text-slate-400 dark:text-zinc-600 mx-auto" />
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">لا توجد لديك دورات حالياً</h3>
+                <p className="text-xs text-slate-500 dark:text-zinc-400">قم بإضافة أول دورة تدريبية لك في الأكاديمية خلال فترتك التجريبية</p>
                 <button
                   type="button"
                   onClick={() => {
                     setModalError(null);
                     setShowAddModal(true);
                   }}
-                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-zinc-950 font-black text-xs inline-flex items-center gap-2 shadow-lg shadow-amber-950/40"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-zinc-950 font-black text-xs inline-flex items-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>إضافة كورس جديد</span>
@@ -1054,31 +1055,31 @@ export default function InstructorClient({
                 {courses.map((course) => (
                   <div
                     key={course.id}
-                    className="p-6 rounded-3xl bg-surface border border-border space-y-4 shadow-lg hover:border-primary-600/50 transition-all flex flex-col justify-between"
+                    className="p-6 rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 space-y-4 shadow-sm hover:shadow-md hover:border-primary-500/50 transition-all flex flex-col justify-between"
                   >
                     <div className="space-y-3">
                       <div className="flex items-start justify-between gap-4">
                         <div className="space-y-1">
-                          <span className="px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold">
+                          <span className="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                             {course.status === 'PUBLISHED' ? 'منشور للطلاب' : 'مسودة'}
                           </span>
-                          <h3 className="text-base font-bold text-white leading-snug">{course.title}</h3>
+                          <h3 className="text-base font-bold text-slate-900 dark:text-white leading-snug">{course.title}</h3>
                         </div>
-                        <span className="text-base font-black text-primary-300 shrink-0">
+                        <span className="text-base font-black text-primary-600 dark:text-primary-400 font-mono shrink-0">
                           {formatPrice(course.price)}
                         </span>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-surface-raised border border-border/80 text-xs text-zinc-400 flex items-center justify-between">
+                      <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-zinc-800 text-xs text-slate-600 dark:text-zinc-400 flex items-center justify-between">
                         <span>{course._count?.sections || 0} وحدات تعليمية</span>
                         <span>{course._count?.enrollments || 0} طالب مشترك</span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 pt-2 border-t border-border/50">
+                    <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-zinc-800">
                       <Link
                         href={`/instructor/courses/${course.id}/curriculum`}
-                        className="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white text-center text-xs font-bold shadow-md shadow-primary-950/50 transition-all"
+                        className="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white text-center text-xs font-bold shadow-md shadow-primary-600/20 transition-all"
                       >
                         إدارة المحتوى والدروس والفيديوهات
                       </Link>
@@ -1086,7 +1087,7 @@ export default function InstructorClient({
                       <Link
                         href={`/courses/${course.slug}`}
                         target="_blank"
-                        className="p-2.5 rounded-xl bg-surface-raised hover:bg-surface-card border border-border text-zinc-300 hover:text-white transition-colors"
+                        className="p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                         title="معاينة الكورس كما يراه الطالب"
                       >
                         <ExternalLink className="w-4 h-4" />
@@ -1095,7 +1096,7 @@ export default function InstructorClient({
                       <button
                         type="button"
                         onClick={() => setDeletingCourse(course)}
-                        className="p-2.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/80 text-rose-400 hover:text-rose-200 transition-colors"
+                        className="p-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 border border-rose-200 dark:border-rose-800/80 text-rose-600 dark:text-rose-400 transition-colors cursor-pointer"
                         title="حذف الكورس"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -1430,75 +1431,75 @@ export default function InstructorClient({
 
       {/* TAB 2: DIRECT PAYMENT SETTINGS */}
       {activeTab === 'payments' && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border space-y-6 max-w-3xl">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 space-y-6 max-w-3xl shadow-sm">
           <div className="space-y-1">
-            <h2 className="text-xl font-black text-white flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-emerald-400" />
+            <h2 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+              <CreditCard className="w-5 h-5 text-emerald-500" />
               إعدادات استلام أموالك مباشرة من الطلاب
             </h2>
-            <p className="text-xs text-zinc-400 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
               عند قيام أي طالب بشراء كورساتك، ستظهر له هذه البيانات في صفحة الدفع ليقوم بالتحويل لحساباتك فورياً دون وسيط.
             </p>
           </div>
 
           <form onSubmit={handleSavePaymentSettings} className="space-y-5">
             {/* InstaPay Setup */}
-            <div className="p-5 rounded-2xl bg-surface-raised border border-border/80 space-y-4">
-              <h3 className="text-sm font-bold text-purple-300 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-zinc-800/40 border border-slate-200 dark:border-zinc-700/80 space-y-4">
+              <h3 className="text-sm font-bold text-purple-700 dark:text-purple-300 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
                 بيانات حساب إنستاباي (InstaPay IPN):
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs text-zinc-400">عنوان الدفع اللحظي (IPA / إنستاباي):</label>
+                  <label className="text-xs font-bold text-slate-600 dark:text-zinc-400">عنوان الدفع اللحظي (IPA / إنستاباي):</label>
                   <input
                     type="text"
                     value={paymentSettings.instapayAddress}
                     onChange={(e) => setPaymentSettings({ ...paymentSettings, instapayAddress: e.target.value })}
                     placeholder="مثال: coach.ali@instapay"
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface border border-border text-white text-xs placeholder:text-zinc-600 focus:outline-none focus:border-primary-500 font-mono"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-primary-500 font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs text-zinc-400">اسم صاحب الحساب المعتمد:</label>
+                  <label className="text-xs font-bold text-slate-600 dark:text-zinc-400">اسم صاحب الحساب المعتمد:</label>
                   <input
                     type="text"
                     value={paymentSettings.instapayName}
                     onChange={(e) => setPaymentSettings({ ...paymentSettings, instapayName: e.target.value })}
                     placeholder="الاسم كما يظهر بتطبيق البنك / إنستاباي"
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface border border-border text-white text-xs placeholder:text-zinc-600 focus:outline-none focus:border-primary-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-primary-500"
                   />
                 </div>
               </div>
             </div>
 
             {/* Vodafone Cash Setup */}
-            <div className="p-5 rounded-2xl bg-surface-raised border border-border/80 space-y-4">
-              <h3 className="text-sm font-bold text-rose-300 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+            <div className="p-5 rounded-2xl bg-slate-50 dark:bg-zinc-800/40 border border-slate-200 dark:border-zinc-700/80 space-y-4">
+              <h3 className="text-sm font-bold text-rose-700 dark:text-rose-300 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
                 رقم محفظة فودافون كاش / المحافظ الذكية:
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs text-zinc-400">رقم المحفظة لتحويل الطلاب:</label>
+                  <label className="text-xs font-bold text-slate-600 dark:text-zinc-400">رقم المحفظة لتحويل الطلاب:</label>
                   <input
                     type="tel"
                     value={paymentSettings.vodafoneCashNumber}
                     onChange={(e) => setPaymentSettings({ ...paymentSettings, vodafoneCashNumber: e.target.value })}
                     placeholder="مثال: 01012345678"
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface border border-border text-white text-xs placeholder:text-zinc-600 focus:outline-none focus:border-primary-500 font-mono"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-primary-500 font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs text-zinc-400">رقم الواتساب للتواصل والدعم:</label>
+                  <label className="text-xs font-bold text-slate-600 dark:text-zinc-400">رقم الواتساب للتواصل والدعم:</label>
                   <input
                     type="tel"
                     value={paymentSettings.phone}
                     onChange={(e) => setPaymentSettings({ ...paymentSettings, phone: e.target.value })}
                     placeholder="مثال: 01555791568"
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface border border-border text-white text-xs placeholder:text-zinc-600 focus:outline-none focus:border-primary-500 font-mono"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-primary-500 font-mono"
                   />
                 </div>
               </div>
@@ -1506,20 +1507,20 @@ export default function InstructorClient({
 
             {/* Custom Payment Instructions */}
             <div className="space-y-1.5">
-              <label className="text-xs text-zinc-400">تعليمات التحويل التي ستظهر للطالب عند الدفع:</label>
+              <label className="text-xs font-bold text-slate-600 dark:text-zinc-400">تعليمات التحويل التي ستظهر للطالب عند الدفع:</label>
               <textarea
                 rows={3}
                 value={paymentSettings.paymentInstructions}
                 onChange={(e) => setPaymentSettings({ ...paymentSettings, paymentInstructions: e.target.value })}
                 placeholder="مثال: يرجى كتابة اسمك في وصف التحويل ورفع لقطة الشاشة ورقم العملية لتفعيل الكورس فورياً."
-                className="w-full px-4 py-2.5 rounded-xl bg-surface border border-border text-white text-xs placeholder:text-zinc-600 focus:outline-none focus:border-primary-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-primary-500"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSavingPayments}
-              className="px-8 py-3 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-black text-xs shadow-lg shadow-primary-950/50 transition-all hover:scale-105 disabled:opacity-50"
+              className="px-8 py-3 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-black text-xs shadow-lg shadow-primary-600/30 transition-all hover:scale-105 disabled:opacity-50 cursor-pointer"
             >
               {isSavingPayments ? 'جاري حفظ الإعدادات...' : 'حفظ بيانات استلام الأرباح'}
             </button>
@@ -1531,20 +1532,20 @@ export default function InstructorClient({
       {activeTab === 'orders' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">طلبات التحويل وإيصالات الطلاب ({payments.length})</h2>
-            <span className="text-xs text-zinc-400">راجع إيصال الطالب واضغط على تأكيد لفتح الكورس له فورياً</span>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">طلبات التحويل وإيصالات الطلاب ({payments.length})</h2>
+            <span className="text-xs text-slate-500 dark:text-zinc-400">راجع إيصال الطالب واضغط على تأكيد لفتح الكورس له فورياً</span>
           </div>
 
           {payments.length === 0 ? (
-            <div className="p-12 rounded-3xl bg-surface border border-border text-center space-y-3">
-              <Receipt className="w-10 h-10 text-zinc-600 mx-auto" />
-              <h3 className="text-sm font-bold text-white">لا توجد طلبات انضمام حالياً</h3>
-              <p className="text-xs text-zinc-400">ستظهر هنا أي طلبات دفع جديدة من الطلاب لكورساتك</p>
+            <div className="p-12 rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 text-center space-y-3 shadow-sm">
+              <Receipt className="w-10 h-10 text-slate-400 dark:text-zinc-600 mx-auto" />
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">لا توجد طلبات انضمام حالياً</h3>
+              <p className="text-xs text-slate-500 dark:text-zinc-400">ستظهر هنا أي طلبات دفع جديدة من الطلاب لكورساتك</p>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-3xl border border-border bg-surface">
+            <div className="overflow-x-auto rounded-3xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#111113]">
               <table className="w-full text-right text-xs">
-                <thead className="bg-surface-raised border-b border-border text-zinc-400 font-bold">
+                <thead className="bg-slate-50 dark:bg-white/[0.04] border-b border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 font-bold">
                   <tr>
                     <th className="p-3.5">الطالب</th>
                     <th className="p-3.5">الكورس</th>
@@ -1555,10 +1556,10 @@ export default function InstructorClient({
                     <th className="p-3.5 text-center">الإجراء</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-border/60">
+                <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
                   {payments.map((p) => (
-                    <tr key={p.id} className="hover:bg-surface-raised/50 transition-colors">
-                      <td className="p-3.5 font-bold text-white">
+                    <tr key={p.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
+                      <td className="p-3.5 font-bold text-slate-900 dark:text-white">
                         <div>{p.user?.officialFullName || p.user?.firstName}</div>
                         <div className="text-[11px] text-zinc-500 font-normal">{p.user?.email}</div>
                       </td>
@@ -2083,11 +2084,11 @@ export default function InstructorClient({
 
       {/* SCREENSHOT MODAL */}
       {viewingScreenshot && mounted && createPortal(
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="max-w-2xl w-full rounded-3xl bg-surface border border-border p-4 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-xs font-bold text-white">إيصال تحويل الطالب</span>
-              <button onClick={() => setViewingScreenshot(null)} className="text-zinc-400 hover:text-white p-1">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="max-w-2xl w-full rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 p-4 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-zinc-800 pb-2">
+              <span className="text-xs font-bold text-slate-900 dark:text-white">إيصال تحويل الطالب</span>
+              <button onClick={() => setViewingScreenshot(null)} className="text-slate-400 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white p-1 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -2101,54 +2102,54 @@ export default function InstructorClient({
 
       {/* NEW COURSE MODAL */}
       {showAddModal && mounted && createPortal(
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="max-w-lg w-full rounded-3xl bg-surface border border-border p-6 sm:p-8 space-y-6 shadow-2xl animate-in fade-in zoom-in-95 my-8">
-            <div className="flex items-center justify-between border-b border-border pb-4">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="max-w-lg w-full rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 p-6 sm:p-8 space-y-6 shadow-2xl animate-in fade-in zoom-in-95 my-8">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-zinc-800 pb-4">
               <div className="space-y-0.5">
-                <h3 className="text-lg font-black text-white flex items-center gap-2">
-                  <Plus className="w-5 h-5 text-primary-400" />
+                <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                  <Plus className="w-5 h-5 text-primary-500" />
                   إنشاء كورس تدريبي جديد
                 </h3>
-                <p className="text-xs text-zinc-400">ستتمكن بعد الإنشاء من إضافة الفيديوهات والاختبارات والمرفقات</p>
+                <p className="text-xs text-slate-500 dark:text-zinc-400">ستتمكن بعد الإنشاء من إضافة الفيديوهات والاختبارات والمرفقات</p>
               </div>
-              <button onClick={() => setShowAddModal(false)} className="text-zinc-400 hover:text-white p-1">
+              <button onClick={() => setShowAddModal(false)} className="text-slate-400 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white p-1 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {modalError && (
-              <div className="p-3 rounded-xl bg-rose-950/70 border border-rose-800 text-rose-300 text-xs font-bold flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
+              <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/70 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs font-bold flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 shrink-0 text-rose-500" />
                 <span>{modalError}</span>
               </div>
             )}
 
             <form onSubmit={handleCreateCourse} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-xs text-zinc-300 font-bold">عنوان الكورس:</label>
+                <label className="text-xs text-slate-700 dark:text-zinc-300 font-bold">عنوان الكورس:</label>
                 <input
                   type="text"
                   required
                   value={newCourse.title}
                   onChange={(e) => setNewCourse({ ...newCourse, title: e.target.value })}
                   placeholder="مثال: دبلومة تطوير الواجهات الأمامية بـ React و Next.js"
-                  className="w-full px-4 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs text-zinc-300 font-bold">وصف تسويقي مختصر:</label>
+                <label className="text-xs text-slate-700 dark:text-zinc-300 font-bold">وصف تسويقي مختصر:</label>
                 <input
                   type="text"
                   value={newCourse.shortDescription}
                   onChange={(e) => setNewCourse({ ...newCourse, shortDescription: e.target.value })}
                   placeholder="جملة موجزة تشرح الفائدة الكبرى من الكورس"
-                  className="w-full px-4 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs text-zinc-300 font-bold">صورة الغلاف (Thumbnail):</label>
+                <label className="text-xs text-slate-700 dark:text-zinc-300 font-bold">صورة الغلاف (Thumbnail):</label>
                 <FileUploadInput
                   label="صورة الغلاف (Thumbnail)"
                   accept="image/*"
@@ -2160,40 +2161,40 @@ export default function InstructorClient({
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs text-zinc-300 font-bold">سعر الكورس (ج.م):</label>
+                  <label className="text-xs text-slate-700 dark:text-zinc-300 font-bold">سعر الكورس (ج.م):</label>
                   <input
                     type="number"
                     min="0"
                     value={newCourse.price}
                     onChange={(e) => setNewCourse({ ...newCourse, price: parseFloat(e.target.value) || 0 })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs text-zinc-300 font-bold">المدة المتوقعة (ساعات):</label>
+                  <label className="text-xs text-slate-700 dark:text-zinc-300 font-bold">المدة المتوقعة (ساعات):</label>
                   <input
                     type="number"
                     min="1"
                     value={newCourse.durationHours}
                     onChange={(e) => setNewCourse({ ...newCourse, durationHours: parseInt(e.target.value) || 1 })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   />
                 </div>
               </div>
 
-              <div className="pt-3 flex gap-3 border-t border-border">
+              <div className="pt-3 flex gap-3 border-t border-slate-100 dark:border-zinc-800">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="flex-1 py-2.5 rounded-xl bg-surface-raised hover:bg-surface-card border border-border text-zinc-300 text-xs font-bold transition-colors"
+                  className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 border border-slate-200 dark:border-zinc-700 text-slate-700 dark:text-zinc-300 text-xs font-bold transition-colors cursor-pointer"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
                   disabled={isCreating}
-                  className="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white text-xs font-black shadow-md disabled:opacity-50 transition-all hover:scale-105"
+                  className="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white text-xs font-black shadow-md disabled:opacity-50 transition-all hover:scale-105 cursor-pointer"
                 >
                   {isCreating ? 'جاري الإنشاء...' : 'إنشاء الكورس الآن'}
                 </button>
@@ -2206,15 +2207,15 @@ export default function InstructorClient({
 
       {/* COURSE DELETE CONFIRMATION MODAL */}
       {deletingCourse && mounted && createPortal(
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="max-w-md w-full rounded-3xl bg-surface border border-rose-900/50 p-6 space-y-4 shadow-2xl">
-            <div className="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="max-w-md w-full rounded-3xl bg-white dark:bg-[#111113] border border-rose-200 dark:border-rose-900/50 p-6 space-y-4 shadow-2xl">
+            <div className="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-500 flex items-center justify-center mx-auto">
               <AlertTriangle className="w-6 h-6" />
             </div>
             <div className="text-center space-y-1">
-              <h3 className="text-base font-black text-white">تأكيد حذف الكورس</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                هل أنت متأكد من رغبتك في حذف كورس <span className="text-white font-bold">"{deletingCourse.title}"</span>؟
+              <h3 className="text-base font-black text-slate-900 dark:text-white">تأكيد حذف الكورس</h3>
+              <p className="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
+                هل أنت متأكد من رغبتك في حذف كورس <span className="text-slate-900 dark:text-white font-bold">"{deletingCourse.title}"</span>؟
                 سيتم حذف كافة الدروس والملفات والاختبارات المرتبطة به.
               </p>
             </div>
@@ -2222,7 +2223,7 @@ export default function InstructorClient({
               <button
                 type="button"
                 onClick={() => setDeletingCourse(null)}
-                className="flex-1 py-2.5 rounded-xl bg-surface-raised hover:bg-surface-card border border-border text-zinc-300 text-xs font-bold"
+                className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 border border-slate-200 dark:border-zinc-700 text-slate-700 dark:text-zinc-300 text-xs font-bold cursor-pointer"
               >
                 تراجع
               </button>
@@ -2230,7 +2231,7 @@ export default function InstructorClient({
                 type="button"
                 disabled={isDeleting}
                 onClick={handleDeleteCourse}
-                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-black shadow-md disabled:opacity-50"
+                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-black shadow-md disabled:opacity-50 cursor-pointer"
               >
                 {isDeleting ? 'جاري الحذف...' : 'نعم، احذف الكورس'}
               </button>

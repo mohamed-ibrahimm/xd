@@ -3,6 +3,7 @@ import { IBM_Plex_Sans_Arabic, Cairo } from 'next/font/google';
 import './globals.css';
 import AppShell from '@/components/layout/AppShell';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { LanguageProvider } from '@/components/LanguageProvider';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
 import JsonLd from '@/components/seo/JsonLd';
@@ -26,7 +27,7 @@ const cairo = Cairo({
 export const dynamic = 'force-dynamic';
 
 export const viewport: Viewport = {
-  themeColor: '#0c0918',
+  themeColor: '#050505',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -140,7 +141,7 @@ export default async function RootLayout({
   } catch (e) {}
 
   return (
-    <html lang="ar" dir="rtl" className={`${ibmPlex.variable} ${cairo.variable} font-sans dark`} suppressHydrationWarning>
+    <html lang="ar" dir="rtl" className={`${ibmPlex.variable} ${cairo.variable} font-sans dark`} data-theme="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="alternate icon" href="/favicon.ico" />
@@ -155,17 +156,47 @@ export default async function RootLayout({
           platformTagline={platformTagline}
           settings={settingsMap}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var t = localStorage.getItem('qimam_theme_v2') || localStorage.getItem('qimam_theme');
+                if (t === 'LIGHT') {
+                  document.documentElement.classList.remove('dark');
+                  document.documentElement.classList.add('light-theme');
+                  document.documentElement.setAttribute('data-theme', 'light');
+                } else {
+                  document.documentElement.classList.remove('light-theme');
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+                var l = localStorage.getItem('qimam_lang');
+                if (l === 'en') {
+                  document.documentElement.setAttribute('lang', 'en');
+                  document.documentElement.setAttribute('dir', 'ltr');
+                  document.documentElement.classList.add('lang-en');
+                } else {
+                  document.documentElement.setAttribute('lang', 'ar');
+                  document.documentElement.setAttribute('dir', 'rtl');
+                  document.documentElement.classList.remove('lang-en');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
       </head>
-      <body className={`${ibmPlex.className} min-h-screen antialiased selection:bg-amber-500 selection:text-black relative`} suppressHydrationWarning>
+      <body className={`${ibmPlex.className} min-h-screen antialiased selection:bg-[#E94F9F] selection:text-[#080808] relative overflow-x-hidden w-full`} suppressHydrationWarning>
         <ThemeProvider>
-          <AppShell
-            initialUser={user}
-            initialPlatformName={platformName}
-            initialPlatformTagline={platformTagline}
-            initialSettings={settingsMap}
-          >
-            {children}
-          </AppShell>
+          <LanguageProvider>
+            <AppShell
+              initialUser={user}
+              initialPlatformName={platformName}
+              initialPlatformTagline={platformTagline}
+              initialSettings={settingsMap}
+            >
+              {children}
+            </AppShell>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

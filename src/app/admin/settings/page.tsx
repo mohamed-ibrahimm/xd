@@ -121,10 +121,10 @@ export default function AdminSettingsPage() {
             <Settings className="w-3.5 h-3.5" />
             <span>لوحة التحكم الشاملة لإدارة المنصة</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-2">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white flex items-center gap-2">
             إعدادات المنصة وأسعار الباقات ومحرر النصوص
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1">
             تحكم كامل بأسعار باقات المدرسين والطلبة، وتعديل أي كلمة أو عنوان يظهر في أي صفحة على المنصة لحظياً.
           </p>
         </div>
@@ -153,7 +153,7 @@ export default function AdminSettingsPage() {
       )}
 
       {/* Tabs Navigation */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-zinc-800/80">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 dark:border-zinc-800/80">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -165,7 +165,7 @@ export default function AdminSettingsPage() {
               className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
                 isActive
                   ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'bg-surface hover:bg-surface-raised text-zinc-400 hover:text-white border border-border'
+                  : 'bg-white hover:bg-slate-100 text-slate-600 hover:text-slate-900 dark:bg-surface dark:hover:bg-surface-raised dark:text-zinc-400 dark:hover:text-white border border-slate-200 dark:border-border'
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -188,21 +188,21 @@ export default function AdminSettingsPage() {
             TAB 1: PRICING & SUBSCRIPTION PACKAGES
            ========================================================================= */}
         {(activeTab === 'pricing' || activeTab === 'all') && (
-          <div className="p-6 rounded-3xl bg-surface border border-indigo-900/50 space-y-6 animate-in fade-in">
+          <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-indigo-900/50 space-y-6 animate-in fade-in shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-border">
               <div className="flex items-center gap-2 text-sm font-bold text-indigo-400">
                 <DollarSign className="w-5 h-5" />
                 <span>التحكم في أسعار باقات واشتراكات استوديو المحاضرين (SaaS Pricing)</span>
               </div>
-              <span className="text-[11px] text-zinc-400">
+              <span className="text-[11px] text-slate-500 dark:text-zinc-400">
                 تطبق الأسعار فورياً في صفحة الانضمام والاستوديو وبوابة الدفع
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* Regular Monthly Price */}
-              <div className="p-4 rounded-2xl bg-surface-raised border border-border space-y-2">
-                <label className="block text-xs font-bold text-white flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-2">
+                <label className="block text-xs font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>سعر الباقة الشهرية للمدرسين والدكاترة (ج.م) *</span>
                   <span className="text-[10px] text-indigo-400">شهرياً</span>
                 </label>
@@ -214,18 +214,18 @@ export default function AdminSettingsPage() {
                     value={settings.INSTRUCTOR_PRICE_MONTHLY ?? '290'}
                     onChange={(e) => handleChange('INSTRUCTOR_PRICE_MONTHLY', e.target.value)}
                     placeholder="290"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-sm font-mono focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:border-indigo-500"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">ج.م / شهر</span>
                 </div>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                   قيمة التجديد الشهري للمدرس أو الدكتور الجامعي (الافتراضي: 290 ج.م)
                 </p>
               </div>
 
               {/* Regular Annual Price */}
-              <div className="p-4 rounded-2xl bg-surface-raised border border-indigo-500/40 space-y-2">
-                <label className="block text-xs font-bold text-white flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-indigo-500/40 space-y-2">
+                <label className="block text-xs font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>سعر الباقة السنوية للمدرسين والدكاترة (ج.م) *</span>
                   <span className="text-[10px] text-emerald-400 font-bold">وفر شهرين</span>
                 </label>
@@ -237,18 +237,18 @@ export default function AdminSettingsPage() {
                     value={settings.INSTRUCTOR_PRICE_ANNUAL ?? '1499'}
                     onChange={(e) => handleChange('INSTRUCTOR_PRICE_ANNUAL', e.target.value)}
                     placeholder="1499"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-indigo-500/50 text-white text-sm font-mono focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-indigo-500/50 text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:border-indigo-500"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">ج.م / سنة</span>
                 </div>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                   سعر الاشتراك السنوي الكامل (الافتراضي: 1,499 ج.م أو 2,900 ج.م)
                 </p>
               </div>
 
               {/* Student Plan Price */}
-              <div className="p-4 rounded-2xl bg-surface-raised border border-amber-500/40 space-y-2">
-                <label className="block text-xs font-bold text-white flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-amber-500/40 space-y-2">
+                <label className="block text-xs font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>سعر باقة المحاضر الطالب المدعومة (ج.م) *</span>
                   <span className="text-[10px] text-amber-400 font-bold">منحة مخفضة</span>
                 </label>
@@ -260,18 +260,18 @@ export default function AdminSettingsPage() {
                     value={settings.INSTRUCTOR_PRICE_STUDENT ?? '120'}
                     onChange={(e) => handleChange('INSTRUCTOR_PRICE_STUDENT', e.target.value)}
                     placeholder="120"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-amber-500/50 text-white text-sm font-mono focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-amber-500/50 text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:border-amber-500"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">ج.م / شهر</span>
                 </div>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                   السعر المدعوم لطلبة الجامعات والمدارس بعد انتهاء الشهر المجاني (الافتراضي: 120 ج.م)
                 </p>
               </div>
 
               {/* Student Maximum Age */}
-              <div className="p-4 rounded-2xl bg-surface-raised border border-border space-y-2">
-                <label className="block text-xs font-bold text-white flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-2">
+                <label className="block text-xs font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>الحد الأقصى لسن باقة المحاضر الطالب (سنة) *</span>
                   <span className="text-[10px] text-zinc-400">شرط العمر</span>
                 </label>
@@ -283,18 +283,18 @@ export default function AdminSettingsPage() {
                     value={settings.STUDENT_MAX_AGE ?? '22'}
                     onChange={(e) => handleChange('STUDENT_MAX_AGE', e.target.value)}
                     placeholder="22"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-sm font-mono focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:border-primary-500"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">سنة</span>
                 </div>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                   أي مستخدم يتجاوز هذا السن يُمنع من تفعيل باقة الطالب ويُلزم بالباقة العادية
                 </p>
               </div>
 
               {/* Student Free Trial Duration */}
-              <div className="p-4 rounded-2xl bg-surface-raised border border-border space-y-2">
-                <label className="block text-xs font-bold text-white flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-2">
+                <label className="block text-xs font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>أيام التجربة المجانية للطالب (أيام) *</span>
                   <span className="text-[10px] text-emerald-400 font-bold">منحة مجانية</span>
                 </label>
@@ -306,18 +306,18 @@ export default function AdminSettingsPage() {
                     value={settings.STUDENT_TRIAL_DAYS ?? '30'}
                     onChange={(e) => handleChange('STUDENT_TRIAL_DAYS', e.target.value)}
                     placeholder="30"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-sm font-mono focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:border-primary-500"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">يوم</span>
                 </div>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                   فترة التجربة الكاملة للطالب فور تسجيله وتوثيق دراسته (الافتراضي: 30 يوماً)
                 </p>
               </div>
 
               {/* Regular Instructor Free Trial Duration */}
-              <div className="p-4 rounded-2xl bg-surface-raised border border-border space-y-2">
-                <label className="block text-xs font-bold text-white flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-2">
+                <label className="block text-xs font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>أيام التجربة المجانية للمدرس والدكتور (أيام) *</span>
                   <span className="text-[10px] text-indigo-400">تجربة عادية</span>
                 </label>
@@ -329,18 +329,18 @@ export default function AdminSettingsPage() {
                     value={settings.INSTRUCTOR_TRIAL_DAYS ?? '14'}
                     onChange={(e) => handleChange('INSTRUCTOR_TRIAL_DAYS', e.target.value)}
                     placeholder="14"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-sm font-mono focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:border-primary-500"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">يوم</span>
                 </div>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                   فترة التجربة الأولية لكبار المدرسين والدكاترة (الافتراضي: 14 يوماً)
                 </p>
               </div>
 
               {/* Platform Commission Percent */}
-              <div className="p-4 rounded-2xl bg-surface-raised border border-border space-y-2">
-                <label className="block text-xs font-bold text-white flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-2">
+                <label className="block text-xs font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>عمولة المنصة على مبيعات المحاضرين (%) *</span>
                   <span className="text-[10px] text-emerald-400 font-bold">0% نموذج قمم</span>
                 </label>
@@ -352,11 +352,11 @@ export default function AdminSettingsPage() {
                     value={settings.PLATFORM_COMMISSION_PERCENT ?? '0'}
                     onChange={(e) => handleChange('PLATFORM_COMMISSION_PERCENT', e.target.value)}
                     placeholder="0"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-sm font-mono focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-sm font-mono focus:outline-none focus:border-primary-500"
                   />
                   <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">%</span>
                 </div>
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                   النسبة المقتطعة من مبيعات كورسات المحاضر (موصى بها: 0% كأقوى ميزة تنافسية)
                 </p>
               </div>
@@ -368,19 +368,19 @@ export default function AdminSettingsPage() {
             TAB 2: CMS - CONTROL ALL PAGE TEXTS & HEADLINES
            ========================================================================= */}
         {(activeTab === 'content' || activeTab === 'all') && (
-          <div className="p-6 rounded-3xl bg-surface border border-purple-900/50 space-y-6 animate-in fade-in">
+          <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-purple-900/50 space-y-6 animate-in fade-in shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-border">
               <div className="flex items-center gap-2 text-sm font-bold text-purple-400">
                 <Type className="w-5 h-5" />
                 <span>التحكم في كلام ونصوص أي صفحة في المنصة (Platform Pages CMS)</span>
               </div>
-              <span className="text-[11px] text-zinc-400">
+              <span className="text-[11px] text-slate-500 dark:text-zinc-400">
                 أي نص تدخله هنا يظهر فورياً في واجهة المنصة للزوار والطلاب
               </span>
             </div>
 
             {/* Sub-section A: Homepage & Hero Section Texts */}
-            <div className="p-5 rounded-2xl bg-surface-raised border border-border space-y-4">
+            <div className="p-5 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-4">
               <span className="text-xs font-black text-indigo-300 block flex items-center gap-2">
                 <Compass className="w-4 h-4" />
                 نصوص الصفحة الرئيسية (Hero Section & Homepage)
@@ -396,7 +396,7 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: ابدأ رحلتك التعليمية واحتراف البرمجة والذكاء الاصطناعي"
                     value={settings.HERO_TITLE || ''}
                     onChange={(e) => handleChange('HERO_TITLE', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-indigo-500"
                   />
                   <span className="text-[10px] text-zinc-500 mt-1 block">اتركه فارغاً لاستخدام العنوان التلقائي الافتراضي</span>
                 </div>
@@ -410,7 +410,7 @@ export default function AdminSettingsPage() {
                     placeholder="منصة تعليمية متكاملة تقدم دورات احترافية ودبلومات شاملة مع كبار الخبراء والأساتذة..."
                     value={settings.HERO_SUBTITLE || ''}
                     onChange={(e) => handleChange('HERO_SUBTITLE', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-indigo-500"
                   />
                 </div>
 
@@ -422,7 +422,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.FEATURED_DIPLOMA_BADGE || 'الدبلومة الأكثر طلباً (خصم 51%)'}
                     onChange={(e) => handleChange('FEATURED_DIPLOMA_BADGE', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-amber-500"
                   />
                 </div>
 
@@ -434,7 +434,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.HERO_BTN_BOOKS || 'سوق المذكرات والكتب (خصم 50% ومعاينة مجانية)'}
                     onChange={(e) => handleChange('HERO_BTN_BOOKS', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-emerald-500"
                   />
                 </div>
 
@@ -446,7 +446,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.HERO_BTN_EXPERT || 'انضم كـ مدرس أو دكتور (14 يوماً مجاناً • 0% عمولة)'}
                     onChange={(e) => handleChange('HERO_BTN_EXPERT', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-purple-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-purple-500"
                   />
                 </div>
 
@@ -458,7 +458,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.HERO_BTN_STUDENT || 'اشترك كمحاضر طالب (منحة 30 يوماً مجاناً)'}
                     onChange={(e) => handleChange('HERO_BTN_STUDENT', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-amber-500"
                   />
                 </div>
 
@@ -472,7 +472,7 @@ export default function AdminSettingsPage() {
                     <select
                       value={settings.BANNER_ENABLED || 'true'}
                       onChange={(e) => handleChange('BANNER_ENABLED', e.target.value)}
-                      className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-border text-[11px] text-white"
+                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-900 border border-slate-300 dark:border-border text-[11px] text-slate-900 dark:text-white"
                     >
                       <option value="true">مفعل (يظهر بأعلى الموقع)</option>
                       <option value="false">معطل (مخفي)</option>
@@ -483,14 +483,14 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: خصم 30% لفترة محدودة على جميع الدبلومات البرمجية! كود: PRO30"
                     value={settings.BANNER_TEXT || ''}
                     onChange={(e) => handleChange('BANNER_TEXT', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-amber-500"
                   />
                 </div>
               </div>
             </div>
 
             {/* Sub-section B: Instructors Join Page Texts (/instructors/join) */}
-            <div className="p-5 rounded-2xl bg-surface-raised border border-border space-y-4">
+            <div className="p-5 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-4">
               <span className="text-xs font-black text-amber-300 block flex items-center gap-2">
                 <GraduationCap className="w-4 h-4" />
                 نصوص صفحة انضمام المحاضرين والباقات (/instructors/join)
@@ -505,7 +505,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.JOIN_EXPERT_CARD_TITLE || 'انضم كـ مدرس أو دكتور جامعي'}
                     onChange={(e) => handleChange('JOIN_EXPERT_CARD_TITLE', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-indigo-500"
                   />
                 </div>
 
@@ -517,7 +517,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.JOIN_STUDENT_CARD_TITLE || 'اشترك كـ محاضر طالب'}
                     onChange={(e) => handleChange('JOIN_STUDENT_CARD_TITLE', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-amber-500"
                   />
                 </div>
 
@@ -529,7 +529,7 @@ export default function AdminSettingsPage() {
                     rows={2}
                     value={settings.JOIN_EXPERT_CARD_DESC || 'مخصص للأساتذة والمحاضرين الذين يرغبون في بناء استوديو تعليمي سحابي مستقل لدفعاتهم مع سيطرة كاملة على المحتوى والأسعار.'}
                     onChange={(e) => handleChange('JOIN_EXPERT_CARD_DESC', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-indigo-500"
                   />
                 </div>
 
@@ -541,7 +541,7 @@ export default function AdminSettingsPage() {
                     rows={2}
                     value={settings.JOIN_STUDENT_CARD_DESC || 'لكل طالب بالكلية أو المدرسة يريد شرح المواد لزملائه؛ نمنحك شهر كامل مجاناً وشارة "طالب معتمد" مع باقة اشتراك مدعومة ومخفضة.'}
                     onChange={(e) => handleChange('JOIN_STUDENT_CARD_DESC', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-amber-500"
                   />
                 </div>
 
@@ -553,14 +553,14 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.JOIN_STUDENT_PROOF_TEXT || 'كارنيه كلية أو مدرسة، جدول المحاضرات أو الحصص، أو إثبات قيد للعام الحالي دون الحاجة لبطاقة شخصية'}
                     onChange={(e) => handleChange('JOIN_STUDENT_PROOF_TEXT', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-amber-500"
                   />
                 </div>
               </div>
             </div>
 
             {/* Sub-section C: Navigation & Footer Texts */}
-            <div className="p-5 rounded-2xl bg-surface-raised border border-border space-y-4">
+            <div className="p-5 rounded-2xl bg-slate-50/80 dark:bg-surface-raised border border-slate-200 dark:border-border space-y-4">
               <span className="text-xs font-black text-cyan-300 block flex items-center gap-2">
                 <Layers className="w-4 h-4" />
                 نصوص الهيدر العلوي والفوتر (Header & Footer)
@@ -575,7 +575,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.NAV_EXPERT_BTN_TEXT || 'مدرس أو دكتور جامعي'}
                     onChange={(e) => handleChange('NAV_EXPERT_BTN_TEXT', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-indigo-500"
                   />
                 </div>
 
@@ -587,7 +587,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.NAV_STUDENT_BTN_TEXT || 'محاضر طالب'}
                     onChange={(e) => handleChange('NAV_STUDENT_BTN_TEXT', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-amber-500"
                   />
                 </div>
 
@@ -600,7 +600,7 @@ export default function AdminSettingsPage() {
                     placeholder="جميع الحقوق محفوظة © أكاديمية م / محمد إبراهيم"
                     value={settings.FOOTER_COPYRIGHT || ''}
                     onChange={(e) => handleChange('FOOTER_COPYRIGHT', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-border text-white text-xs focus:outline-none focus:border-cyan-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-950 border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-cyan-500"
                   />
                 </div>
               </div>
@@ -614,8 +614,8 @@ export default function AdminSettingsPage() {
         {(activeTab === 'contacts' || activeTab === 'all') && (
           <div className="space-y-6 animate-in fade-in">
             {/* Identity */}
-            <div className="p-6 rounded-3xl bg-surface border border-border space-y-4">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+            <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border space-y-4 shadow-sm">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <Globe className="w-4 h-4 text-primary-400" />
                 <span>الهوية والبيانات العامة للمنصة</span>
               </h3>
@@ -626,7 +626,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.PLATFORM_NAME || ''}
                     onChange={(e) => handleChange('PLATFORM_NAME', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   />
                 </div>
 
@@ -636,14 +636,14 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.PLATFORM_TAGLINE || ''}
                     onChange={(e) => handleChange('PLATFORM_TAGLINE', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   />
                 </div>
               </div>
             </div>
 
             {/* Quick Contact & Social Media Channels */}
-            <div className="p-6 rounded-3xl bg-surface border border-cyan-900/40 space-y-4">
+            <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-cyan-900/40 space-y-4 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="flex items-center gap-2 text-sm font-bold text-cyan-400">
                   <MessageCircle className="w-4 h-4" />
@@ -669,7 +669,7 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: 01555791568"
                     value={settings.WHATSAPP_NUMBER || ''}
                     onChange={(e) => handleChange('WHATSAPP_NUMBER', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-emerald-900/40 text-white text-xs font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-emerald-900/40 text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-emerald-500"
                   />
                   <span className="text-[10px] text-zinc-500 mt-1 block">يفتح محادثة واتساب فورية مباشرة مع الزائر</span>
                 </div>
@@ -685,7 +685,7 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: mehac196@gmail.com"
                     value={settings.CONTACT_EMAIL || ''}
                     onChange={(e) => handleChange('CONTACT_EMAIL', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-rose-900/40 text-white text-xs font-mono focus:outline-none focus:border-rose-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-rose-900/40 text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-rose-500"
                   />
                   <span className="text-[10px] text-zinc-500 mt-1 block">يفتح إرسال بريد إلكتروني مباشر</span>
                 </div>
@@ -701,7 +701,7 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: https://facebook.com/mohammmedibrahim"
                     value={settings.FACEBOOK_URL || ''}
                     onChange={(e) => handleChange('FACEBOOK_URL', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-blue-900/40 text-white text-xs font-mono focus:outline-none focus:border-blue-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-blue-900/40 text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -716,7 +716,7 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: https://t.me/yourchannel"
                     value={settings.TELEGRAM_URL || ''}
                     onChange={(e) => handleChange('TELEGRAM_URL', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-sky-900/40 text-white text-xs font-mono focus:outline-none focus:border-sky-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-sky-900/40 text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-sky-500"
                   />
                 </div>
 
@@ -731,7 +731,7 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: https://youtube.com/@yourchannel"
                     value={settings.YOUTUBE_URL || ''}
                     onChange={(e) => handleChange('YOUTUBE_URL', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-red-900/40 text-white text-xs font-mono focus:outline-none focus:border-red-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-red-900/40 text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-red-500"
                   />
                 </div>
 
@@ -746,7 +746,7 @@ export default function AdminSettingsPage() {
                     placeholder="مثال: https://linkedin.com/in/yourprofile"
                     value={settings.LINKEDIN_URL || ''}
                     onChange={(e) => handleChange('LINKEDIN_URL', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-indigo-900/40 text-white text-xs font-mono focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-indigo-900/40 text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-indigo-500"
                   />
                 </div>
               </div>
@@ -760,7 +760,7 @@ export default function AdminSettingsPage() {
         {(activeTab === 'payments' || activeTab === 'all') && (
           <div className="space-y-6 animate-in fade-in">
             {/* InstaPay Settings */}
-            <div className="p-6 rounded-3xl bg-surface border border-purple-900/40 space-y-4">
+            <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-purple-900/40 space-y-4 shadow-sm">
               <div className="flex items-center gap-2 text-sm font-bold text-emerald-400">
                 <CreditCard className="w-4 h-4" />
                 <span>إعدادات إنستاباي (InstaPay IPN)</span>
@@ -774,7 +774,7 @@ export default function AdminSettingsPage() {
                     value={settings.INSTAPAY_ACCOUNT || ''}
                     onChange={(e) => handleChange('INSTAPAY_ACCOUNT', e.target.value)}
                     placeholder="qimam.edu@instapay"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs font-mono focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-primary-500"
                   />
                 </div>
 
@@ -784,7 +784,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.INSTAPAY_NAME || ''}
                     onChange={(e) => handleChange('INSTAPAY_NAME', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   />
                 </div>
               </div>
@@ -795,13 +795,13 @@ export default function AdminSettingsPage() {
                   rows={2}
                   value={settings.INSTAPAY_INSTRUCTIONS || ''}
                   onChange={(e) => handleChange('INSTAPAY_INSTRUCTIONS', e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                 />
               </div>
             </div>
 
             {/* Vodafone Cash Settings */}
-            <div className="p-6 rounded-3xl bg-surface border border-rose-900/40 space-y-4">
+            <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-rose-900/40 space-y-4 shadow-sm">
               <div className="flex items-center gap-2 text-sm font-bold text-rose-400">
                 <Smartphone className="w-4 h-4" />
                 <span>إعدادات فودافون كاش (Vodafone Cash)</span>
@@ -815,7 +815,7 @@ export default function AdminSettingsPage() {
                     value={settings.VODAFONE_CASH_NUMBER || ''}
                     onChange={(e) => handleChange('VODAFONE_CASH_NUMBER', e.target.value)}
                     placeholder="01012345678"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs font-mono focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs font-mono focus:outline-none focus:border-primary-500"
                   />
                 </div>
 
@@ -825,7 +825,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={settings.VODAFONE_CASH_NAME || ''}
                     onChange={(e) => handleChange('VODAFONE_CASH_NAME', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   />
                 </div>
               </div>
@@ -836,7 +836,7 @@ export default function AdminSettingsPage() {
                   rows={2}
                   value={settings.VODAFONE_CASH_INSTRUCTIONS || ''}
                   onChange={(e) => handleChange('VODAFONE_CASH_INSTRUCTIONS', e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                 />
               </div>
             </div>
@@ -849,7 +849,7 @@ export default function AdminSettingsPage() {
         {(activeTab === 'workflow' || activeTab === 'all') && (
           <div className="space-y-6 animate-in fade-in">
             {/* Learning Workflow & Forced Review Settings */}
-            <div className="p-6 rounded-3xl bg-surface border border-amber-900/40 space-y-4">
+            <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-amber-900/40 space-y-4 shadow-sm">
               <h3 className="text-sm font-bold text-amber-400 flex items-center gap-2">
                 <span>مسار التعلم والتقييم الإجباري</span>
               </h3>
@@ -862,7 +862,7 @@ export default function AdminSettingsPage() {
                   <select
                     value={settings.FORCE_REVIEW_SECOND_LESSON || 'true'}
                     onChange={(e) => handleChange('FORCE_REVIEW_SECOND_LESSON', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   >
                     <option value="true">مفعل (إلزام الطالب بتقييم الكورس بعد إنهاء الدرس الثاني)</option>
                     <option value="false">معطل (اختياري للطالب)</option>
@@ -876,7 +876,7 @@ export default function AdminSettingsPage() {
                   <select
                     value={settings.TASK_PASS_REQUIRED || 'true'}
                     onChange={(e) => handleChange('TASK_PASS_REQUIRED', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   >
                     <option value="true">مفعل (يجب تحقيق نسبة النجاح للانتقال للدرس التالي)</option>
                     <option value="false">معطل (السماح بالمتابعة)</option>
@@ -886,15 +886,15 @@ export default function AdminSettingsPage() {
             </div>
 
             {/* Watermark & AI Settings */}
-            <div className="p-6 rounded-3xl bg-surface border border-border space-y-4">
-              <h3 className="text-sm font-bold text-white">العلامة المائية والذكاء الاصطناعي</h3>
+            <div className="p-6 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border space-y-4 shadow-sm">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">العلامة المائية والذكاء الاصطناعي</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-zinc-300 mb-1">العلامة المائية على مشغل الفيديو</label>
                   <select
                     value={settings.WATERMARK_ENABLED || 'true'}
                     onChange={(e) => handleChange('WATERMARK_ENABLED', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   >
                     <option value="true">مفعلة (إظهار اسم الطالب ورقم هاتفه المشفر على الفيديو)</option>
                     <option value="false">معطلة</option>
@@ -908,7 +908,7 @@ export default function AdminSettingsPage() {
                   <select
                     value={settings.LESSON_COMPLETION_THRESHOLD || '80'}
                     onChange={(e) => handleChange('LESSON_COMPLETION_THRESHOLD', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-surface-raised border border-slate-300 dark:border-border text-slate-900 dark:text-white text-xs focus:outline-none focus:border-primary-500"
                   >
                     <option value="80">80% من مدة الفيديو</option>
                     <option value="90">90% من مدة الفيديو</option>
@@ -922,7 +922,7 @@ export default function AdminSettingsPage() {
 
         {/* Bottom Save Action Button */}
         <div className="flex items-center justify-between pt-4 border-t border-border">
-          <span className="text-xs text-zinc-400">
+          <span className="text-xs text-slate-500 dark:text-zinc-400">
             يتم تطبيق كافة التغييرات فورياً عبر جميع صفحات المنصة.
           </span>
           <button

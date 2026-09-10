@@ -3,9 +3,18 @@ import { SignJWT, jwtVerify } from 'jose';
 import bcrypt from 'bcryptjs';
 import { prisma } from './prisma';
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'qimam-super-secure-production-ready-jwt-secret-key-2026'
-);
+function getJwtSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL: JWT_SECRET environment variable is missing in production environment!');
+    }
+    return new TextEncoder().encode('qimam-dev-only-local-jwt-secret-not-for-production-use-2026');
+  }
+  return new TextEncoder().encode(secret);
+}
+
+const JWT_SECRET = getJwtSecret();
 
 export const AUTH_COOKIE_NAME = 'qimam_session';
 
@@ -80,45 +89,13 @@ export async function getCurrentUser() {
       }
     });
 
-    if (!user && payload?.userId) {
-      return {
-        id: payload.userId,
-        email: payload.email,
-        role: payload.role || 'STUDENT',
-        firstName: payload.username || 'مستخدم',
-        fatherName: null,
-        lastName: '',
-        officialFullName: payload.officialFullName || payload.email,
-        username: payload.username || 'user',
-        phone: '',
-        avatarUrl: null,
-        bio: '',
-        isEmailVerified: true,
-        parentNotificationEnabled: false,
-        createdAt: new Date(),
-      };
+    if (!user) {
+      return null;
     }
 
     return user;
   } catch (error) {
-    if (payload?.userId) {
-      return {
-        id: payload.userId,
-        email: payload.email,
-        role: payload.role || 'STUDENT',
-        firstName: payload.username || 'مستخدم',
-        fatherName: null,
-        lastName: '',
-        officialFullName: payload.officialFullName || payload.email,
-        username: payload.username || 'user',
-        phone: '',
-        avatarUrl: null,
-        bio: '',
-        isEmailVerified: true,
-        parentNotificationEnabled: false,
-        createdAt: new Date(),
-      };
-    }
+    console.error('User lookup error in getCurrentUser:', error);
     return null;
   }
 }

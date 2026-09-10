@@ -143,9 +143,9 @@ export default async function AdminOverviewPage() {
       </div>
 
       {/* Recent Orders Table */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-white/90 dark:bg-surface border border-slate-200/90 dark:border-border backdrop-blur-xl shadow-xl shadow-slate-900/5 space-y-5">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 shadow-xl space-y-5">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-white">أحدث طلبات الاشتراك والمدفوعات</h3>
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">أحدث طلبات الاشتراك والمدفوعات</h3>
           <Link href="/admin/payments" className="text-xs text-primary-400 hover:underline">
             عرض كافة العمليات
           </Link>
@@ -154,7 +154,7 @@ export default async function AdminOverviewPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
             <thead>
-              <tr className="border-b border-border/80 text-zinc-400">
+              <tr className="border-b border-slate-200 dark:border-zinc-800 text-slate-500 dark:text-zinc-400 font-bold">
                 <th className="pb-3 pr-2">رقم الطلب</th>
                 <th className="pb-3">الطالب</th>
                 <th className="pb-3">المقرر التدريبي</th>
@@ -164,18 +164,18 @@ export default async function AdminOverviewPage() {
                 <th className="pb-3">التاريخ</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/40">
+            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
               {recentOrders.map((order) => {
                 const isApproved = order.payment?.status === 'APPROVED' || order.status === 'COMPLETED';
                 const isPending = order.payment?.status === 'PENDING';
 
                 return (
-                  <tr key={order.id} className="hover:bg-surface-raised/40 transition-colors">
-                    <td className="py-3 pr-2 font-mono font-bold text-zinc-300">{order.orderNumber}</td>
-                    <td className="py-3 font-bold text-white">{order.user.officialFullName}</td>
-                    <td className="py-3 text-zinc-300">{order.course?.title || order.diploma?.title}</td>
-                    <td className="py-3 font-bold text-primary-300">{formatPrice(order.finalAmount)}</td>
-                    <td className="py-3 text-zinc-400">
+                  <tr key={order.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
+                    <td className="py-3 pr-2 font-mono font-bold text-slate-700 dark:text-zinc-300">{order.orderNumber}</td>
+                    <td className="py-3 font-bold text-slate-900 dark:text-white">{order.user.officialFullName}</td>
+                    <td className="py-3 text-slate-800 dark:text-zinc-300 font-medium">{order.course?.title || order.diploma?.title}</td>
+                    <td className="py-3 font-bold text-[#D83F8F] dark:text-primary-300">{formatPrice(order.finalAmount)}</td>
+                    <td className="py-3 text-slate-600 dark:text-zinc-400">
                       {order.payment?.paymentMethod === 'INSTAPAY'
                         ? 'إنستاباي'
                         : order.payment?.paymentMethod === 'VODAFONE_CASH'
@@ -184,18 +184,18 @@ export default async function AdminOverviewPage() {
                     </td>
                     <td className="py-3">
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
                           isApproved
-                            ? 'bg-emerald-950 text-emerald-300'
+                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
                             : isPending
-                            ? 'bg-amber-950 text-amber-300'
-                            : 'bg-rose-950 text-rose-300'
+                            ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+                            : 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'
                         }`}
                       >
                         {isApproved ? 'معتمد' : isPending ? 'معلق' : 'مرفوض'}
                       </span>
                     </td>
-                    <td className="py-3 text-zinc-500">{formatDate(order.createdAt)}</td>
+                    <td className="py-3 text-slate-500 dark:text-zinc-500">{formatDate(order.createdAt)}</td>
                   </tr>
                 );
               })}

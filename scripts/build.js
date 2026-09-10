@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 
-console.log('🚀 [Build Step 1/3] Preparing Database & Generating Prisma Client...');
+console.log('[Build Step 1/3] Preparing Database & Generating Prisma Client...');
 try {
   execSync('node scripts/prepare-db.js', { stdio: 'inherit' });
   execSync('npx prisma generate', { stdio: 'inherit' });
@@ -32,7 +32,7 @@ if (!dbUrl) {
   for (const [key, val] of Object.entries(process.env)) {
     if (typeof val === 'string' && (val.startsWith('postgresql://') || val.startsWith('postgres://') || val.startsWith('prisma+postgres://'))) {
       dbUrl = val.trim();
-      console.log(`🔍 [Build Auto-Detect] Found PostgreSQL URL in environment variable: ${key}`);
+      console.log(`[Build Auto-Detect] Found PostgreSQL URL in environment variable: ${key}`);
       break;
     }
   }
@@ -51,31 +51,31 @@ if (!process.env.DIRECT_URL) {
 const isRealDb = dbUrl && !dbUrl.includes('localhost') && !dbUrl.includes('dummy');
 
 if (isRealDb) {
-  console.log('📦 [Build Step 2/3] Applying database migrations to PostgreSQL...');
+  console.log('[Build Step 2/3] Applying database migrations to PostgreSQL...');
   try {
     execSync('npx prisma migrate deploy', { stdio: 'inherit' });
-    console.log('✅ Database migrations applied successfully.');
+    console.log('[Build] Database migrations applied successfully.');
 
     try {
-      console.log('🌱 Initializing database with seed courses and admin...');
+      console.log('[Build] Initializing database with seed courses and admin...');
       execSync('node prisma/seed.js', { stdio: 'inherit' });
-      console.log('✅ Initial platform seed completed.');
+      console.log('[Build] Initial platform seed completed.');
     } catch (seedErr) {
       console.warn('Seed notice (skipping or data exists):', seedErr.message);
     }
   } catch (err) {
-    console.warn('⚠️ Migration deploy notice:', err.message);
+    console.warn('[Build Notice] Migration deploy notice:', err.message);
     try {
-      console.log('🔄 Attempting prisma db push to ensure all columns exist in database...');
+      console.log('[Build] Attempting prisma db push to ensure all columns exist in database...');
       execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
-      console.log('✅ Database schema pushed successfully.');
+      console.log('[Build] Database schema pushed successfully.');
     } catch (pushErr) {
       console.warn('Prisma db push notice:', pushErr.message);
     }
   }
 } else {
-  console.log('ℹ️ [Build Step 2/3] Skipping migrations (DATABASE_URL is not set or local).');
+  console.log('[Build Step 2/3] Skipping migrations (DATABASE_URL is not set or local).');
 }
 
-console.log('⚡ [Build Step 3/3] Building Next.js application...');
+console.log('[Build Step 3/3] Building Next.js application...');
 execSync('npx next build', { stdio: 'inherit' });

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 // GET reviews for a course, diploma, or digital book
 export async function GET(req: Request) {
@@ -47,14 +48,49 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'غير مصرح لك بالتقييم قبل تسجيل الدخول' }, { status: 401 });
     }
 
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(`review:${user.id}:${clientIp}`, { limit: 10, windowMs: 60 * 60 * 1000 });
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز عدد التقييمات المسموح بها في الساعة. يرجى الانتظار.' }, { status: 429 });
+    }
+
     const { courseId, diplomaId, bookId, rating, comment } = await req.json();
 
     if (!rating || rating < 1 || rating > 5) {
       return NextResponse.json({ error: 'يرجى اختيار تقييم صحيح من 1 إلى 5 نجوم' }, { status: 400 });
     }
 
-    if (!comment || comment.trim().length < 3) {
+    if (!comment || typeof comment !== 'string' || comment.trim().length < 3) {
       return NextResponse.json({ error: 'يرجى كتابة تعليق تقييم لا يقل عن 3 أحرف' }, { status: 400 });
+    }
+
+    if (comment.length > 2000) {
+      return NextResponse.json({ error: 'التعليق طويل جداً (الحد الأقصى 2000 حرف)' }, { status: 400 });
+    }
+
+    // SECURITY: Verify enrollment or purchase before allowing review
+    if (user.role !== 'ADMIN') {
+      let hasAccess = false;
+      if (courseId) {
+        const enrollment = await prisma.enrollment.findFirst({
+          where: { userId: user.id, courseId, status: 'ACTIVE' }
+        });
+        hasAccess = Boolean(enrollment);
+      } else if (diplomaId) {
+        const enrollment = await prisma.enrollment.findFirst({
+          where: { userId: user.id, diplomaId, status: 'ACTIVE' }
+        });
+        hasAccess = Boolean(enrollment);
+      } else if (bookId) {
+        const purchase = await prisma.bookPurchase.findFirst({
+          where: { userId: user.id, bookId }
+        });
+        hasAccess = Boolean(purchase);
+      }
+
+      if (!hasAccess) {
+        return NextResponse.json({ error: 'عذراً، يجب أن تكون مشتركاً أو مشترياً للمحتوى لتتمكن من إضافة تقييمك' }, { status: 403 });
+      }
     }
 
     // Upsert review so student can update their existing review

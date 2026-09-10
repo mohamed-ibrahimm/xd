@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/lib/email';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
@@ -9,12 +13,25 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'يرجى إدخال البريد الإلكتروني' }, { status: 400 });
     }
 
+    const cleanEmail = email.toLowerCase().trim();
+    const ip = getClientIp(req);
+
+    // Rate Limiting: 3 forgot-password requests per 15 minutes per IP + email
+    const rateCheck = checkRateLimit(`forgot_pw_${ip}_${cleanEmail}`, { limit: 3, windowMs: 15 * 60 * 1000 });
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'تم تجاوز عدد محاولات طلب الاستعادة، يرجى الانتظار 15 دقيقة قبل المحاولة مرة أخرى.' },
+        { status: 429 }
+      );
+    }
+
     const user = await prisma.user.findUnique({
-      where: { email: email.toLowerCase().trim() }
+      where: { email: cleanEmail }
     });
 
     if (user) {
-      const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      // Cryptographically secure random token (64 hex characters)
+      const resetToken = crypto.randomBytes(32).toString('hex');
       const expires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
       await prisma.user.update({
@@ -43,11 +60,13 @@ export async function POST(req: Request) {
       });
     }
 
+    // Always return generic success message to prevent user enumeration
     return NextResponse.json({
       success: true,
       message: 'إذا كان البريد مسجلاً لدينا، فستصلك تعليمات استعادة كلمة المرور خلال دقائق.'
     });
   } catch (error) {
+    console.error('Forgot password error:', error);
     return NextResponse.json({ error: 'حدث خطأ، يرجى المحاولة لاحقاً' }, { status: 500 });
   }
 }

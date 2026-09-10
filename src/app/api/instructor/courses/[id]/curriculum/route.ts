@@ -162,6 +162,13 @@ export async function PUT(req: Request, { params }: RouteParams) {
         return NextResponse.json({ error: 'معرف الوحدة مطلوب' }, { status: 400 });
       }
 
+      const existingSection = await prisma.section.findFirst({
+        where: { id: sectionId, courseId: params.id }
+      });
+      if (!existingSection) {
+        return NextResponse.json({ error: 'الوحدة غير موجودة في هذا الكورس' }, { status: 404 });
+      }
+
       const section = await prisma.section.update({
         where: { id: sectionId },
         data: {
@@ -190,6 +197,13 @@ export async function PUT(req: Request, { params }: RouteParams) {
 
       if (!lessonId) {
         return NextResponse.json({ error: 'معرف الدرس مطلوب' }, { status: 400 });
+      }
+
+      const existingLesson = await prisma.lesson.findFirst({
+        where: { id: lessonId, section: { courseId: params.id } }
+      });
+      if (!existingLesson) {
+        return NextResponse.json({ error: 'الدرس غير موجود في هذا الكورس' }, { status: 404 });
       }
 
       const lesson = await prisma.lesson.update({
@@ -237,12 +251,26 @@ export async function DELETE(req: Request, { params }: RouteParams) {
     }
 
     if (type === 'SECTION') {
+      const existingSection = await prisma.section.findFirst({
+        where: { id: targetId, courseId: params.id }
+      });
+      if (!existingSection) {
+        return NextResponse.json({ error: 'الوحدة غير موجودة في هذا الكورس' }, { status: 404 });
+      }
+
       await prisma.section.delete({ where: { id: targetId } });
       revalidatePath(`/courses/${check.course.slug}`);
       return NextResponse.json({ success: true, message: 'تم حذف الوحدة وجميع دروسها بنجاح' });
     }
 
     if (type === 'LESSON') {
+      const existingLesson = await prisma.lesson.findFirst({
+        where: { id: targetId, section: { courseId: params.id } }
+      });
+      if (!existingLesson) {
+        return NextResponse.json({ error: 'الدرس غير موجود في هذا الكورس' }, { status: 404 });
+      }
+
       await prisma.lesson.delete({ where: { id: targetId } });
       revalidatePath(`/courses/${check.course.slug}`);
       revalidatePath(`/learn/${check.course.slug}`);

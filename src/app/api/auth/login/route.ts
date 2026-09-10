@@ -1,32 +1,33 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyPassword, createSessionToken, AUTH_COOKIE_NAME } from '@/lib/auth';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const loginIdentifier = (body.loginIdentifier || body.identifier || '').trim();
-    const password = (body.password || '').trim();
+    const loginIdentifier = (body.loginIdentifier || body.identifier || body.email || '').trim();
+    const password = body.password || '';
 
     if (!loginIdentifier || !password) {
       return NextResponse.json({ error: 'يرجى إدخال البريد الإلكتروني أو اسم المستخدم وكلمة المرور' }, { status: 400 });
     }
 
     const identifier = loginIdentifier.toLowerCase();
-    const trimmedPass = password.toLowerCase();
+    const ip = getClientIp(req);
 
-    // Check built-in demo credentials
-    const isBuiltInAdmin = (identifier === 'admin' || identifier === 'admin@qimam.edu') &&
-      ['admin', 'password123', '123456', 'admin123'].includes(trimmedPass);
+    // Rate Limiting: 5 attempts per minute per IP + identifier
+    const rateCheck = checkRateLimit(`login_${ip}_${identifier}`, { limit: 5, windowMs: 60 * 1000 });
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'تم تجاوز عدد محاولات الدخول المسموح بها، يرجى الانتظار دقيقة والمحاولة مرة أخرى' },
+        { status: 429 }
+      );
+    }
 
-    const isBuiltInInstructor = (identifier === 'instructor' || identifier === 'instructor@qimam.edu') &&
-      ['instructor', 'password123', '123456'].includes(trimmedPass);
-
-    const isBuiltInStudent = (identifier === 'student' || identifier === 'student@qimam.edu') &&
-      ['student', 'password123', '123456'].includes(trimmedPass);
-
-    let user: any = null;
-
+    let user = null;
     try {
       user = await prisma.user.findFirst({
         where: {
@@ -37,53 +38,16 @@ export async function POST(req: Request) {
         }
       });
     } catch (dbErr) {
-      console.warn('Prisma lookup failed in login API:', dbErr);
+      console.error('Database user lookup failed in login API:', dbErr);
+      return NextResponse.json({ error: 'حدث خطأ في الاتصال، يرجى المحاولة لاحقاً' }, { status: 500 });
     }
 
-    if (user) {
-      const isDemoPass = [
-        'admin',
-        'instructor',
-        'student',
-        'password123',
-        '123456',
-        'admin123',
-        user.username?.toLowerCase(),
-        user.role?.toLowerCase()
-      ].filter(Boolean).includes(trimmedPass);
+    if (!user || !user.passwordHash) {
+      return NextResponse.json({ error: 'بيانات الدخول غير صحيحة' }, { status: 401 });
+    }
 
-      const isValidPassword = isDemoPass || (await verifyPassword(password, user.passwordHash));
-      if (!isValidPassword) {
-        return NextResponse.json({ error: 'بيانات الدخول غير صحيحة' }, { status: 401 });
-      }
-    } else if (isBuiltInAdmin) {
-      user = {
-        id: 'cmtbhka5t0000tjd08k8digp4',
-        email: 'admin@qimam.edu',
-        role: 'ADMIN',
-        username: 'admin',
-        officialFullName: 'م / محمد إبراهيم (المدير)',
-        avatarUrl: null
-      };
-    } else if (isBuiltInInstructor) {
-      user = {
-        id: 'cmtbhka5y0001tjd061dbshqn',
-        email: 'instructor@qimam.edu',
-        role: 'INSTRUCTOR',
-        username: 'instructor',
-        officialFullName: 'د. كريم عبد العزيز (المحاضر)',
-        avatarUrl: null
-      };
-    } else if (isBuiltInStudent) {
-      user = {
-        id: 'cmtbhka630002tjd0wg6o051z',
-        email: 'student@qimam.edu',
-        role: 'STUDENT',
-        username: 'student',
-        officialFullName: 'أحمد محمود (طالب)',
-        avatarUrl: null
-      };
-    } else {
+    const isValidPassword = await verifyPassword(password, user.passwordHash);
+    if (!isValidPassword) {
       return NextResponse.json({ error: 'بيانات الدخول غير صحيحة' }, { status: 401 });
     }
 

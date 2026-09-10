@@ -22,10 +22,19 @@ export async function PUT(req: Request) {
     if (officialFullName) updateData.officialFullName = officialFullName.trim();
     if (phone !== undefined) updateData.phone = phone ? phone.trim() : null;
     if (bio !== undefined) updateData.bio = bio ? bio.trim() : null;
-    if (avatarUrl !== undefined) updateData.avatarUrl = avatarUrl ? avatarUrl.trim() : null;
+    if (avatarUrl !== undefined) {
+      const cleanAvatar = avatarUrl ? avatarUrl.trim() : null;
+      if (cleanAvatar && !cleanAvatar.startsWith('/uploads/') && !cleanAvatar.startsWith('https://') && !cleanAvatar.startsWith('http://') && !cleanAvatar.startsWith('data:image/')) {
+        return NextResponse.json({ error: 'رابط الصورة الرمزية غير صالح' }, { status: 400 });
+      }
+      updateData.avatarUrl = cleanAvatar;
+    }
 
     // Change Password if requested
     if (newPassword) {
+      if (newPassword.length < 8) {
+        return NextResponse.json({ error: 'كلمة المرور الجديدة يجب أن لا تقل عن 8 أحرف وأرقام' }, { status: 400 });
+      }
       if (!currentPassword) {
         return NextResponse.json({ error: 'يرجى إدخال كلمة المرور الحالية لتغيير كلمة المرور' }, { status: 400 });
       }

@@ -226,7 +226,7 @@ export default function AdminPaymentsPage() {
               return (
                 <div
                   key={p.id}
-                  className="rounded-2xl bg-white dark:bg-zinc-900/80 border border-slate-200 dark:border-zinc-800 p-4 space-y-4 shadow-sm hover:shadow-md transition-all"
+                  className="rounded-2xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 p-4 space-y-4 shadow-sm hover:shadow-md transition-all"
                 >
                   {/* Top: Order & Status */}
                   <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-zinc-800/80 pb-3">
@@ -356,11 +356,11 @@ export default function AdminPaymentsPage() {
           </div>
 
           {/* DESKTOP TABLE VIEW (Full columns, high-density) */}
-          <div className="hidden lg:block rounded-3xl bg-white dark:bg-zinc-900/80 border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-xl">
+          <div className="hidden lg:block rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-right text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/50 text-slate-600 dark:text-zinc-400 font-black">
+                  <tr className="border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-zinc-400 font-black">
                     <th className="p-4">رقم الطلب / المعاملة</th>
                     <th className="p-4">الطالب</th>
                     <th className="p-4">المقرر المطلوب</th>
@@ -379,7 +379,7 @@ export default function AdminPaymentsPage() {
                     const itemTitle = p.order?.course?.title || p.order?.diploma?.title || '-';
 
                     return (
-                      <tr key={p.id} className="hover:bg-slate-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+                      <tr key={p.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
                         <td className="p-4 space-y-0.5">
                           <span className="font-mono font-black text-slate-900 dark:text-white block">{p.order?.orderNumber}</span>
                           {p.transactionId && (

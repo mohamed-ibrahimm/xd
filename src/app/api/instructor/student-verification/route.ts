@@ -57,6 +57,27 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'يرجى إكمال جميع الحقول ورفع مستند إثبات الدراسة الحالي (كارنيه، جدول، أو إثبات قيد)' }, { status: 400 });
     }
 
+    const currentUser = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { studentVerificationStatus: true, trialEndsAt: true }
+    });
+
+    if (currentUser?.studentVerificationStatus === 'APPROVED') {
+      return NextResponse.json({ error: 'تم توثيق حسابك مسبقاً.' }, { status: 400 });
+    }
+
+    if (currentUser?.studentVerificationStatus === 'PENDING') {
+      return NextResponse.json({ error: 'طلب التوثيق الخاص بك قيد المراجعة حالياً من قبل الإدارة.' }, { status: 400 });
+    }
+
+    const isValidDocUrl = (url: string) => url.startsWith('/uploads/') || url.startsWith('https://');
+    if (!isValidDocUrl(studentIdCardUrl)) {
+      return NextResponse.json({ error: 'رابط صورة الكارنيه غير صالح' }, { status: 400 });
+    }
+    if (nationalIdUrl && !isValidDocUrl(nationalIdUrl)) {
+      return NextResponse.json({ error: 'رابط صورة بطاقة الرقم القومي غير صالح' }, { status: 400 });
+    }
+
     // Strict Age Verification: Max 23 Years Old
     const birth = new Date(birthDate);
     if (isNaN(birth.getTime())) {
@@ -88,8 +109,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'تاريخ الميلاد المدخل غير منطقي' }, { status: 400 });
     }
 
-    // Update user profile and activate Free Trial based on settings
-    const trialDaysFromNow = new Date(Date.now() + trialDays * 24 * 60 * 60 * 1000);
+    // Only grant free trial if user has never received one before
+    const trialDaysFromNow = currentUser?.trialEndsAt 
+      ? currentUser.trialEndsAt 
+      : new Date(Date.now() + trialDays * 24 * 60 * 60 * 1000);
 
     const updatedUser = await prisma.user.update({
       where: { id: user.id },

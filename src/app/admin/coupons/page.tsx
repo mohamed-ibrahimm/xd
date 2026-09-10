@@ -84,7 +84,7 @@ export default function AdminCouponsPage() {
       </div>
 
       {/* Generator Form */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border shadow-xl space-y-5">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 shadow-xl space-y-5">
         <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
           توليد كوبون جديد (GENERATE COUPON)
@@ -182,11 +182,11 @@ export default function AdminCouponsPage() {
       </div>
 
       {/* Coupons Table */}
-      <div className="rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-border bg-slate-50 dark:bg-surface-raised/60 text-slate-500 dark:text-zinc-400 font-bold">
+              <tr className="border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-zinc-400 font-bold">
                 <th className="p-4">كود الكوبون</th>
                 <th className="p-4">نوع وقيمة الخصم</th>
                 <th className="p-4">الاستخدامات المنجزة</th>
@@ -195,9 +195,9 @@ export default function AdminCouponsPage() {
                 <th className="p-4">تاريخ الإنشاء</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-border/40">
+            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
               {coupons.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50/80 dark:hover:bg-surface-raised/30 transition-colors">
+                <tr key={c.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
                   <td className="p-4">
                     <div className="flex items-center gap-2 font-mono font-bold text-indigo-600 dark:text-primary-300">
                       <span>{c.code}</span>

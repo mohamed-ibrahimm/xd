@@ -8,7 +8,11 @@ export const revalidate = 0;
 
 export async function GET() {
   try {
+    const user = await requireAuth(['ADMIN', 'INSTRUCTOR']);
+    const where = user.role === 'ADMIN' ? {} : { instructorId: user.id };
+
     const courses = await prisma.course.findMany({
+      where,
       orderBy: { createdAt: 'desc' },
       include: {
         instructor: { select: { officialFullName: true } },
@@ -22,7 +26,7 @@ export async function GET() {
       { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
     );
   } catch (e) {
-    return NextResponse.json({ error: 'فشل جلب الكورسات' }, { status: 500 });
+    return NextResponse.json({ error: 'فشل جلب الكورسات' }, { status: 403 });
   }
 }
 

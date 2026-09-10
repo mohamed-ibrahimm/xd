@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
   try {
@@ -21,6 +24,16 @@ export async function GET(req: Request) {
           }
         }
       });
+
+      if (!ticket) {
+        return NextResponse.json({ error: 'التذكرة غير موجودة' }, { status: 404 });
+      }
+
+      // SECURITY: Ensure user owns ticket or is ADMIN
+      if (user.role !== 'ADMIN' && ticket.userId !== user.id) {
+        return NextResponse.json({ error: 'غير مصرح لك بالاطلاع على هذه التذكرة' }, { status: 403 });
+      }
+
       return NextResponse.json({ ticket });
     }
 
@@ -45,8 +58,14 @@ export async function POST(req: Request) {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
 
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(`support_post:${user.id}:${clientIp}`, { limit: 5, windowMs: 10 * 60 * 1000 });
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز عدد التذاكر المسموح بإنشائها مؤقتاً. يرجى الانتظار.' }, { status: 429 });
+    }
+
     const { subject, category, priority, message } = await req.json();
-    if (!subject || !message) {
+    if (!subject || !message || typeof message !== 'string' || !message.trim()) {
       return NextResponse.json({ error: 'يرجى كتابة عنوان وتفاصيل التذكرة' }, { status: 400 });
     }
 
@@ -56,7 +75,7 @@ export async function POST(req: Request) {
       data: {
         ticketNumber,
         userId: user.id,
-        subject: subject.trim(),
+        subject: subject.trim().slice(0, 200),
         category: category || 'GENERAL',
         priority: priority || 'MEDIUM',
         status: 'OPEN',
@@ -69,7 +88,7 @@ export async function POST(req: Request) {
         ticketId: ticket.id,
         senderId: user.id,
         senderRole: user.role,
-        message: message.trim(),
+        message: message.trim().slice(0, 5000),
       }
     });
 
@@ -84,8 +103,27 @@ export async function PUT(req: Request) {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
 
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(`support_put:${user.id}:${clientIp}`, { limit: 20, windowMs: 5 * 60 * 1000 });
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز الحد المسموح به من الردود. يرجى الانتظار قليلاً.' }, { status: 429 });
+    }
+
     const { ticketId, message, status } = await req.json();
     if (!ticketId) return NextResponse.json({ error: 'معرف التذكرة مطلوب' }, { status: 400 });
+
+    const ticket = await prisma.supportTicket.findUnique({
+      where: { id: ticketId }
+    });
+
+    if (!ticket) {
+      return NextResponse.json({ error: 'التذكرة غير موجودة' }, { status: 404 });
+    }
+
+    // SECURITY: Ensure user owns ticket or is ADMIN before allowing updates
+    if (user.role !== 'ADMIN' && ticket.userId !== user.id) {
+      return NextResponse.json({ error: 'غير مصرح لك بتعديل هذه التذكرة' }, { status: 403 });
+    }
 
     if (message) {
       await prisma.ticketMessage.create({
@@ -99,9 +137,11 @@ export async function PUT(req: Request) {
     }
 
     if (status) {
+      // Non-admins can only change status to CLOSED
+      const safeStatus = user.role === 'ADMIN' ? status : 'CLOSED';
       await prisma.supportTicket.update({
         where: { id: ticketId },
-        data: { status, updatedAt: new Date() }
+        data: { status: safeStatus, updatedAt: new Date() }
       });
     }
 

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { hashPassword, createSessionToken, AUTH_COOKIE_NAME } from '@/lib/auth';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
@@ -29,8 +30,18 @@ export async function POST(req: Request) {
       username = `${prefix}_${Math.floor(100 + Math.random() * 900)}`;
     }
 
+    const ip = getClientIp(req);
+    const rateCheck = checkRateLimit(`register_${ip}`, { limit: 10, windowMs: 60 * 1000 });
+    if (!rateCheck.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز عدد محاولات التسجيل المسموح بها، يرجى المحاولة بعد دقيقة' }, { status: 429 });
+    }
+
     if (!firstName || !lastName || !email || !password) {
       return NextResponse.json({ error: 'يرجى ملء جميع الحقول المطلوبة' }, { status: 400 });
+    }
+
+    if (password.length < 8) {
+      return NextResponse.json({ error: 'كلمة المرور يجب أن لا تقل عن 8 أحرف وأرقام' }, { status: 400 });
     }
 
     // Check duplicate email or username safely
@@ -85,17 +96,9 @@ export async function POST(req: Request) {
           isEmailVerified: true,
         }
       });
-    } catch (createErr) {
-      console.warn('DB creation skipped or failed, using resilient user model:', createErr);
-      user = {
-        id: 'usr_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6),
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        officialFullName: calculatedOfficialName,
-        username: username.toLowerCase().trim(),
-        email: email.toLowerCase().trim(),
-        role: requestedRole,
-      };
+    } catch (createErr: any) {
+      console.error('Database user creation failed in register route:', createErr);
+      return NextResponse.json({ error: 'فشل إنشاء الحساب، يرجى التأكد من البيانات والمحاولة مرة أخرى' }, { status: 500 });
     }
 
     // Create session token

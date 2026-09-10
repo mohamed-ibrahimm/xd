@@ -110,11 +110,11 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-border overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800 overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-right text-xs">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-border bg-slate-50 dark:bg-surface-raised/60 text-slate-500 dark:text-zinc-400 font-bold">
+              <tr className="border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-white/[0.04] text-slate-600 dark:text-zinc-400 font-bold">
                 <th className="p-4">المستخدم</th>
                 <th className="p-4">البريد الإلكتروني</th>
                 <th className="p-4">الدور الحالي (Role)</th>
@@ -123,7 +123,7 @@ export default function AdminUsersPage() {
                 <th className="p-4 text-left">تعديل الصلاحية</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-border">
+            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
               {loading ? (
                 <tr>
                   <td colSpan={6} className="p-8 text-center text-slate-400 dark:text-zinc-400">جاري تحميل قائمة المستخدمين...</td>
@@ -134,7 +134,7 @@ export default function AdminUsersPage() {
                 </tr>
               ) : (
                 users.map((u) => (
-                  <tr key={u.id} className="hover:bg-slate-50/80 dark:hover:bg-surface-raised/40 transition-colors">
+                  <tr key={u.id} className="hover:bg-slate-100/70 dark:hover:bg-white/[0.04] transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-zinc-800 border border-amber-300 dark:border-zinc-700 flex items-center justify-center font-bold text-amber-700 dark:text-amber-400">

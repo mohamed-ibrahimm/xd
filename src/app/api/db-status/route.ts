@@ -1,19 +1,14 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getCurrentUser } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const envKeys = Object.keys(process.env).filter(k => 
-    k.includes('DATABASE') || k.includes('POSTGRES') || k.includes('STORAGE') || k.includes('PRISMA') || k.includes('URL') || k.includes('JWT')
-  );
-
-  const hasDbUrl = Boolean(process.env.DATABASE_URL);
-  const hasDirectUrl = Boolean(process.env.DIRECT_URL);
-  const hasJwtSecret = Boolean(process.env.JWT_SECRET);
+  const user = await getCurrentUser();
+  const isAdmin = user && user.role === 'ADMIN';
 
   let dbConnected = false;
-  let errorMsg = null;
   let userCount = 0;
   let courseCount = 0;
   let diplomaCount = 0;
@@ -27,22 +22,30 @@ export async function GET() {
     dbConnected = true;
   } catch (err: any) {
     dbConnected = false;
-    errorMsg = err?.message || String(err);
   }
 
+  // Public sanitized response
+  if (!isAdmin) {
+    return NextResponse.json({
+      status: dbConnected ? 'ok' : 'database_unavailable',
+      connected: dbConnected,
+      timestamp: new Date().toISOString(),
+    }, { status: dbConnected ? 200 : 503 });
+  }
+
+  // Privileged diagnostic response for Admin only
   return NextResponse.json({
     status: dbConnected ? 'ok' : 'database_error',
     database: {
       connected: dbConnected,
-      detectedEnvKeys: envKeys,
-      hasDatabaseUrlEnv: hasDbUrl,
-      hasDirectUrlEnv: hasDirectUrl,
-      hasJwtSecretEnv: hasJwtSecret,
-      userCount,
-      courseCount,
-      diplomaCount,
-      bookCount,
-      error: errorMsg,
+      hasDatabaseUrlEnv: Boolean(process.env.DATABASE_URL),
+      hasJwtSecretEnv: Boolean(process.env.JWT_SECRET),
+      counts: {
+        users: userCount,
+        courses: courseCount,
+        diplomas: diplomaCount,
+        books: bookCount,
+      }
     },
     timestamp: new Date().toISOString(),
   });

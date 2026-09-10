@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { prisma } from '@/lib/prisma';
 import { hashPassword, createSessionToken, AUTH_COOKIE_NAME } from '@/lib/auth';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
@@ -12,14 +16,32 @@ export async function POST(req: Request) {
     }
 
     const cleanEmail = email.toLowerCase().trim();
+    const ip = getClientIp(req);
 
     if (action === 'send') {
-      // Generate 6-digit OTP code
-      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+      // Rate Limiting: 3 OTP send requests per 10 minutes per IP + email
+      const rateCheck = checkRateLimit(`otp_send_${ip}_${cleanEmail}`, { limit: 3, windowMs: 10 * 60 * 1000 });
+      if (!rateCheck.allowed) {
+        return NextResponse.json(
+          { error: 'تم تجاوز عدد محاولات إرسال كود التحقق. يرجى الانتظار 10 دقائق قبل إعادة المحاولة.' },
+          { status: 429 }
+        );
+      }
+
+      // Generate cryptographically secure 6-digit OTP code
+      const otpCode = crypto.randomInt(100000, 1000000).toString();
 
       let user = await prisma.user.findUnique({
         where: { email: cleanEmail }
       });
+
+      // Prevent passwordless takeover of ADMIN accounts via OTP
+      if (user && user.role === 'ADMIN') {
+        return NextResponse.json(
+          { error: 'حسابات الإدارة تتطلب تسجيل الدخول المباشر بكلمة المرور المشفرة.' },
+          { status: 403 }
+        );
+      }
 
       const requestedRole = role === 'INSTRUCTOR' ? 'INSTRUCTOR' : 'STUDENT';
       const isInstructor = requestedRole === 'INSTRUCTOR';
@@ -39,9 +61,10 @@ export async function POST(req: Request) {
         const nameParts = (fullName || cleanEmail.split('@')[0]).trim().split(/\s+/);
         const firstName = nameParts[0] || 'مستخدم';
         const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : 'جديد';
-        const randomSuffix = Math.floor(100 + Math.random() * 900);
+        const randomSuffix = crypto.randomInt(100, 1000);
         const username = `${cleanEmail.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '')}_${randomSuffix}`.slice(0, 30);
-        const defaultPasswordHash = await hashPassword(`otp_secure_pwd_${Date.now()}`);
+        const randomPassword = crypto.randomBytes(24).toString('hex');
+        const defaultPasswordHash = await hashPassword(randomPassword);
 
         user = await prisma.user.create({
           data: {
@@ -62,18 +85,30 @@ export async function POST(req: Request) {
         });
       }
 
-      console.log(`[OTP VERIFICATION CODE FOR ${cleanEmail}]: ${otpCode}`);
+      // Log only in non-production for local simulation
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(`[DEV ONLY - OTP CODE FOR ${cleanEmail}]: ${otpCode}`);
+      }
 
+      // In production, never return the code to the client
       return NextResponse.json({
         success: true,
         message: `تم إرسال كود الدخول والتحقق إلى ${cleanEmail}`,
-        demoCode: otpCode,
       });
     }
 
     if (action === 'verify') {
       if (!code) {
         return NextResponse.json({ error: 'يرجى إدخال كود التحقق المكون من 6 أرقام' }, { status: 400 });
+      }
+
+      // Rate Limiting: 5 verification attempts per 10 minutes per IP + email
+      const verifyRateCheck = checkRateLimit(`otp_verify_${ip}_${cleanEmail}`, { limit: 5, windowMs: 10 * 60 * 1000 });
+      if (!verifyRateCheck.allowed) {
+        return NextResponse.json(
+          { error: 'تم تجاوز عدد محاولات التحقق الخاطئة. يرجى طلب كود جديد بعد 10 دقائق.' },
+          { status: 429 }
+        );
       }
 
       const user = await prisma.user.findUnique({
@@ -84,13 +119,17 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'البريد الإلكتروني غير مسجل، يرجى طلب كود جديد' }, { status: 404 });
       }
 
-      if (!user.emailVerificationToken || user.emailVerificationToken !== code.trim()) {
-        return NextResponse.json({ error: 'كود التحقق غير صحيح، يرجى التأكد وإعادة المحاولة' }, { status: 400 });
+      if (user.role === 'ADMIN') {
+        return NextResponse.json({ error: 'حسابات الإدارة تتطلب تسجيل الدخول بكلمة المرور' }, { status: 403 });
       }
 
-      // Check expiration if set
-      if (user.passwordResetExpires && user.passwordResetExpires < new Date()) {
+      // Check expiration first
+      if (!user.passwordResetExpires || user.passwordResetExpires < new Date()) {
         return NextResponse.json({ error: 'انتهت صلاحية كود التحقق، يرجى طلب كود جديد' }, { status: 400 });
+      }
+
+      if (!user.emailVerificationToken || user.emailVerificationToken !== code.trim()) {
+        return NextResponse.json({ error: 'كود التحقق غير صحيح، يرجى التأكد وإعادة المحاولة' }, { status: 400 });
       }
 
       // Mark user as verified and clear OTP

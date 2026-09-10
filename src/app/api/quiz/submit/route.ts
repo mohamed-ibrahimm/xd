@@ -2,12 +2,19 @@ import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { sendEmail, buildParentQuizEmail } from '@/lib/email';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
+    }
+
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(`quiz_submit:${user.id}:${clientIp}`, { limit: 10, windowMs: 5 * 60 * 1000 });
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز عدد محاولات تسليم الاختبار المسموح بها مؤقتاً. يرجى الانتظار.' }, { status: 429 });
     }
 
     const { quizId, answers, timeSpentSeconds } = await req.json();
@@ -121,18 +128,27 @@ export async function POST(req: Request) {
       });
     }
 
-    // If passed and this is a course final exam, issue accredited certificate!
+    // If passed and this is a course final exam, issue accredited certificate ONLY if student has active enrollment!
     let certificate: any = null;
     if (isPassed && quiz.courseFinalExam) {
-      const course = await prisma.course.findUnique({
-        where: { id: quiz.courseFinalExam.id },
-        include: { instructor: true }
+      const enrollment = await prisma.enrollment.findFirst({
+        where: {
+          userId: user.id,
+          courseId: quiz.courseFinalExam.id,
+          status: 'ACTIVE',
+        }
       });
 
-      if (course) {
-        const existingCert = await prisma.certificate.findFirst({
-          where: { userId: user.id, courseId: course.id }
+      if (enrollment || user.role === 'ADMIN') {
+        const course = await prisma.course.findUnique({
+          where: { id: quiz.courseFinalExam.id },
+          include: { instructor: true }
         });
+
+        if (course) {
+          const existingCert = await prisma.certificate.findFirst({
+            where: { userId: user.id, courseId: course.id }
+          });
 
         if (existingCert) {
           certificate = existingCert;
@@ -155,6 +171,7 @@ export async function POST(req: Request) {
         }
       }
     }
+  }
 
     // Check Parent Notification
     if (user.parentNotificationEnabled) {

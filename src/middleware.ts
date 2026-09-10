@@ -1,12 +1,51 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'qimam-super-secure-production-ready-jwt-secret-key-2026'
-);
+function getJwtSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      return new Uint8Array(32); // Fallback empty buffer in edge if env missing to prevent crashes, will fail verification
+    }
+    return new TextEncoder().encode('qimam-dev-only-local-jwt-secret-not-for-production-use-2026');
+  }
+  return new TextEncoder().encode(secret);
+}
+
+const JWT_SECRET = getJwtSecret();
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // CSRF Protection: For state-changing API mutations, verify Origin / Referer matches Host
+  // Excludes OAuth callback endpoints which use signed state/nonce cryptographic tokens
+  if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method) && pathname.startsWith('/api/') && !pathname.startsWith('/api/auth/social/callback')) {
+    const origin = request.headers.get('origin');
+    const referer = request.headers.get('referer');
+    const host = request.headers.get('host');
+    const forwardedHost = request.headers.get('x-forwarded-host') || host;
+
+    if (origin) {
+      try {
+        const originHost = new URL(origin).host;
+        if (originHost !== host && originHost !== forwardedHost) {
+          return NextResponse.json({ error: 'رفض الطلب: فشل التحقق من مصدر الطلب (CSRF)' }, { status: 403 });
+        }
+      } catch {
+        return NextResponse.json({ error: 'مصدر الطلب غير صالح' }, { status: 403 });
+      }
+    } else if (referer) {
+      try {
+        const refererHost = new URL(referer).host;
+        if (refererHost !== host && refererHost !== forwardedHost) {
+          return NextResponse.json({ error: 'رفض الطلب: فشل التحقق من مرجع الطلب (CSRF)' }, { status: 403 });
+        }
+      } catch {
+        return NextResponse.json({ error: 'مرجع الطلب غير صالح' }, { status: 403 });
+      }
+    }
+  }
+
   const token = request.cookies.get('qimam_session')?.value;
 
   let userRole: string | null = null;
@@ -65,6 +104,16 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Strictly block /api/setup-database in production, require ADMIN in dev
+  if (pathname.startsWith('/api/setup-database')) {
+    if (process.env.NODE_ENV === 'production') {
+      return NextResponse.json({ error: 'هذا المسار معطل تماماً في بيئة الإنتاج' }, { status: 403 });
+    }
+    if (!token || userRole !== 'ADMIN') {
+      return NextResponse.json({ error: 'غير مصرح: يتطلب صلاحيات المدير' }, { status: 403 });
+    }
+  }
+
   return NextResponse.next();
 }
 
@@ -75,7 +124,6 @@ export const config = {
     '/dashboard/:path*',
     '/learn/:path*',
     '/checkout/:path*',
-    '/api/admin/:path*',
-    '/api/instructor/:path*',
+    '/api/:path*',
   ],
 };

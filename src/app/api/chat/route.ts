@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
   try {
@@ -11,6 +14,19 @@ export async function GET(req: Request) {
     const conversationId = searchParams.get('conversationId');
 
     if (conversationId) {
+      // SECURITY: Check conversation ownership before returning messages (Prevent IDOR)
+      const conv = await prisma.conversation.findUnique({
+        where: { id: conversationId }
+      });
+
+      if (!conv) {
+        return NextResponse.json({ error: 'المحادثة غير موجودة' }, { status: 404 });
+      }
+
+      if (user.role !== 'ADMIN' && user.role !== 'INSTRUCTOR' && conv.studentId !== user.id) {
+        return NextResponse.json({ error: 'غير مصرح لك بالاطلاع على هذه المحادثة' }, { status: 403 });
+      }
+
       const messages = await prisma.chatMessage.findMany({
         where: { conversationId },
         orderBy: { createdAt: 'asc' },
@@ -70,9 +86,32 @@ export async function POST(req: Request) {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
 
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(`chat:${user.id}:${clientIp}`, { limit: 30, windowMs: 60 * 1000 });
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز الحد المسموح به من الرسائل. يرجى الانتظار قليلاً.' }, { status: 429 });
+    }
+
     const { conversationId, message, attachments } = await req.json();
-    if (!conversationId || !message?.trim()) {
+    if (!conversationId || !message || typeof message !== 'string' || !message.trim()) {
       return NextResponse.json({ error: 'نص الرسالة مطلوب' }, { status: 400 });
+    }
+
+    if (message.length > 4000) {
+      return NextResponse.json({ error: 'نص الرسالة طويل جداً (الحد الأقصى 4000 حرف)' }, { status: 400 });
+    }
+
+    // SECURITY: Check conversation ownership before posting (Prevent IDOR message injection)
+    const conv = await prisma.conversation.findUnique({
+      where: { id: conversationId }
+    });
+
+    if (!conv) {
+      return NextResponse.json({ error: 'المحادثة غير موجودة' }, { status: 404 });
+    }
+
+    if (user.role !== 'ADMIN' && user.role !== 'INSTRUCTOR' && conv.studentId !== user.id) {
+      return NextResponse.json({ error: 'غير مصرح لك بالإرسال في هذه المحادثة' }, { status: 403 });
     }
 
     const chatMessage = await prisma.chatMessage.create({

@@ -192,9 +192,26 @@ export async function DELETE(req: Request, { params }: RouteParams) {
       return NextResponse.json({ error: 'معرف الاختبار مطلوب' }, { status: 400 });
     }
 
-    const quiz = await prisma.quiz.findUnique({ where: { id: quizId } });
+    const quiz = await prisma.quiz.findUnique({
+      where: { id: quizId },
+      include: {
+        lesson: {
+          include: {
+            section: true
+          }
+        }
+      }
+    });
     if (!quiz) {
       return NextResponse.json({ error: 'الاختبار غير موجود' }, { status: 404 });
+    }
+
+    const belongsToThisCourse =
+      quiz.courseFinalExamId === params.id ||
+      (quiz.lesson && quiz.lesson.section.courseId === params.id);
+
+    if (!belongsToThisCourse) {
+      return NextResponse.json({ error: 'هذا الاختبار لا ينتمي لهذا الكورس' }, { status: 403 });
     }
 
     await prisma.quiz.delete({ where: { id: quizId } });

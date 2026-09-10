@@ -27,32 +27,39 @@ export default function AppShell({
   // Focused learning classroom & Live Room Studio: NO marketing header, NO footer, full screen
   const isFocusedRoom = pathname.startsWith('/learn') || (pathname.startsWith('/live/') && pathname !== '/live');
 
-  if (isFocusedRoom) {
+  // Dedicated Dashboards ONLY (Admin, Instructor Studio, Student Workspace)
+  // Must NOT match public pages like /instructors or /instructors/join!
+  const isDashboard =
+    pathname === '/admin' || pathname.startsWith('/admin/') ||
+    pathname === '/instructor' || pathname.startsWith('/instructor/') ||
+    pathname === '/dashboard' || pathname.startsWith('/dashboard/');
+
+  if (isFocusedRoom || isDashboard) {
     return (
-      <div className="w-full min-h-screen flex flex-col antialiased">
+      <div className="w-full min-h-screen flex flex-col antialiased selection:bg-[#D83F8F] selection:text-white dark:selection:bg-[#E94F9F] dark:selection:text-[#080808]">
         <TopProgressBar />
         {children}
+        <FloatingWhatsApp settings={initialSettings} />
       </div>
     );
   }
 
-  const isStudio = pathname.startsWith('/admin') || pathname.startsWith('/instructor');
-
-  // Shell with Header at the top across all pages (Public, Admin, Instructor, Student)
+  // Shell with Header at the top for Public pages (Home, Courses, Books, Diplomas, About, Auth, etc.)
   return (
-    <div className="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black dark:selection:bg-[#00e55b] dark:selection:text-black relative w-full max-w-[100vw] overflow-x-hidden">
+    <div className="min-h-screen flex flex-col antialiased selection:bg-[#D83F8F] selection:text-white dark:selection:bg-[#E94F9F] dark:selection:text-[#080808] relative w-full max-w-[100vw] overflow-x-hidden">
       <TopProgressBar />
       <Header
         initialPlatformName={initialPlatformName}
         initialPlatformTagline={initialPlatformTagline}
+        initialSettings={initialSettings}
         initialUser={initialUser}
       />
-      <main className={`flex-1 w-full ${pathname === '/' ? 'pt-0 pb-0' : isStudio ? 'pt-32 sm:pt-36 md:pt-40 pb-12' : 'pt-20 sm:pt-24 md:pt-28 pb-12'}`}>
+      <main className={`flex-1 w-full ${pathname === '/' ? 'pt-0 pb-0' : 'pt-20 sm:pt-24 md:pt-28 pb-12'}`}>
         <div key={pathname} className="animate-page-enter">
           {children}
         </div>
       </main>
-      {!isStudio && <Footer initialSettings={initialSettings} />}
+      <Footer initialSettings={initialSettings} />
       <FloatingWhatsApp settings={initialSettings} />
     </div>
   );

@@ -240,9 +240,9 @@ export default async function CourseDetailPage({ params }: Props) {
 
                 {/* 4. Dynamic Certificate Pill with Golden Ribbon */}
                 {course.certificateEnabled && (
-                  <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60 text-xs text-purple-700 dark:text-purple-300 font-bold shadow-xs hover:scale-105 transition-transform">
-                    <div className="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
-                      <Award className="w-3.5 h-3.5 text-purple-400" />
+                  <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-50 dark:bg-[rgba(233,79,159,0.10)] border border-pink-200 dark:border-[rgba(233,79,159,0.25)] text-xs text-[#D83F8F] dark:text-[#E94F9F] font-bold shadow-xs hover:scale-105 transition-transform">
+                    <div className="w-5 h-5 rounded-full bg-[#E94F9F]/20 flex items-center justify-center">
+                      <Award className="w-3.5 h-3.5 text-[#D83F8F] dark:text-[#E94F9F]" />
                     </div>
                     <span>شهادة إتمام معتمدة بـ QR</span>
                   </div>
@@ -364,12 +364,12 @@ export default async function CourseDetailPage({ params }: Props) {
                             )}
                             <span className="font-semibold text-slate-800 dark:text-zinc-200">{lesson.title}</span>
                             {lesson.isFreePreview && (
-                              <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/80 dark:text-emerald-400 text-[10px] font-bold border border-emerald-200 dark:border-emerald-800/60">
+                              <span className="px-2 py-0.5 rounded-full bg-pink-50 text-[#D83F8F] dark:bg-[rgba(233,79,159,0.15)] dark:text-[#E94F9F] text-[10px] font-bold border border-pink-200 dark:border-[rgba(233,79,159,0.25)]">
                                 معاينة مجانية
                               </span>
                             )}
                             {lesson.quiz && (
-                              <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300 text-[10px] font-bold border border-purple-200 dark:border-purple-800">
+                              <span className="px-2 py-0.5 rounded-full bg-pink-50 text-[#D83F8F] dark:bg-[rgba(233,79,159,0.15)] dark:text-[#E94F9F] text-[10px] font-bold border border-pink-200 dark:border-[rgba(233,79,159,0.25)]">
                                 اختبار
                               </span>
                             )}
@@ -530,7 +530,7 @@ export default async function CourseDetailPage({ params }: Props) {
                         دفع مباشر ومشفر وتفعيل فوري عبر الوسائل المعتمدة:
                       </p>
                       <div className="flex flex-wrap items-center justify-center gap-1.5">
-                        <span className="px-2.5 py-1 rounded-lg bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/25 text-[11px] font-black shadow-xs">
+                        <span className="px-2.5 py-1 rounded-lg bg-pink-500/10 text-pink-700 dark:text-[#FF5CAD] border border-pink-500/25 text-[11px] font-black shadow-xs">
                           إنستاباي InstaPay
                         </span>
                         <span className="px-2.5 py-1 rounded-lg bg-red-500/10 text-red-700 dark:text-red-300 border border-red-500/25 text-[11px] font-black shadow-xs">
@@ -566,7 +566,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   <div className="space-y-2.5">
                     {[
                       { icon: Clock, title: 'وصول دائم مدى الحياة', desc: 'لكافة المحاضرات والتحديثات دون أي انتهاء صلاحية', color: 'text-amber-500 bg-amber-500/10 border-amber-500/25' },
-                      { icon: Award, title: 'شهادة تخرج معتمدة بـ QR', desc: 'موثقة رسمياً لدعم سيرتك الذاتية في التوظيف', color: 'text-purple-500 bg-purple-500/10 border-purple-500/25' },
+                      { icon: Award, title: 'شهادة تخرج معتمدة بـ QR', desc: 'موثقة رسمياً لدعم سيرتك الذاتية في التوظيف', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/25' },
                       { icon: Layers, title: 'مشاريع وتطبيقات واقعية', desc: 'أكواد عملية حقيقية تؤهلك لسوق العمل بثقة', color: 'text-blue-500 bg-blue-500/10 border-blue-500/25' },
                       { icon: Zap, title: 'مساعد ذكاء اصطناعي فوري', desc: 'متاح معك 24/7 للشرح والمساعدة داخل كل درس', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/25' },
                       { icon: ShieldCheck, title: 'دعم فني وتحديثات مستمرة', desc: 'متابعة هندسية مستمرة وإجابة على كافة استفساراتك', color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/25' },

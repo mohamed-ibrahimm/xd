@@ -1,12 +1,19 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: 'يرجى تسجيل الدخول أولاً' }, { status: 401 });
+    }
+
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(`coupon:${user.id}:${clientIp}`, { limit: 15, windowMs: 60 * 1000 });
+    if (!rl.allowed) {
+      return NextResponse.json({ error: 'تم تجاوز عدد محاولات إدخال الكوبون المسموح بها. يرجى الانتظار قليلاً.' }, { status: 429 });
     }
 
     const { code, courseId, diplomaId, bookId } = await req.json();
