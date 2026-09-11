@@ -43,17 +43,18 @@ export default function DesktopHero({
         <div className="hidden dark:block absolute inset-0 pointer-events-none overflow-hidden">
           <ColorBendsBackground
             colors={['#E94F9F', '#9B2C6E', '#1A0B2E']}
-            speed={0.16}
-            rotation={42}
+            speed={0.22}
+            rotation={44}
             scale={2.2}
             frequency={1.0}
             warpStrength={1.0}
-            intensity={0.95}
-            bandWidth={5.0}
+            intensity={1.15}
+            bandWidth={6.5}
           />
-          {/* Subtle GPU edge vignettes to blend seamlessly into background without hiding the beam */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#050505]/50 to-transparent" />
+          {/* Smooth GPU vignettes to seamlessly blend into deep black without harsh edges */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-transparent via-[#050505]/40 to-[#050505]/90" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/30" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent" />
         </div>
 
         {/* Light Mode Atmosphere - Calming, eye-friendly, feather-light */}
@@ -71,7 +72,7 @@ export default function DesktopHero({
         {/* =========================================================================
             RIGHT COLUMN IN RTL (1st in DOM): TEXT HEADLINES, BADGES, & ACTION BUTTONS
            ========================================================================= */}
-        <div className="lg:col-span-7 xl:col-span-7 flex flex-col items-start text-start space-y-4 lg:space-y-5 self-center py-4 lg:py-6">
+        <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-start space-y-4 lg:space-y-5 self-center py-4 lg:py-6">
           
           {/* Promotional Dynamic Shimmer Banner */}
           {settings.BANNER_ENABLED !== 'false' && (
@@ -94,20 +95,15 @@ export default function DesktopHero({
           )}
 
           {/* Headlines: Clean, Inspiring & Expansive Typography */}
-          <div className="space-y-3 w-full max-w-4xl text-start relative">
-            {/* Subtle deep protective backdrop behind headline to prevent wash-out from beam */}
-            <div className="hidden dark:block absolute -inset-6 bg-black/40 rounded-3xl blur-2xl -z-10 pointer-events-none" />
-
-            <h1 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[52px] font-black text-slate-900 dark:text-white leading-[1.24] tracking-tight">
-              <span className="block drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
-                {t(settings.HERO_TITLE || 'بوابتك الذكية لاحتراف', 'Your Smart Gateway to Mastering')}
-              </span>
-              <span className="block mt-2 text-cyan-600 dark:text-[#38BDF8] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-shadow:_0_0_24px_rgba(56,189,248,0.45),_0_2px_10px_rgba(0,0,0,0.95)] leading-[1.24] py-1 w-full max-w-none">
+          <div className="space-y-3 max-w-[720px] text-start">
+            <h1 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[56px] font-black text-slate-900 dark:text-white leading-[1.22] tracking-tight">
+              <span className="block">{t(settings.HERO_TITLE || 'بوابتك الذكية لاحتراف', 'Your Smart Gateway to Mastering')}</span>
+              <span className="block mt-1.5 bg-gradient-to-r from-[#D83F8F] via-[#E94F9F] to-[#FF5CAD] bg-clip-text text-transparent leading-[1.22] py-1 max-w-[540px]">
                 {t((settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي').replace(/،/g, '').trim(), 'Coding, Systems Engineering & AI')}
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base md:text-[17px] text-slate-600 dark:text-zinc-300 max-w-[760px] leading-relaxed font-normal pt-1">
+            <p className="text-sm sm:text-base md:text-[17px] text-slate-600 dark:text-zinc-300 max-w-[640px] leading-relaxed font-normal pt-1">
               {t(settings.HERO_SUBTITLE || `${cleanPlatformName} — مسارات تدريبية هندسية متكاملة، دبلومات برمجية معتمدة، ومشاريع إنتاج واقعية تؤهلك لسوق العمل بثقة واحتراف.`, `${cleanPlatformName} — Integrated engineering tracks, accredited diplomas, and real production projects qualifying you for the job market.`)}
             </p>
           </div>
@@ -197,7 +193,7 @@ export default function DesktopHero({
            ========================================================================= */}
         <div
           dir="ltr"
-          className="lg:col-span-5 xl:col-span-5 relative w-full flex items-end justify-start self-end pointer-events-none select-none pb-0 mb-0"
+          className="lg:col-span-6 xl:col-span-6 relative w-full flex items-end justify-start self-end pointer-events-none select-none pb-0 mb-0"
         >
           {/* Student Visual: Frameless, Clean, Scaled Large and Aligned to Bottom Edge */}
           <div

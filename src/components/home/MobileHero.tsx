@@ -40,20 +40,20 @@ export default function MobileHero({
       
       {/* 1. Dynamic WebGL Fluid Wave (Dark Mode) / Soft Luxury Atmosphere (Light Mode) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-[#FAF8FA] dark:bg-[#050505]">
-        {/* Dark Mode - Dynamic ColorBends WebGL Fluid Canvas (Refined Left Accent Line - Delicate & Eye-Friendly) */}
-        <div className="hidden dark:block absolute -left-6 top-0 bottom-0 w-[42%] xs:w-[38%] pointer-events-none overflow-hidden opacity-65">
+        {/* Dark Mode - Dynamic ColorBends WebGL Fluid Canvas (Sleek Side Accent Line - Soft & Eye-Friendly) */}
+        <div className="hidden dark:block absolute -left-4 top-0 bottom-0 w-[52%] pointer-events-none overflow-hidden opacity-70">
           <ColorBendsBackground
-            colors={['#E94F9F', '#9B2C6E', '#1A0B2E']}
-            speed={0.14}
+            colors={['#D83F8F', '#851E59', '#1A0B2E']}
+            speed={0.13}
             rotation={42}
             scale={2.2}
             frequency={0.95}
-            warpStrength={0.85}
+            warpStrength={0.9}
             intensity={0.7}
-            bandWidth={3.0}
+            bandWidth={3.2}
           />
-          {/* Smooth fades to blend line into background without touching text */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] via-[#050505]/80 to-transparent" />
+          {/* Smooth fades to blend line into background without sharp edges */}
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#050505] to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#050505] to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#050505]/60 to-transparent" />
         </div>
@@ -69,11 +69,11 @@ export default function MobileHero({
       </div>
 
       {/* Main Mobile Hero Fold */}
-      <section className="flex flex-col pt-20 pb-8 px-3 xs:px-4 relative z-10 space-y-4">
+      <section className="flex flex-col pt-20 pb-8 px-4 relative z-10 space-y-4">
         
         {/* 1. Promotional Announcement Pill */}
         {settings.BANNER_ENABLED !== 'false' && (
-          <div className="inline-block w-full max-w-md mx-auto">
+          <div className="inline-block w-full max-w-sm mx-auto">
             <a href="#trending-diploma" className="shimmer-border-wrapper group inline-block w-full">
               <div className="shimmer-beam-cyber" />
               <div className="shimmer-button-content w-full px-3.5 py-1.5 text-[11px] font-bold text-slate-800 dark:text-[#FAFAFA] bg-white dark:bg-[#111113]/90 border border-slate-200/90 dark:border-[rgba(233,79,159,0.25)] flex items-center justify-between gap-1.5 rounded-full shadow-xs">
@@ -93,20 +93,17 @@ export default function MobileHero({
         )}
 
         {/* 2. Headline & Subtitle */}
-        <div className="space-y-2 text-center w-full max-w-md sm:max-w-lg mx-auto px-1 relative">
-          {/* Subtle deep protective backdrop behind headline to prevent wash-out */}
-          <div className="hidden dark:block absolute -inset-3 bg-black/40 rounded-3xl blur-md -z-10 pointer-events-none" />
-
-          <h1 className="font-black tracking-tight space-y-1.5">
-            <span className="text-slate-900 dark:text-[#FAFAFA] block font-black text-2xl xs:text-3xl leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+        <div className="space-y-2 text-center max-w-sm mx-auto">
+          <h1 className="font-black tracking-tight space-y-1">
+            <span className="text-slate-900 dark:text-[#FAFAFA] block font-black text-2xl xs:text-3xl leading-tight">
               {t(settings.HERO_TITLE || 'بوابتك الذكية لاحتراف', 'Your Smart Gateway to Mastering')}
             </span>
-            <span className="block font-black text-[22px] xs:text-[26px] sm:text-3xl leading-snug text-cyan-600 dark:text-[#38BDF8] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] [text-shadow:_0_0_20px_rgba(56,189,248,0.4),_0_2px_10px_rgba(0,0,0,0.95)]">
+            <span className="block font-black text-xl xs:text-2xl leading-snug bg-gradient-to-r from-[#D83F8F] via-[#E94F9F] to-[#FF5CAD] bg-clip-text text-transparent">
               {t((settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي').replace(/،/g, '').trim(), 'Coding, Systems Engineering & AI')}
             </span>
           </h1>
 
-          <p className="text-xs xs:text-[13px] text-slate-600 dark:text-zinc-300 leading-relaxed font-normal pt-0.5 max-w-sm xs:max-w-md mx-auto">
+          <p className="text-xs xs:text-[13px] text-slate-600 dark:text-zinc-300 leading-relaxed font-normal pt-0.5">
             {t(settings.HERO_SUBTITLE || `${cleanPlatformName} — مسارات تدريبية هندسية متكاملة، دبلومات برمجية معتمدة ومشاريع واقعية تؤهلك لسوق العمل بثقة واحتراف.`, `${cleanPlatformName} — Integrated engineering tracks, accredited diplomas, and real production projects qualifying you for the job market.`)}
           </p>
         </div>
