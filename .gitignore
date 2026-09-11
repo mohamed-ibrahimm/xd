@@ -26,13 +26,10 @@ yarn-error.log*
 .env.production.local
 
 # Databases & SQLite local storage
-*.db
 *.db-journal
-*.sqlite
-*.sqlite3
 *.sqlite-journal
-prisma/*.db
 prisma/*.db-journal
+!prisma/dev.db
 
 # Vercel
 .vercel
@@ -44,6 +41,7 @@ prisma/*.db-journal
 .DS_Store
 Thumbs.db
 .vscode/
+.vs/
 .idea/
 *.swp
 *.swo

@@ -16,15 +16,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: '**',
       },
       {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'platform-lookaside.fbsbx.com',
+        protocol: 'http',
+        hostname: '**',
       },
     ],
   },

@@ -51,30 +51,44 @@ if (!process.env.DIRECT_URL) {
 const isRealDb = dbUrl && !dbUrl.includes('localhost') && !dbUrl.includes('dummy');
 
 if (isRealDb) {
-  console.log('[Build Step 2/3] Applying database migrations to PostgreSQL...');
+  console.log('[Build Step 2/3] Synchronizing PostgreSQL database schema...');
   try {
-    execSync('npx prisma migrate deploy', { stdio: 'inherit' });
-    console.log('[Build] Database migrations applied successfully.');
-
+    execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
+    console.log('[Build] Database schema synchronized successfully.');
+  } catch (pushErr) {
+    console.warn('[Build Notice] Prisma db push notice:', pushErr.message);
     try {
-      console.log('[Build] Initializing database with seed courses and admin...');
-      execSync('node prisma/seed.js', { stdio: 'inherit' });
-      console.log('[Build] Initial platform seed completed.');
-    } catch (seedErr) {
-      console.warn('Seed notice (skipping or data exists):', seedErr.message);
-    }
-  } catch (err) {
-    console.warn('[Build Notice] Migration deploy notice:', err.message);
-    try {
-      console.log('[Build] Attempting prisma db push to ensure all columns exist in database...');
-      execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
-      console.log('[Build] Database schema pushed successfully.');
-    } catch (pushErr) {
-      console.warn('Prisma db push notice:', pushErr.message);
+      execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+    } catch (migErr) {
+      console.warn('[Build Notice] Migrate deploy notice:', migErr.message);
     }
   }
+
+  try {
+    console.log('[Build] Ensuring platform seed data...');
+    execSync('node prisma/seed.js', { stdio: 'inherit' });
+    console.log('[Build] Platform seed check completed.');
+  } catch (seedErr) {
+    console.warn('Seed notice (skipping or data exists):', seedErr.message);
+  }
 } else {
-  console.log('[Build Step 2/3] Skipping migrations (DATABASE_URL is not set or local).');
+  console.log('[Build Step 2/3] Ensuring SQLite dev.db is ready for zero-config build...');
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const dbPath = path.join(__dirname, '..', 'prisma', 'dev.db');
+    if (!fs.existsSync(dbPath) || fs.statSync(dbPath).size < 1000) {
+      console.log('[Build] Initializing local SQLite database...');
+      execSync('npx prisma db push --accept-data-loss --skip-generate', { stdio: 'inherit' });
+      try {
+        execSync('node prisma/seed.js', { stdio: 'inherit' });
+      } catch (e) {}
+    } else {
+      console.log('[Build] Existing SQLite database verified.');
+    }
+  } catch (sqliteErr) {
+    console.warn('[Build Notice] SQLite setup notice:', sqliteErr.message);
+  }
 }
 
 console.log('[Build Step 3/3] Building Next.js application...');
