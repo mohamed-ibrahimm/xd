@@ -41,21 +41,21 @@ export default function MobileHero({
       {/* 1. Dynamic WebGL Fluid Wave (Dark Mode) / Soft Luxury Atmosphere (Light Mode) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-[#FAF8FA] dark:bg-[#050505]">
         {/* Dark Mode - Dynamic ColorBends WebGL Fluid Canvas (Refined Left Accent Line - Delicate & Eye-Friendly) */}
-        <div className="hidden dark:block absolute -left-10 top-0 bottom-0 w-[32%] xs:w-[28%] pointer-events-none overflow-hidden opacity-35">
+        <div className="hidden dark:block absolute -left-6 top-0 bottom-0 w-[42%] xs:w-[38%] pointer-events-none overflow-hidden opacity-65">
           <ColorBendsBackground
-            colors={['#D83F8F', '#6D1546', '#120524']}
-            speed={0.10}
+            colors={['#E94F9F', '#9B2C6E', '#1A0B2E']}
+            speed={0.14}
             rotation={42}
-            scale={2.4}
+            scale={2.2}
             frequency={0.95}
             warpStrength={0.85}
-            intensity={0.4}
-            bandWidth={2.0}
+            intensity={0.7}
+            bandWidth={3.0}
           />
           {/* Smooth fades to blend line into background without touching text */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] via-[#050505]/95 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] via-[#050505]/80 to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#050505] to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#050505]/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#050505]/60 to-transparent" />
         </div>
 
         {/* Light Mode Atmosphere - Identical to Desktop Luxury Atmosphere, zero WebGL overhead */}
@@ -101,7 +101,7 @@ export default function MobileHero({
             <span className="text-slate-900 dark:text-[#FAFAFA] block font-black text-2xl xs:text-3xl leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
               {t(settings.HERO_TITLE || 'بوابتك الذكية لاحتراف', 'Your Smart Gateway to Mastering')}
             </span>
-            <span className="block font-black text-[22px] xs:text-[26px] sm:text-3xl leading-snug text-[#D83F8F] dark:text-[#FF5CAD] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_10px_rgba(0,0,0,0.95)]">
+            <span className="block font-black text-[22px] xs:text-[26px] sm:text-3xl leading-snug text-cyan-600 dark:text-[#38BDF8] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] [text-shadow:_0_0_20px_rgba(56,189,248,0.4),_0_2px_10px_rgba(0,0,0,0.95)]">
               {t((settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي').replace(/،/g, '').trim(), 'Coding, Systems Engineering & AI')}
             </span>
           </h1>

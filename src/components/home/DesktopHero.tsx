@@ -42,19 +42,18 @@ export default function DesktopHero({
         {/* Dark Mode - Interactive Dynamic ColorBends WebGL Fluid Canvas */}
         <div className="hidden dark:block absolute inset-0 pointer-events-none overflow-hidden">
           <ColorBendsBackground
-            colors={['#D83F8F', '#6D1546', '#120524']}
-            speed={0.10}
+            colors={['#E94F9F', '#9B2C6E', '#1A0B2E']}
+            speed={0.16}
             rotation={42}
             scale={2.2}
-            frequency={0.95}
-            warpStrength={0.85}
-            intensity={0.42}
-            bandWidth={2.6}
+            frequency={1.0}
+            warpStrength={1.0}
+            intensity={0.95}
+            bandWidth={5.0}
           />
-          {/* Smooth GPU vignettes to seamlessly blend into deep black and protect text contrast */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-[#050505]/85 via-[#050505]/40 to-transparent" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/40" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent" />
+          {/* Subtle GPU edge vignettes to blend seamlessly into background without hiding the beam */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#050505]/50 to-transparent" />
         </div>
 
         {/* Light Mode Atmosphere - Calming, eye-friendly, feather-light */}
@@ -95,20 +94,20 @@ export default function DesktopHero({
           )}
 
           {/* Headlines: Clean, Inspiring & Expansive Typography */}
-          <div className="space-y-3 max-w-[840px] text-start relative">
+          <div className="space-y-3 w-full max-w-4xl text-start relative">
             {/* Subtle deep protective backdrop behind headline to prevent wash-out from beam */}
-            <div className="hidden dark:block absolute -inset-6 bg-black/45 rounded-3xl blur-2xl -z-10 pointer-events-none" />
+            <div className="hidden dark:block absolute -inset-6 bg-black/40 rounded-3xl blur-2xl -z-10 pointer-events-none" />
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[54px] font-black text-slate-900 dark:text-white leading-[1.24] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[52px] font-black text-slate-900 dark:text-white leading-[1.24] tracking-tight">
               <span className="block drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
                 {t(settings.HERO_TITLE || 'بوابتك الذكية لاحتراف', 'Your Smart Gateway to Mastering')}
               </span>
-              <span className="block mt-2 text-[#D83F8F] dark:text-[#FF5CAD] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_12px_rgba(0,0,0,0.95)] leading-[1.24] py-1 max-w-[600px]">
+              <span className="block mt-2 text-cyan-600 dark:text-[#38BDF8] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-shadow:_0_0_24px_rgba(56,189,248,0.45),_0_2px_10px_rgba(0,0,0,0.95)] leading-[1.24] py-1 w-full max-w-none">
                 {t((settings.HERO_TITLE_HIGHLIGHT || 'البرمجة وهندسة النظم والذكاء الاصطناعي').replace(/،/g, '').trim(), 'Coding, Systems Engineering & AI')}
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base md:text-[17px] text-slate-600 dark:text-zinc-300 max-w-[680px] leading-relaxed font-normal pt-1">
+            <p className="text-sm sm:text-base md:text-[17px] text-slate-600 dark:text-zinc-300 max-w-[760px] leading-relaxed font-normal pt-1">
               {t(settings.HERO_SUBTITLE || `${cleanPlatformName} — مسارات تدريبية هندسية متكاملة، دبلومات برمجية معتمدة، ومشاريع إنتاج واقعية تؤهلك لسوق العمل بثقة واحتراف.`, `${cleanPlatformName} — Integrated engineering tracks, accredited diplomas, and real production projects qualifying you for the job market.`)}
             </p>
           </div>
