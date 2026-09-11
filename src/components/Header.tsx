@@ -22,6 +22,7 @@ import {
   ArrowLeft,
   FileText,
   Radio,
+  User,
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 import { useLanguage } from '@/components/LanguageProvider';
@@ -438,6 +439,14 @@ export default function Header({
 
                     <div className="space-y-0.5">
                       <Link
+                        href="/profile"
+                        onClick={() => setDropdownOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#D83F8F] dark:text-[#E94F9F] bg-pink-500/10 hover:bg-pink-500/20 transition-colors"
+                      >
+                        <User className="w-4 h-4" />
+                        <span>{t('تعديل الملف الشخصي والصورة')}</span>
+                      </Link>
+                      <Link
                         href="/dashboard"
                         onClick={() => setDropdownOpen(false)}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-white hover:bg-blue-600 transition-colors"
@@ -608,20 +617,27 @@ export default function Header({
                     {t('تسجيل الخروج')}
                   </button>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   <Link
                     href={currentUser.role === 'ADMIN' ? '/admin' : currentUser.role === 'INSTRUCTOR' ? '/instructor' : '/dashboard'}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-full bg-[#D83F8F] dark:bg-[#E94F9F] text-white dark:text-[#080808] font-black text-xs text-center shadow-sm"
+                    className="py-2.5 px-2 rounded-2xl bg-[#D83F8F] dark:bg-[#E94F9F] text-white dark:text-[#080808] font-black text-xs text-center shadow-sm truncate"
                   >
                     {t('لوحة التحكم')}
                   </Link>
                   <Link
                     href="/dashboard/library"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white font-bold text-xs text-center"
+                    className="py-2.5 px-2 rounded-2xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white font-bold text-xs text-center truncate"
                   >
-                    {t('مكتبتي الرقمية')}
+                    {t('مكتبتي')}
+                  </Link>
+                  <Link
+                    href="/profile"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-2.5 px-2 rounded-2xl border border-pink-500/30 bg-pink-500/10 text-[#D83F8F] dark:text-[#E94F9F] font-bold text-xs text-center truncate"
+                  >
+                    {t('الملف الشخصي')}
                   </Link>
                 </div>
               </div>

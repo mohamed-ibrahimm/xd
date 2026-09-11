@@ -47,6 +47,7 @@ import {
   Hand,
   Radio,
   Play,
+  User,
 } from 'lucide-react';
 
 interface InstructorClientProps {
@@ -473,6 +474,7 @@ export default function InstructorClient({
       <InstructorSidebarClient
         instructorName={user.officialFullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'محاضر قمم'}
         instructorEmail={user.email}
+        avatarUrl={user.avatarUrl}
         subscriptionPlan={user.subscriptionPlan || 'FREE_TRIAL'}
         coursesCount={courses.length}
         pendingOrdersCount={pendingPaymentsCount}
@@ -556,6 +558,20 @@ export default function InstructorClient({
               >
                 <BookOpen className="w-4 h-4" />
                 <span>نشر مذكرة</span>
+              </Link>
+
+              {/* 4. Edit Profile & Avatar Button */}
+              <Link
+                href="/profile"
+                className="px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-amber-500/40 bg-slate-100 dark:bg-white/5 hover:bg-amber-500/10 text-slate-800 dark:text-zinc-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs"
+                title="تعديل الملف الشخصي والصورة"
+              >
+                {user.avatarUrl ? (
+                  <img src={user.avatarUrl} alt={user.firstName} className="w-5 h-5 rounded-full object-cover border border-amber-500/50" />
+                ) : (
+                  <User className="w-4 h-4 text-amber-500" />
+                )}
+                <span>تعديل بياناتي وصورتي</span>
               </Link>
             </div>
           </div>

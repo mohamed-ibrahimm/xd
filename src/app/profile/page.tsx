@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   User,
@@ -19,7 +20,8 @@ import {
   BookOpen,
   CheckCircle2,
   AlertCircle,
-  Link as LinkIcon
+  Link as LinkIcon,
+  ArrowRight,
 } from 'lucide-react';
 
 const PRESET_AVATARS = [
@@ -183,34 +185,56 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-border">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8 text-slate-900 dark:text-white">
+      {/* Top Back Navigation Link */}
+      <div className="flex items-center justify-between">
+        <Link
+          href={user.role === 'ADMIN' ? '/admin' : user.role === 'INSTRUCTOR' ? '/instructor' : '/dashboard'}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] border border-slate-200/90 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-zinc-300 transition-all shadow-xs group"
+        >
+          <ArrowRight className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span>
+            {user.role === 'ADMIN'
+              ? 'العودة إلى لوحة تحكم الإدارة (Admin)'
+              : user.role === 'INSTRUCTOR'
+              ? 'العودة إلى استوديو المحاضر'
+              : 'العودة إلى لوحة الطالب الأكاديمية'}
+          </span>
+        </Link>
+
+        <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-500">
+          معرّف الحساب: <span className="font-mono text-slate-700 dark:text-zinc-400">{user.username || user.email}</span>
+        </span>
+      </div>
+
+      {/* Header Title Section */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80 dark:border-white/10">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-2">
-            <User className="w-7 h-7 text-primary-400" />
-            الملف الشخصي وإعدادات الحساب
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2.5">
+            <User className="w-7 h-7 text-[#D83F8F] dark:text-[#E94F9F]" />
+            <span>الملف الشخصي وإعدادات الحساب</span>
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
-            إدارة صورتك الشخصية، بياناتك المعتمدة للشهادات، وإعدادات الأمان
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 mt-1 font-medium">
+            تعديل وتحديث بياناتك الشخصية، الصورة الرمزية، الاسم المعتمد للشهادات، وكلمة المرور.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-raised border border-border text-xs font-bold">
+        {/* User Role Badge */}
+        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-xs font-bold shadow-xs">
           {user.role === 'ADMIN' ? (
             <>
-              <Crown className="w-4 h-4 text-purple-400" />
-              <span className="text-purple-300">مدير المنصة (Admin)</span>
+              <Crown className="w-4 h-4 text-amber-500" />
+              <span className="text-amber-700 dark:text-amber-300">المشرف العام (SuperAdmin)</span>
             </>
           ) : user.role === 'INSTRUCTOR' ? (
             <>
-              <GraduationCap className="w-4 h-4 text-amber-400" />
-              <span className="text-amber-300">محاضر معتمد (Instructor)</span>
+              <GraduationCap className="w-4 h-4 text-amber-500" />
+              <span className="text-amber-700 dark:text-amber-300">محاضر معتمد (Instructor)</span>
             </>
           ) : (
             <>
-              <BookOpen className="w-4 h-4 text-emerald-400" />
-              <span className="text-emerald-300">طالب (Student)</span>
+              <BookOpen className="w-4 h-4 text-[#D83F8F] dark:text-[#E94F9F]" />
+              <span className="text-[#D83F8F] dark:text-[#E94F9F]">طالب بالأكاديمية (Student)</span>
             </>
           )}
         </div>
@@ -219,33 +243,37 @@ export default function ProfilePage() {
       {/* Alert Messages */}
       {message && (
         <div
-          className={`p-4 rounded-2xl text-xs font-bold flex items-center justify-between gap-2 shadow-lg animate-in fade-in ${
+          className={`p-4 rounded-2xl text-xs font-bold flex items-center justify-between gap-2 shadow-md animate-in fade-in ${
             message.type === 'success'
-              ? 'bg-emerald-950/80 border border-emerald-800 text-emerald-300'
-              : 'bg-rose-950/80 border border-rose-800 text-rose-300'
+              ? 'bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-300'
+              : 'bg-rose-50 dark:bg-rose-950/80 border border-rose-300 dark:border-rose-800 text-rose-900 dark:text-rose-300'
           }`}
         >
           <div className="flex items-center gap-2.5">
             {message.type === 'success' ? (
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
             ) : (
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
             )}
             <span>{message.text}</span>
           </div>
-          <button onClick={() => setMessage(null)} className="text-zinc-400 hover:text-white">
-            
+          <button
+            type="button"
+            onClick={() => setMessage(null)}
+            className="text-slate-400 hover:text-slate-700 dark:hover:text-white px-2 cursor-pointer font-black"
+          >
+            ✕
           </button>
         </div>
       )}
 
       {/* Profile Photo Customization Card */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border space-y-6 shadow-xl relative overflow-hidden">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-[#111113] border border-slate-200/90 dark:border-white/10 space-y-6 shadow-xl backdrop-blur-xl relative overflow-hidden">
         <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
           {/* Avatar Preview with Glowing Ring */}
           <div className="relative group shrink-0">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full p-1 bg-gradient-to-tr from-primary-600 via-purple-500 to-amber-400 shadow-2xl shadow-primary-900/40">
-              <div className="w-full h-full rounded-full bg-surface-card overflow-hidden flex items-center justify-center relative">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full p-1 bg-gradient-to-tr from-[#D83F8F] via-purple-500 to-amber-400 shadow-xl shadow-pink-500/20 dark:shadow-pink-950/40">
+              <div className="w-full h-full rounded-full bg-slate-100 dark:bg-zinc-900 overflow-hidden flex items-center justify-center relative">
                 {formData.avatarUrl ? (
                   <img
                     src={formData.avatarUrl}
@@ -256,7 +284,7 @@ export default function ProfilePage() {
                     }}
                   />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-primary-900 to-purple-950 flex items-center justify-center text-white text-3xl sm:text-4xl font-black">
+                  <div className="w-full h-full bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-950/50 dark:to-purple-950/50 flex items-center justify-center text-[#D83F8F] dark:text-white text-3xl sm:text-4xl font-black">
                     {formData.firstName?.[0] || 'ق'}
                   </div>
                 )}
@@ -274,20 +302,20 @@ export default function ProfilePage() {
             </div>
 
             {/* Role Floating Badge */}
-            <div className="absolute -bottom-1.5 right-1/2 translate-x-1/2 px-2.5 py-0.5 rounded-full bg-surface-raised border border-border text-[10px] font-bold text-white shadow-md flex items-center gap-1 shrink-0 whitespace-nowrap">
-              {user.role === 'ADMIN' ? ' مدير' : user.role === 'INSTRUCTOR' ? ' معلم' : ' طالب'}
+            <div className="absolute -bottom-1.5 right-1/2 translate-x-1/2 px-2.5 py-0.5 rounded-full bg-white dark:bg-zinc-800 border border-slate-200 dark:border-white/20 text-[10px] font-bold text-slate-800 dark:text-white shadow-md flex items-center gap-1 shrink-0 whitespace-nowrap">
+              {user.role === 'ADMIN' ? '👑 مدير' : user.role === 'INSTRUCTOR' ? '🎓 محاضر' : '📖 طالب'}
             </div>
           </div>
 
           {/* Avatar Controls & Options */}
-          <div className="space-y-4 text-center sm:text-right flex-1">
+          <div className="space-y-4 text-center sm:text-right flex-1 min-w-0">
             <div>
-              <h2 className="text-base font-bold text-white flex items-center justify-center sm:justify-start gap-2">
-                <Sparkles className="w-4 h-4 text-purple-400" />
-                <span>الصورة الشخصية (Profile Picture)</span>
+              <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center justify-center sm:justify-start gap-2">
+                <Sparkles className="w-4 h-4 text-[#D83F8F] dark:text-[#E94F9F]" />
+                <span>الصورة الشخصية (Profile Avatar)</span>
               </h2>
-              <p className="text-xs text-zinc-400 mt-0.5">
-                اختر صورة شخصية تعبر عن هويتك في المنصة وتظهر في استوديو المعلم، الشات، ورأس الصفحة.
+              <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1">
+                اختر صورة شخصية تعبر عن هويتك في المنصة وتظهر في استوديو المحاضر، الشات، ورأس الصفحة والقائمة الجانبية.
               </p>
             </div>
 
@@ -305,7 +333,7 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-500 hover:to-purple-500 text-white text-xs font-bold shadow-md shadow-primary-900/30 flex items-center gap-2 transition-all hover:scale-105"
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D83F8F] to-purple-600 hover:opacity-95 text-white text-xs font-bold shadow-md shadow-pink-500/20 flex items-center gap-2 transition-all hover:scale-105 cursor-pointer"
               >
                 <Upload className="w-3.5 h-3.5" />
                 <span>رفع صورة من جهازك</span>
@@ -314,9 +342,9 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={() => setShowUrlInput(!showUrlInput)}
-                className="px-3.5 py-2 rounded-xl bg-surface-raised hover:bg-surface-card border border-border text-zinc-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.05] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
               >
-                <LinkIcon className="w-3.5 h-3.5 text-primary-400" />
+                <LinkIcon className="w-3.5 h-3.5 text-[#D83F8F] dark:text-[#E94F9F]" />
                 <span>رابط خارجي (URL)</span>
               </button>
 
@@ -324,7 +352,7 @@ export default function ProfilePage() {
                 <button
                   type="button"
                   onClick={handleRemoveAvatar}
-                  className="px-3 py-2 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-800 text-rose-300 text-xs font-semibold flex items-center gap-1 transition-colors"
+                  className="px-3 py-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
                   title="إزالة الصورة والعودة للحرف الافتراضي"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -336,18 +364,18 @@ export default function ProfilePage() {
             {/* Direct URL Input Bar */}
             {showUrlInput && (
               <div className="pt-2 animate-in fade-in">
-                <div className="flex items-center gap-2 max-w-md">
+                <div className="flex items-center gap-2 max-w-md mx-auto sm:mx-0">
                   <input
                     type="url"
                     placeholder="https://example.com/avatar.jpg"
                     value={formData.avatarUrl}
                     onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
-                    className="flex-1 px-3.5 py-2 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                    className="flex-1 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-zinc-900 border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-[#D83F8F]"
                   />
                   <button
                     type="button"
                     onClick={() => setShowUrlInput(false)}
-                    className="px-3 py-2 rounded-xl bg-surface-card text-xs font-bold text-zinc-400 hover:text-white"
+                    className="px-3 py-2 rounded-xl bg-slate-200 dark:bg-white/10 text-xs font-bold text-slate-800 dark:text-white"
                   >
                     تم
                   </button>
@@ -358,10 +386,10 @@ export default function ProfilePage() {
         </div>
 
         {/* Preset Avatars Gallery Picker */}
-        <div className="pt-5 border-t border-border/70 space-y-3">
+        <div className="pt-5 border-t border-slate-200/80 dark:border-white/10 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-zinc-300">أو اختر من النماذج الرمزية الجاهزة:</span>
-            <span className="text-[10px] text-zinc-500">نقرة واحدة للاختيار</span>
+            <span className="text-xs font-bold text-slate-700 dark:text-zinc-300">أو اختر من النماذج الرمزية الجاهزة:</span>
+            <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-bold">نقرة واحدة للاختيار</span>
           </div>
 
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
@@ -372,16 +400,16 @@ export default function ProfilePage() {
                   key={preset.id}
                   type="button"
                   onClick={() => handleSelectPreset(preset.url)}
-                  className={`p-2 rounded-2xl border transition-all flex flex-col items-center gap-1.5 text-center group ${
+                  className={`p-2 rounded-2xl border transition-all flex flex-col items-center gap-1.5 text-center group cursor-pointer ${
                     isSelected
-                      ? 'bg-primary-950/70 border-primary-500 ring-2 ring-primary-500/40 shadow-lg'
-                      : 'bg-surface-raised hover:bg-surface-card border-border hover:border-zinc-500'
+                      ? 'bg-pink-50 dark:bg-pink-950/50 border-[#D83F8F] ring-2 ring-[#D83F8F]/40 shadow-md'
+                      : 'bg-slate-50 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] border-slate-200 dark:border-white/10'
                   }`}
                 >
-                  <div className="w-12 h-12 rounded-full overflow-hidden border border-border group-hover:scale-105 transition-transform">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border border-slate-200 dark:border-white/10 group-hover:scale-105 transition-transform">
                     <img src={preset.url} alt={preset.label} className="w-full h-full object-cover" />
                   </div>
-                  <span className="text-[10px] text-zinc-300 font-semibold truncate w-full">
+                  <span className="text-[10px] text-slate-700 dark:text-zinc-300 font-bold truncate w-full">
                     {preset.label}
                   </span>
                 </button>
@@ -394,12 +422,12 @@ export default function ProfilePage() {
       {/* Main Profile Settings Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Official Full Name for Certificates */}
-        <div className="p-6 rounded-3xl bg-surface border border-primary-800/50 space-y-4 shadow-lg">
-          <div className="flex items-center gap-2 text-sm font-bold text-primary-300">
-            <Award className="w-5 h-5 text-purple-400" />
-            <span>الاسم الرسمي المعتمد للشهادات (Official Full Name)</span>
+        <div className="p-6 sm:p-8 rounded-3xl bg-pink-500/[0.04] dark:bg-pink-950/[0.15] border border-pink-500/30 space-y-3 shadow-sm">
+          <div className="flex items-center gap-2 text-sm font-black text-[#D83F8F] dark:text-[#E94F9F]">
+            <Award className="w-5 h-5" />
+            <span>الاسم الرباعي الرسمي المعتمد للشهادات (Official Full Name)</span>
           </div>
-          <p className="text-xs text-zinc-400 leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
             هذا الاسم يتم طباعته وإدراجه آلياً على كافة الشهادات المعتمدة الصادرة لك من الأكاديمية مع رمز التحقق السريع (QR Code).
           </p>
           <input
@@ -408,124 +436,128 @@ export default function ProfilePage() {
             required
             value={formData.officialFullName}
             onChange={handleChange}
-            placeholder="الاسم الرباعي الرسمي المعتمد"
-            className="w-full px-4 py-3 rounded-2xl bg-surface-raised border border-primary-700/60 text-white font-bold text-sm focus:outline-none focus:border-primary-400 shadow-inner"
+            placeholder="الاسم الرباعي الرسمي المعتمد باللغة العربية"
+            className="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-[#111113] border border-pink-500/40 text-slate-900 dark:text-white font-bold text-sm focus:outline-none focus:border-[#D83F8F] focus:ring-2 focus:ring-pink-500/20 shadow-xs"
           />
         </div>
 
         {/* Basic Personal Details */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border space-y-5 shadow-xl">
-          <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <User className="w-4 h-4 text-primary-400" />
+        <div className="p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-[#111113] border border-slate-200/90 dark:border-white/10 space-y-5 shadow-xl backdrop-blur-xl">
+          <h3 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
+            <User className="w-4 h-4 text-[#D83F8F] dark:text-[#E94F9F]" />
             <span>البيانات الأساسية ومعلومات التواصل</span>
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">الاسم الأول</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">الاسم الأول</label>
               <input
                 type="text"
                 name="firstName"
+                required
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs font-medium focus:outline-none focus:border-[#D83F8F]"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">اسم الأب</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">اسم الأب</label>
               <input
                 type="text"
                 name="fatherName"
                 value={formData.fatherName}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs font-medium focus:outline-none focus:border-[#D83F8F]"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">اسم العائلة</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">اسم العائلة (اللقب)</label>
               <input
                 type="text"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs font-medium focus:outline-none focus:border-[#D83F8F]"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">اسم المستخدم (Username)</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">اسم المستخدم (Username)</label>
               <input
                 type="text"
                 disabled
                 value={user.username || ''}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised/40 border border-border text-zinc-500 text-xs cursor-not-allowed font-mono"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 text-slate-400 dark:text-zinc-500 text-xs cursor-not-allowed font-mono"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">البريد الإلكتروني</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">البريد الإلكتروني</label>
               <input
                 type="email"
                 disabled
                 value={user.email}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised/40 border border-border text-zinc-500 text-xs cursor-not-allowed font-mono"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 text-slate-400 dark:text-zinc-500 text-xs cursor-not-allowed font-mono"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5">رقم الهاتف / الواتساب</label>
+            <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">رقم الهاتف / الواتساب</label>
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               placeholder="01012345678"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+              className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs font-medium focus:outline-none focus:border-[#D83F8F]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5">النبذة التعريفية (Bio)</label>
+            <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">النبذة التعريفية (Bio)</label>
             <textarea
               name="bio"
               rows={3}
               value={formData.bio}
               onChange={handleChange}
-              placeholder="اكتب نبذة مختصرة عن خبراتك أو اهتماماتك البرمجية والتقنية..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500 leading-relaxed"
+              placeholder="اكتب نبذة مختصرة عن خبراتك أو اهتماماتك التقنية والتعليمية..."
+              className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs font-medium focus:outline-none focus:border-[#D83F8F] leading-relaxed"
             />
           </div>
         </div>
 
         {/* Change Password Section */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border space-y-4 shadow-xl">
-          <div className="flex items-center gap-2 text-sm font-bold text-white">
-            <Lock className="w-4 h-4 text-primary-400" />
+        <div className="p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-[#111113] border border-slate-200/90 dark:border-white/10 space-y-4 shadow-xl backdrop-blur-xl">
+          <div className="flex items-center gap-2 text-sm font-black text-slate-900 dark:text-white">
+            <Lock className="w-4 h-4 text-[#D83F8F] dark:text-[#E94F9F]" />
             <span>تغيير كلمة المرور (اختياري)</span>
           </div>
+          <p className="text-xs text-slate-600 dark:text-zinc-400">
+            اترك هذه الحقول فارغة إذا كنت لا ترغب في تغيير كلمة المرور الحالية.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">كلمة المرور الحالية</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">كلمة المرور الحالية</label>
               <input
                 type="password"
                 name="currentPassword"
                 value={formData.currentPassword}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-[#D83F8F]"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">كلمة المرور الجديدة</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1.5">كلمة المرور الجديدة</label>
               <input
                 type="password"
                 name="newPassword"
                 value={formData.newPassword}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-surface-raised border border-border text-white text-xs focus:outline-none focus:border-primary-500"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-[#D83F8F]"
               />
             </div>
           </div>
@@ -536,10 +568,10 @@ export default function ProfilePage() {
           <button
             type="submit"
             disabled={saving}
-            className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-primary-600 via-purple-600 to-primary-500 hover:from-primary-500 hover:to-purple-400 text-white font-bold text-xs shadow-xl shadow-primary-900/40 transition-all hover:scale-105 flex items-center gap-2 disabled:opacity-50"
+            className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#D83F8F] via-pink-600 to-purple-600 hover:scale-[1.02] text-white font-black text-sm shadow-xl shadow-pink-500/25 transition-all flex items-center gap-2.5 cursor-pointer disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
-            <span>{saving ? 'جاري الحفظ...' : 'حفظ التعديلات والصورة'}</span>
+            <span>{saving ? 'جاري حفظ التعديلات...' : 'حفظ التعديلات والصورة'}</span>
           </button>
         </div>
       </form>

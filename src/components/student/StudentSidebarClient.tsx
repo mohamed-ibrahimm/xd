@@ -20,12 +20,14 @@ import {
   Sparkles,
   Sun,
   Moon,
+  User,
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 
 interface Props {
   studentName: string;
   studentEmail: string;
+  avatarUrl?: string | null;
   enrolledCount?: number;
   certificatesCount?: number;
 }
@@ -41,6 +43,7 @@ interface NavItem {
 export default function StudentSidebarClient({
   studentName,
   studentEmail,
+  avatarUrl,
   enrolledCount = 0,
   certificatesCount = 0,
 }: Props) {
@@ -111,9 +114,11 @@ export default function StudentSidebarClient({
             icon: MessageSquare,
           },
           {
-            name: 'إعدادات الحساب',
-            href: '/settings',
-            icon: Settings,
+            name: 'تعديل الملف الشخصي والصورة',
+            href: '/profile',
+            icon: User,
+            badge: 'حسابي',
+            badgeColor: 'bg-pink-500/20 text-[#D83F8F] dark:text-[#E94F9F] border border-pink-500/30',
           },
         ],
       },
@@ -148,23 +153,46 @@ export default function StudentSidebarClient({
           </div>
         </div>
 
-        {/* Student Profile Badge */}
-        <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-2">
+        {/* Student Profile Badge with Quick Edit */}
+        <Link
+          href="/profile"
+          onClick={() => setMobileDrawerOpen(false)}
+          className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] hover:bg-pink-500/10 dark:hover:bg-white/[0.08] border border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-2 transition-all group cursor-pointer shadow-xs"
+          title="تعديل الملف الشخصي والصورة"
+        >
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-500/40 text-[#D83F8F] dark:text-[#E94F9F] flex items-center justify-center text-xs font-black shrink-0">
-              {studentName.charAt(0) || 'ط'}
-            </div>
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt={studentName}
+                className="w-8 h-8 rounded-full object-cover border border-pink-500/40 shrink-0 shadow-xs"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-500/40 text-[#D83F8F] dark:text-[#E94F9F] flex items-center justify-center text-xs font-black shrink-0">
+                {studentName.charAt(0) || 'ط'}
+              </div>
+            )}
             <div className="text-start min-w-0">
-              <p className="text-xs font-black text-slate-900 dark:text-white truncate">{studentName}</p>
+              <p className="text-xs font-black text-slate-900 dark:text-white truncate group-hover:text-[#D83F8F] dark:group-hover:text-[#E94F9F] transition-colors">
+                {studentName}
+              </p>
               <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">
                 {studentEmail}
               </span>
             </div>
           </div>
-          <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-pink-500/15 text-[#D83F8F] dark:text-[#E94F9F] border border-pink-500/30 shrink-0">
-            طالب
-          </span>
-        </div>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-pink-500/15 text-[#D83F8F] dark:text-[#E94F9F] border border-pink-500/30">
+              طالب
+            </span>
+            <span className="text-[9.5px] font-bold text-[#D83F8F] dark:text-[#E94F9F] flex items-center gap-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
+              تعديل ✎
+            </span>
+          </div>
+        </Link>
 
         {/* Theme Toggle Button (Light / Night Mode Switcher) */}
         <button

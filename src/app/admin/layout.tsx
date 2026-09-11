@@ -40,6 +40,8 @@ export default async function AdminLayout({
       <AdminSidebarClient
         platformName={platformName}
         adminName={adminName}
+        adminEmail={user.email}
+        avatarUrl={user.avatarUrl}
       />
 
       {/* Main Admin View Area */}

@@ -12,7 +12,8 @@ import {
   Clock,
   CheckCircle2,
   ArrowLeft,
-  DollarSign
+  DollarSign,
+  User,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -71,15 +72,25 @@ export default async function AdminOverviewPage() {
           <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1 font-medium">متابعة فورية للمبيعات، الطلاب، المدفوعات، وسير المنصة</p>
         </div>
 
-        {pendingPaymentsCount > 0 && (
+        <div className="flex items-center gap-2.5 flex-wrap">
+          {pendingPaymentsCount > 0 && (
+            <Link
+              href="/admin/payments"
+              className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-rose-500/15 to-orange-500/20 border border-amber-400/80 text-amber-900 dark:text-amber-300 text-xs font-black flex items-center gap-2 animate-pulse shadow-sm"
+            >
+              <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <span>يوجد ({pendingPaymentsCount}) مدفوعات معلقة</span>
+            </Link>
+          )}
           <Link
-            href="/admin/payments"
-            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-rose-500/15 to-orange-500/20 border border-amber-400/80 text-amber-900 dark:text-amber-300 text-xs font-black flex items-center gap-2 animate-pulse shadow-sm"
+            href="/profile"
+            className="px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-amber-500/40 bg-white/80 dark:bg-white/5 hover:bg-amber-500/10 text-slate-800 dark:text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs"
+            title="تعديل الملف الشخصي والصورة"
           >
-            <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-            <span>يوجد ({pendingPaymentsCount}) مدفوعات بانتظار المراجعة!</span>
+            <User className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <span>تعديل بياناتي وصورتي</span>
           </Link>
-        )}
+        </div>
       </div>
 
       {/* KPI Stats Grid - Multi-Color Frosted Cards */}

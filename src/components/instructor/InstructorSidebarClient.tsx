@@ -39,6 +39,7 @@ export type InstructorTabType =
 interface Props {
   instructorName: string;
   instructorEmail: string;
+  avatarUrl?: string | null;
   subscriptionPlan: string;
   coursesCount: number;
   pendingOrdersCount: number;
@@ -64,6 +65,7 @@ interface NavItem {
 export default function InstructorSidebarClient({
   instructorName,
   instructorEmail,
+  avatarUrl,
   subscriptionPlan,
   coursesCount,
   pendingOrdersCount,
@@ -160,6 +162,18 @@ export default function InstructorSidebarClient({
           },
         ],
       },
+      {
+        title: 'الملف الشخصي والحساب',
+        items: [
+          {
+            name: 'تعديل الملف الشخصي والصورة',
+            href: '/profile',
+            icon: User,
+            badge: 'حسابي',
+            badgeColor: 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30',
+          },
+        ],
+      },
     ],
     [coursesCount, pendingOrdersCount, couponsCount, onNewCourseClick, subscriptionPlan]
   );
@@ -196,23 +210,46 @@ export default function InstructorSidebarClient({
           </div>
         </div>
 
-        {/* Instructor Profile Badge */}
-        <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-2">
+        {/* Instructor Profile Badge with Quick Edit */}
+        <Link
+          href="/profile"
+          onClick={() => setMobileDrawerOpen(false)}
+          className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] hover:bg-amber-500/10 dark:hover:bg-white/[0.08] border border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-2 transition-all group cursor-pointer shadow-xs"
+          title="تعديل الملف الشخصي والصورة"
+        >
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xs font-black shrink-0">
-              {instructorName.charAt(0) || 'م'}
-            </div>
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt={instructorName}
+                className="w-8 h-8 rounded-full object-cover border border-amber-500/50 shrink-0 shadow-xs"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xs font-black shrink-0">
+                {instructorName.charAt(0) || 'م'}
+              </div>
+            )}
             <div className="text-start min-w-0">
-              <p className="text-xs font-black text-slate-900 dark:text-white truncate">{instructorName}</p>
+              <p className="text-xs font-black text-slate-900 dark:text-white truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                {instructorName}
+              </p>
               <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate block">
                 {instructorEmail}
               </span>
             </div>
           </div>
-          <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 shrink-0">
-            {subscriptionPlan === 'FREE_TRIAL' ? 'تجريبي' : 'SaaS Pro'}
-          </span>
-        </div>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+              {subscriptionPlan === 'FREE_TRIAL' ? 'تجريبي' : 'SaaS Pro'}
+            </span>
+            <span className="text-[9.5px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
+              تعديل ✎
+            </span>
+          </div>
+        </Link>
 
         {/* Theme Toggle Button (Light / Night Mode Switcher) */}
         <button

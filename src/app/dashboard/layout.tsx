@@ -51,6 +51,7 @@ export default async function StudentDashboardLayout({
       <StudentSidebarClient
         studentName={studentName}
         studentEmail={user.email}
+        avatarUrl={user.avatarUrl}
         enrolledCount={enrolledCount}
         certificatesCount={certificatesCount}
       />

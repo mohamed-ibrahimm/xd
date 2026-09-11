@@ -17,7 +17,8 @@ import {
   ShieldCheck,
   TrendingUp,
   MessageSquare,
-  ArrowLeft
+  ArrowLeft,
+  User,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -106,29 +107,50 @@ export default async function StudentDashboardPage() {
     <div className="space-y-8">
       {/* Welcome Banner */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-[#111113] border border-slate-200/90 dark:border-[rgba(233,79,159,0.20)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl dark:shadow-[0_16px_40px_rgba(0,0,0,0.6),0_0_25px_rgba(233,79,159,0.08)] backdrop-blur-xl relative overflow-hidden">
-        <div className="space-y-2 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-50 dark:bg-[rgba(233,79,159,0.12)] border border-pink-200 dark:border-[rgba(233,79,159,0.30)] text-[#D83F8F] dark:text-[#E94F9F] text-xs font-bold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>لوحة المتابعة الأكاديمية للطلاب</span>
+        <div className="flex items-center gap-4 relative z-10">
+          <Link href="/profile" className="relative group shrink-0" title="اضغط لتغيير الصورة الشخصية">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl p-0.5 bg-gradient-to-tr from-[#D83F8F] to-purple-600 shadow-md">
+              <div className="w-full h-full rounded-2xl bg-white dark:bg-zinc-900 overflow-hidden flex items-center justify-center">
+                {user.avatarUrl ? (
+                  <img src={user.avatarUrl} alt={user.firstName} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                ) : (
+                  <span className="text-xl sm:text-2xl font-black text-[#D83F8F] dark:text-[#E94F9F]">{user.firstName?.[0] || 'ط'}</span>
+                )}
+              </div>
+            </div>
+            <span className="absolute -bottom-1 -right-1 px-1.5 py-0.5 rounded-full bg-[#D83F8F] text-white text-[9px] font-bold shadow-xs">✎</span>
+          </Link>
+          <div className="space-y-1.5 min-w-0">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-50 dark:bg-[rgba(233,79,159,0.12)] border border-pink-200 dark:border-[rgba(233,79,159,0.30)] text-[#D83F8F] dark:text-[#E94F9F] text-xs font-bold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>لوحة المتابعة الأكاديمية للطلاب</span>
+            </div>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight truncate">
+              مرحباً بك، {user.firstName} {user.lastName} 
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 font-medium truncate">
+              الاسم المعتمد للشهادات: <strong className="text-slate-900 dark:text-white font-bold">{user.officialFullName}</strong>
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-            مرحباً بك، {user.firstName} {user.lastName} 
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 font-medium">
-            الاسم المعتمد للشهادات: <strong className="text-slate-900 dark:text-white font-bold">{user.officialFullName}</strong>
-          </p>
         </div>
 
-        <div className="flex items-center gap-3 relative z-10">
+        <div className="flex items-center gap-2.5 flex-wrap relative z-10">
+          <Link
+            href="/profile"
+            className="px-4 py-2.5 rounded-xl border border-pink-500/30 bg-pink-500/10 hover:bg-pink-500/20 text-[#D83F8F] dark:text-[#E94F9F] text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
+          >
+            <User className="w-4 h-4" />
+            <span>تعديل بياناتي وصورتي</span>
+          </Link>
           <Link
             href="/courses"
-            className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all shadow-xs"
+            className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white transition-all shadow-xs"
           >
-            تصفح المزيد من الكورسات
+            تصفح الكورسات
           </Link>
           <Link
             href="/chat"
-            className="px-5 py-2.5 rounded-xl bg-[#D83F8F] dark:bg-[#E94F9F] hover:bg-[#c2337d] dark:hover:bg-[#ff5cad] text-xs font-bold text-white dark:text-black transition-all flex items-center gap-1.5 shadow-md shadow-pink-500/20"
+            className="px-4 py-2.5 rounded-xl bg-[#D83F8F] dark:bg-[#E94F9F] hover:bg-[#c2337d] dark:hover:bg-[#ff5cad] text-xs font-bold text-white dark:text-black transition-all flex items-center gap-1.5 shadow-md shadow-pink-500/20"
           >
             <MessageSquare className="w-4 h-4" />
             <span>المحادثات</span>

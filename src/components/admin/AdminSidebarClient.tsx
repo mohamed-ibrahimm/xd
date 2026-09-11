@@ -22,12 +22,15 @@ import {
   Sparkles,
   Sun,
   Moon,
+  User,
 } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
 
 interface Props {
   platformName: string;
   adminName: string;
+  adminEmail?: string;
+  avatarUrl?: string | null;
 }
 
 interface NavItem {
@@ -38,7 +41,7 @@ interface NavItem {
   badgeColor?: string;
 }
 
-export default function AdminSidebarClient({ platformName, adminName }: Props) {
+export default function AdminSidebarClient({ platformName, adminName, adminEmail, avatarUrl }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
@@ -53,6 +56,13 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
           name: 'لوحة التحكم والتحليلات',
           href: '/admin',
           icon: LayoutDashboard,
+        },
+        {
+          name: 'تعديل الملف الشخصي والصورة',
+          href: '/profile',
+          icon: User,
+          badge: 'حسابي',
+          badgeColor: 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30',
         },
         {
           name: 'إعدادات المنصة (VIP)',
@@ -151,21 +161,46 @@ export default function AdminSidebarClient({ platformName, adminName }: Props) {
           </div>
         </div>
 
-        {/* Admin User Badge */}
-        <div className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-2">
+        {/* Admin User Badge with Quick Edit */}
+        <Link
+          href="/profile"
+          onClick={() => setMobileDrawerOpen(false)}
+          className="p-3 rounded-2xl bg-slate-100 dark:bg-white/[0.04] hover:bg-amber-500/10 dark:hover:bg-white/[0.08] border border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-2 transition-all group cursor-pointer shadow-xs"
+          title="تعديل الملف الشخصي والصورة"
+        >
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-amber-500 text-black flex items-center justify-center text-xs font-black shrink-0">
-              {adminName.charAt(0) || 'م'}
-            </div>
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt={adminName}
+                className="w-8 h-8 rounded-full object-cover border border-amber-500/50 shrink-0 shadow-xs"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-amber-500 text-black flex items-center justify-center text-xs font-black shrink-0">
+                {adminName.charAt(0) || 'م'}
+              </div>
+            )}
             <div className="text-start min-w-0">
-              <p className="text-xs font-black text-slate-900 dark:text-white truncate">{adminName}</p>
-              <span className="text-[10px] text-amber-600 dark:text-amber-400 font-bold">المشرف العام</span>
+              <p className="text-xs font-black text-slate-900 dark:text-white truncate group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                {adminName}
+              </p>
+              <span className="text-[10px] text-amber-600 dark:text-amber-400 font-bold block truncate">
+                {adminEmail || 'المشرف العام'}
+              </span>
             </div>
           </div>
-          <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
-            SuperAdmin
-          </span>
-        </div>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+              SuperAdmin
+            </span>
+            <span className="text-[9.5px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
+              تعديل ✎
+            </span>
+          </div>
+        </Link>
 
         {/* Theme Toggle Button (Light / Night Mode Switcher) */}
         <button
